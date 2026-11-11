@@ -2,7 +2,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import {fileURLToPath} from 'node:url';
+import {fileURLToPath,pathToFileURL} from 'node:url';
 import YAML from 'yaml';
 import {defineTool} from '@deepseek-ai/dsh-tools';
 
@@ -122,7 +122,10 @@ export function apply(ctx){
    const selected=exec.agent.model.current();
    const route=await ctx.llm.resolveCallConfig({...selected},signal);
    const routeFingerprint=sha(JSON.stringify(route));
-   const grader=await import('../../scripts/benchmark/grader.mjs');
+   // ESM caches modules per specifier; a content hash keeps a long-lived process
+   // from silently grading new fixtures with an older grader.
+   const graderPath=path.join(root,'scripts','benchmark','grader.mjs');
+   const grader=await import(pathToFileURL(graderPath).href+'?v='+sha(await fs.readFile(graderPath,'utf8')));
    const candidateSkills={};
    for(const name of ['grilling','omni-method']){
     try{candidateSkills[name]=body(await fs.readFile(path.join(root,'skills',name,'SKILL.md'),'utf8'));}catch{if(name==='grilling')throw Error('Candidate grilling skill is missing');}
