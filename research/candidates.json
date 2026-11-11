@@ -1,0 +1,8 @@
+{
+  "description": {"zh":"已知仓库的公开根清单与提交feed提供的精确补充线索；仅作为候选，核验前不合格。", "en":"Exact additional leads from known repositories' public root manifests and commit feeds; discovery alone does not qualify a source."},
+  "plugins": [
+    {"name":"dsh-game-studio-presets","repository":{"url":"https://github.com/highho/dsh-game-studio-presets"},"versions":[{"version":"1.0.0","source":{"type":"npm"}}],"pinnedRepository":{"ownerRepo":"highho/dsh-game-studio-presets","commit":"79a0fc04959d1a5af2a3c17258d104896a6109a8","discovery":"https://github.com/highho/dsh-game-studio-presets/commits/HEAD.atom"}},
+    {"name":"dsh-whale-elite-preset","repository":{"url":"https://github.com/SZYTree0312/dsh-whale-elite-preset"},"versions":[{"version":"0.2.0","source":{"type":"npm"}}],"pinnedRepository":{"ownerRepo":"SZYTree0312/dsh-whale-elite-preset","commit":"1cd22961f1c14aa147ccf4e048bc462046b5ad48","discovery":"https://github.com/SZYTree0312/dsh-whale-elite-preset/commits/HEAD.atom"}},
+    {"name":"dsh-presets-zh","repository":{"url":"https://github.com/GongYuanCaiJi/dsh-presets-zh"},"versions":[{"version":"0.1.0","source":{"type":"npm"}}],"pinnedRepository":{"ownerRepo":"GongYuanCaiJi/dsh-presets-zh","commit":"9243ccd7a5b2800c943b356e561de3deeddf0a22","discovery":"https://github.com/GongYuanCaiJi/dsh-presets-zh/commits/HEAD.atom"}}
+  ]
+}

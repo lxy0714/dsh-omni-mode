@@ -3,20 +3,29 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import { testRuntimeRequire, linkRuntimePackages } from './scripts/test-runtime.mjs';
+import os from 'node:os';
+import { testRuntimeRequire, linkRuntimePackages, isolatedTestEnv, processReport, skillBody } from './scripts/test-runtime.mjs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
 const source = process.env.DSH_TEST_PACKAGE_DIR ? path.resolve(process.env.DSH_TEST_PACKAGE_DIR) : path.dirname(fileURLToPath(import.meta.url));
 const host = testRuntimeRequire();
 const load = async name => import(pathToFileURL(host.resolve(name)));
-const [phase, run] = process.argv.slice(2);
+const [phase, run, artifacts] = process.argv.slice(2);
 
 if (!phase) {
   // Keep fixture cwd short and writable even when the package under test is
   // installed in a long or read-only package-manager cache path.
   const runs = path.join(path.dirname(fileURLToPath(import.meta.url)), '.verification');
   fs.mkdirSync(runs, {recursive:true});
-  const dir = fs.mkdtempSync(path.join(runs, 'run-'));
+  const artifacts = fs.mkdtempSync(path.join(runs, 'run-'));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'om-'));
+  // Deliberate same-name/same-suffix contamination: default project roots must
+  // not satisfy this package test, even though the old substring check did.
+  for (const root of ['.dsh', '.agents']) {
+    const decoy = path.join(dir, root, 'skills', 'grilling');
+    fs.mkdirSync(decoy, {recursive:true});
+    fs.writeFileSync(path.join(decoy, 'SKILL.md'), '---\nname: grilling\ndescription: Test decoy, not package content\n---\nDecoy design tree.\n');
+  }
   linkRuntimePackages(host,dir);
   const packageName=JSON.parse(fs.readFileSync(path.join(source,'package.json'),'utf8')).name;
   const installedPath=path.join(dir,'node_modules',...packageName.split('/'));
@@ -24,23 +33,30 @@ if (!phase) {
   fs.symlinkSync(source,installedPath,process.platform==='win32'?'junction':'dir');
   fs.writeFileSync(path.join(dir,'cordis.yml'),'[]\n');
   const reports=[];
-  for(const step of ['create','resume']) {
-    const child=spawnSync(process.execPath,[fileURLToPath(import.meta.url),step,dir],{
-      cwd:dir,env:{...process.env,DSH_HOME:path.join(dir,'home'),DSH_TEST_BASE:host.resolve('@deepseek-ai/dsh/package.json')},
-      encoding:'utf8',timeout:90000,maxBuffer:4*1024*1024,
-    });
-    fs.writeFileSync(path.join(dir,`${step}.stdout.log`),child.stdout??'');
-    fs.writeFileSync(path.join(dir,`${step}.stderr.log`),child.stderr??'');
-    if(child.status!==0) {
-      console.error((child.stdout??'').slice(-16000));console.error((child.stderr??'').slice(-16000));
-      throw new Error(`${step} worker failed: status=${child.status}, signal=${child.signal}, artifacts=${dir}`);
+  try {
+    for(const step of ['create','resume']) {
+      const child=spawnSync(process.execPath,[fileURLToPath(import.meta.url),step,dir,artifacts],{
+        cwd:dir,env:{...isolatedTestEnv(dir),DSH_TEST_BASE:host.resolve('@deepseek-ai/dsh/package.json')},
+        encoding:'utf8',timeout:90000,maxBuffer:4*1024*1024,
+      });
+      fs.writeFileSync(path.join(artifacts,`${step}.stdout.log`),child.stdout??'');
+      fs.writeFileSync(path.join(artifacts,`${step}.stderr.log`),child.stderr??'');
+      if(child.status!==0) {
+        console.error((child.stdout??'').slice(-16000));console.error((child.stderr??'').slice(-16000));
+      }
+      reports.push(processReport(child,step,report=>report.phase===step && report.fullPresetActivated===true &&
+        report.bundledSkillLoaded===true && report.bundledSkillExact===true && Number.isInteger(report.eventCount) && Number.isInteger(report.pid)));
     }
-    reports.push(JSON.parse(fs.readFileSync(path.join(dir,`${step}.json`),'utf8')));
+  } finally {
+    // Only remove the fresh directory we created, never an env-supplied path.
+    assert.equal(path.dirname(dir),os.tmpdir());
+    assert(path.basename(dir).startsWith('om-'));
+    fs.rmSync(dir,{recursive:true,force:true});
   }
   assert.notEqual(reports[0].pid,reports[1].pid);
   assert(reports[1].eventCount>reports[0].eventCount);
-  const result={layer:'real-dsh-full-preset-mock-inference',result:'PASS',dsh:'0.2.2-rc.1',differentProcesses:true,realProvider:'NOT TESTED: no isolated credential/route supplied',reports,artifacts:dir};
-  fs.writeFileSync(path.join(dir,'report.json'),JSON.stringify(result,null,2)+'\n');
+  const result={layer:'real-dsh-full-preset-mock-inference',result:'PASS',dsh:'0.2.2-rc.1',differentProcesses:true,realProvider:'NOT TESTED: no isolated credential/route supplied',reports,artifacts};
+  fs.writeFileSync(path.join(artifacts,'report.json'),JSON.stringify(result,null,2)+'\n');
   console.log(JSON.stringify(result,null,2));
 } else {
   const {boot,loadOverlayPatches}=await load('@deepseek-ai/dsh-app-boot');
@@ -48,13 +64,22 @@ if (!phase) {
   const {defineTool}=await load('@deepseek-ai/dsh-tools');
   const base=await loadOverlayPatches('omni-test',host.resolve('@deepseek-ai/dsh-base/cordis.patch.yml'));
   const preset=await loadOverlayPatches('omni-test',path.join(source,'cordis.patch.yml'));
+  const declaration=preset.flatMap(patch=>patch.insert??[]).find(row=>row.id==='preset-omni');
+  assert(declaration,'test package must declare the omni preset');
+  const skillProvider=declaration.config.plugins.find(row=>row.id==='skill-filesystem');
+  assert(skillProvider,'test package must configure the native filesystem skill provider');
+  // Override only the in-memory test preset. Production discovery order and
+  // default roots in cordis.patch.yml remain unchanged.
+  skillProvider.config={includeDefaultRoots:false,watch:false,
+    dshHome:process.env.DSH_HOME,agentsHome:process.env.DSH_AGENTS_HOME,
+    customSkillDirs:[path.join(source,'skills')]};
   const disabled=['llm-deepseek','llm-deepseek-account','llm-pi-ai','session-title-llm','hmr','plugin-manager',
     'tool-bash','tool-pwsh','tool-jobs','tool-fs','tool-fs-search','skill-filesystem','tool-skill','command-goal','tool-goal',
     'plan-mode','compaction-basic','command-compact','tool-result-pruner','tool-subagent-control','tool-subagent','tool-subagent-fork',
     'workflow-ptc','tool-workflow','agent-instructions','tool-todo','tool-web','spill-policy'];
   const extras=[
     ...disabled.map(id=>({id,disabled:true})),
-    {id:'session-persistence-jsonl',config:{root:path.join(run,'sessions'),compression:'none'}},
+    {id:'session-persistence-jsonl',config:{root:path.join(artifacts,'sessions'),compression:'none'}},
     {id:'agent-default-model',config:{provider:'omni-fixture',model:'large'}},
     {insert:[
       {id:'connection',name:'@deepseek-ai/dsh-client-connection'},
@@ -116,9 +141,13 @@ if (!phase) {
     const catalog=await skills.list(lookup);
     const grilling=catalog.find(entry=>entry.name==='grilling');
     assert(grilling,'bundled grilling skill must be discoverable from the installed package');
-    assert(grilling.path?.endsWith('skills/grilling/SKILL.md'),`discovered skill must come from the package: ${grilling.path}`);
+    const expectedSkill=fs.realpathSync(path.join(source,'skills/grilling/SKILL.md'));
+    assert.equal(fs.realpathSync(grilling.path),expectedSkill,'selected skill must be the exact test package file');
     const loaded=await skills.get('grilling',lookup);
-    assert(loaded?.content.includes('design tree'),'grilling body must load verbatim through the native registry');
+    assert(loaded,'selected skill must load through the native registry');
+    assert.equal(loaded.path,grilling.path,'loaded path must match the registry selection');
+    assert.equal(fs.realpathSync(loaded.path),expectedSkill,'loaded skill must be the exact test package file');
+    assert.equal(loaded.content,skillBody(fs.readFileSync(expectedSkill,'utf8')),'native body must equal the package file minus frontmatter and native trim');
     if(phase==='create')assert.equal(agent.model.current().reasoningEffort,'effort-high');
     else assert.equal(agent.model.current().reasoningEffort,'effort-medium','resume must retain manual selection');
     const composition=ctx.agentPresets.inspectCompositions(agent.ctx);
@@ -163,8 +192,8 @@ if (!phase) {
     assert(events.some(event=>event.type==='assistant/message'));
     assert(events.some(event=>event.type==='turn/end'&&event.data.reason.kind==='completed'));
     for(let i=0;i<events.length;i++)assert.equal(events[i].seq,i);
-    const report={phase,pid:process.pid,fullPresetActivated:true,bundledSkill:'grilling',bundledSkillLoaded:true,modelCalls:calls,eventCount,selectedEffort:agent.model.current().reasoningEffort,serviceLeaks:0,adaptiveSwitchVerified,manualCompactionVerified,realProvider:false};
-    fs.writeFileSync(path.join(run,`${phase}.json`),JSON.stringify(report,null,2)+'\n');
+    const report={phase,pid:process.pid,fullPresetActivated:true,bundledSkill:'grilling',bundledSkillLoaded:true,bundledSkillExact:true,bundledSkillPath:expectedSkill,modelCalls:calls,eventCount,selectedEffort:agent.model.current().reasoningEffort,serviceLeaks:0,adaptiveSwitchVerified,manualCompactionVerified,realProvider:false};
+    fs.writeFileSync(path.join(artifacts,`${phase}.json`),JSON.stringify(report,null,2)+'\n');
     console.log(JSON.stringify(report));
   } finally {
     if(handle)await handle.dispose();

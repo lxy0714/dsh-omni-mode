@@ -1,0 +1,26 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:dsh-omni-mode:static-research:sources:v1",
+  "title":"DSH静态研究证据 / DSH static research evidence",
+  "type":"object",
+  "required":["schemaVersion","status","targets","counts","method","sources","packages"],
+  "properties":{
+    "schemaVersion":{"const":1},
+    "status":{"enum":["partial","complete-static-not-runtime-tested"]},
+    "compactEvidence":{"type":"boolean"},
+    "targets":{"type":"object","required":["substantivelyDistinctSelectablePresetConfigurations","independentNativePluginProjects","unitConfirmation"]},
+    "counts":{"type":"object"},
+    "audit":{"type":"object","required":["status","qualifiedPresetConfigurations","qualifiedNativePluginProjects","selectedPresets","selectedPlugins","presetGap","pluginGap"],"properties":{"qualifiedPresetConfigurations":{"type":"integer","minimum":0},"qualifiedNativePluginProjects":{"type":"integer","minimum":0},"selectedPresets":{"type":"array"},"selectedPlugins":{"type":"array"},"presetGap":{"type":"integer","minimum":0},"pluginGap":{"type":"integer","minimum":0}}},
+    "method":{"type":"object","required":["execution","network","staticClosure","deduplication"],"properties":{"execution":{"const":"never"}}},
+    "sources":{"type":"array","items":{"type":"object","required":["id","packages","presetSource","nativePluginSource","overlap"]}},
+    "packages":{"type":"array","items":{"type":"object","required":["package","version","sourceId","distribution","execution","files","presets","nativeIntegrations","learningPoints"],"properties":{
+      "package":{"type":"string","minLength":1},"version":{"type":"string","minLength":1},"sourceId":{"type":"string","minLength":1},
+      "distribution":{"type":"object","required":["type","tarball","tarballSha256","metadataSha256"],"properties":{"type":{"enum":["npm","github-archive"]},"tarballSha256":{"$ref":"#/$defs/sha256"},"metadataSha256":{"$ref":"#/$defs/sha256"}}},
+      "execution":{"type":"object","required":["installed","imported","executed","installScriptsRun"],"properties":{"installed":{"const":false},"imported":{"const":false},"executed":{"const":false},"installScriptsRun":{"const":false}}},
+      "files":{"type":"array","items":{"type":"object","required":["path","url","sha256","bytes","kinds"],"properties":{"path":{"type":"string"},"url":{"type":"string","pattern":"^https://"},"sha256":{"$ref":"#/$defs/sha256"},"bytes":{"type":"integer","minimum":0}}}},
+      "learningPoints":{"type":"array","items":{"type":"object","required":["zh","en","evidence","risk"],"properties":{"zh":{"type":"string","minLength":1},"en":{"type":"string","minLength":1},"evidence":{"type":"array","minItems":2}}}},
+      "presets":{"type":"array"},"nativeIntegrations":{"type":"array"}
+    }}}
+  },
+  "$defs":{"sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"}}
+}

@@ -3,8 +3,8 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { execFileSync } from 'node:child_process';
-import { testRuntimeRequire } from './test-runtime.mjs';
+import { execFileSync, spawnSync } from 'node:child_process';
+import { testRuntimeRequire, isolatedTestEnv, verifyNodeGate, verifyLockMetadata } from './test-runtime.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const self=createRequire(path.join(root,'package.json'));
@@ -15,7 +15,10 @@ const manifest=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8')
 assert.equal(manifest.name,'dsh-omni-mode');
 assert.equal(manifest.license,'MIT');
 assert.equal(manifest.private,true,'GitHub-only release must not accidentally publish to npm');
-assert.equal(manifest.engines.dsh,host('@deepseek-ai/dsh/package.json').version);
+const official=host('@deepseek-ai/dsh/package.json');
+assert.equal(manifest.engines.dsh,official.version);
+verifyNodeGate(manifest.engines.node,official.engines.node);
+verifyLockMetadata(manifest,JSON.parse(fs.readFileSync(path.join(root,'package-lock.json'),'utf8')));
 assert.equal(manifest.repository.url,'git+https://github.com/lxy0714/dsh-omni-mode.git');
 for(const file of ['quality.js','adaptive.js','pool.js','LICENSE','THIRD_PARTY_NOTICES.md','README.md','README.en.md','CHANGELOG.md'])assert(fs.existsSync(path.join(root,file)),file);
 const skillDir=path.join(root,'skills','grilling');
@@ -53,7 +56,7 @@ for(const suffix of ['', '/adaptive','/pool']){
  }
  const icon=self.resolve(`dsh-omni-mode${suffix}/icon`);assert(fs.statSync(icon).size<256*1024);
 }
-console.log(JSON.stringify({check:'PASS',version:manifest.version,presetRows:ids.size,license:manifest.license,compatibleDSH:manifest.engines.dsh}));
+console.log(JSON.stringify({check:'PASS',version:manifest.version,presetRows:ids.size,license:manifest.license,compatibleDSH:manifest.engines.dsh,nodeMinimum:manifest.engines.node,currentNode:process.versions.node}));
 
 if(process.argv.includes('--pack')){
  const base=path.join(root,'.verification');fs.mkdirSync(base,{recursive:true});
@@ -70,6 +73,26 @@ if(process.argv.includes('--pack')){
  const output=execFileSync(process.execPath,[path.join(root,'integration.mjs')],{cwd:root,encoding:'utf8',timeout:180000,maxBuffer:4*1024*1024,env:{...process.env,DSH_TEST_BASE:host.resolve('@deepseek-ai/dsh/package.json'),DSH_TEST_PACKAGE_DIR:path.join(extracted,'package')}});
  const report=JSON.parse(output);
  assert.equal(report.result,'PASS');
- assert(report.reports.every(entry=>entry.bundledSkill==='grilling'&&entry.bundledSkillLoaded===true),'extracted package must expose the bundled grilling skill');
- console.log(JSON.stringify({pack:'PASS',files:pack.entryCount,bytes:pack.size,extractedConsumer:'PASS',bundledSkill:'PASS',tarball:path.join(temp,pack.filename)}));
+ assert(report.reports.every(entry=>entry.bundledSkill==='grilling'&&entry.bundledSkillLoaded===true&&entry.bundledSkillExact===true),'extracted package must expose the exact bundled grilling skill');
+ // A plausible external skill must not repair a tarball missing its own skill.
+ // Do not touch the source package or change official provider precedence.
+ const missing=path.join(temp,'missing-skill');
+ const original=path.join(extracted,'package');
+ fs.cpSync(original,missing,{recursive:true,filter:file=>file!==path.join(original,'skills','grilling','SKILL.md')});
+ const external=path.join(temp,'external');
+ const decoyText='---\nname: grilling\ndescription: External same-name decoy\n---\nA design tree, but not the packaged skill.\n';
+ const negativeEnv=isolatedTestEnv(external);
+ for(const skillRoot of [path.join(negativeEnv.DSH_HOME,'skills'),path.join(negativeEnv.DSH_AGENTS_HOME,'skills'),negativeEnv.DSH_BUNDLED_SKILL_DIR]){
+  const file=path.join(skillRoot,'grilling','SKILL.md');
+  fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,decoyText);
+ }
+ // integration also plants project .dsh/.agents same-suffix decoys.
+ const negative=spawnSync(process.execPath,[path.join(root,'integration.mjs')],{cwd:root,encoding:'utf8',timeout:180000,maxBuffer:4*1024*1024,
+  env:{...negativeEnv,DSH_TEST_BASE:host.resolve('@deepseek-ai/dsh/package.json'),DSH_TEST_PACKAGE_DIR:missing}});
+ fs.writeFileSync(path.join(temp,'missing-skill.stdout.log'),negative.stdout??'');
+ fs.writeFileSync(path.join(temp,'missing-skill.stderr.log'),negative.stderr??'');
+ assert(!negative.error&&!negative.signal,'missing-skill test must fail an assertion, not time out or crash');
+ assert.notEqual(negative.status,0,'a package missing its skill must fail even with external design-tree decoys');
+ assert((negative.stderr??'').includes('bundled grilling skill must be discoverable'),'negative must fail the exact package skill lookup');
+ console.log(JSON.stringify({pack:'PASS',files:pack.entryCount,bytes:pack.size,extractedConsumer:'PASS',bundledSkill:'PASS',missingSkillDecoys:'REJECTED',tarball:path.join(temp,pack.filename)}));
 }

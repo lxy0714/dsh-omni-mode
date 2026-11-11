@@ -1,0 +1,11 @@
+{
+  "name": "@local/omni-benchmark-host",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "临时同路由对照评测工具，不更换用户预设。 / Temporary same-route paired evaluation without switching the user preset.",
+  "engines": {"dsh": "0.2.2-rc.1", "node": ">=24.9.0"},
+  "exports": {".": "./index.js", "./locale/*.json": "./locale/*.json", "./icon": "./icon.svg"},
+  "dsh": {"bundle": {"patch": "./cordis.patch.yml"}}
+}
