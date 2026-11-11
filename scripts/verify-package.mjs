@@ -54,6 +54,7 @@ if(process.argv.includes('--pack')){
  for(const file of ['quality.js','adaptive.js','pool.js','cordis.patch.yml','LICENSE','THIRD_PARTY_NOTICES.md'])assert(pack.files.some(entry=>entry.path===file),`missing ${file}`);
  const extracted=path.join(temp,'extracted');fs.mkdirSync(extracted);
  execFileSync('tar',['-xzf',path.join(temp,pack.filename),'-C',extracted]);
+ execFileSync(process.execPath,[path.join(root,'scripts/check-docs.mjs'),'--package-dir',path.join(extracted,'package')],{stdio:'inherit'});
  const output=execFileSync(process.execPath,[path.join(root,'integration.mjs')],{cwd:root,encoding:'utf8',timeout:180000,maxBuffer:4*1024*1024,env:{...process.env,DSH_TEST_BASE:host.resolve('@deepseek-ai/dsh/package.json'),DSH_TEST_PACKAGE_DIR:path.join(extracted,'package')}});
  const report=JSON.parse(output);
  assert.equal(report.result,'PASS');
