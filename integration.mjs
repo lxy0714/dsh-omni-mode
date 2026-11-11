@@ -12,7 +12,9 @@ const load = async name => import(pathToFileURL(host.resolve(name)));
 const [phase, run] = process.argv.slice(2);
 
 if (!phase) {
-  const runs = path.join(source, '.verification');
+  // Keep fixture cwd short and writable even when the package under test is
+  // installed in a long or read-only package-manager cache path.
+  const runs = path.join(path.dirname(fileURLToPath(import.meta.url)), '.verification');
   fs.mkdirSync(runs, {recursive:true});
   const dir = fs.mkdtempSync(path.join(runs, 'run-'));
   linkRuntimePackages(host,dir);
