@@ -27,13 +27,18 @@ function oracle(c) {
 }
 const failed = (result, id) => result.checks.some(c => c.id === id && !c.passed);
 
-test('frozen suite exactly matches auditable source; 40 unique bilingual tasks, five per category', () => {
+test('frozen suite exactly matches auditable source; unique bilingual tasks with declared category counts', () => {
   assert.deepEqual(suite, authored);
   assert.equal(suite.schemaVersion, 2);
   assert.equal(suite.baseline, '1.5.0');
-  assert.equal(suite.cases.length, 40);
-  assert.equal(new Set(suite.cases.map(c => c.id)).size, 40);
-  for (const category of suite.categories) assert.equal(suite.cases.filter(c => c.category === category).length, 5);
+  assert.equal(suite.cases.length, 52);
+  assert.equal(new Set(suite.cases.map(c => c.id)).size, 52);
+  // The original eight categories keep five cases each; hard categories carry one
+  // targeted challenge apiece so a careless run can plausibly fail.
+  const fiveEach = ['code_implementation','debugging','research','data_processing','writing_planning','design_review','multi_tool','long_task_recovery'];
+  for (const category of fiveEach) assert.equal(suite.cases.filter(c => c.category === category).length, 5, category);
+  for (const category of suite.categories.filter(c => c.startsWith('hard_'))) assert.ok(suite.cases.filter(c => c.category === category).length >= 1, category);
+  assert.equal(new Set(suite.cases.map(c => c.category)).size, suite.categories.length);
   for (const c of suite.cases) {
     assert.ok(c.prompt.zh && c.prompt.en && c.expected);
     assert.deepEqual(c.tools, TOOL_NAMES);
