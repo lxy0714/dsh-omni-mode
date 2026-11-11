@@ -1,0 +1,29 @@
+name: Bug report / 问题反馈
+description: Report a reproducible issue without credentials or private logs.
+body:
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Plugin, DSH, Node, OS and installation method.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Expected and actual behavior; relevant coexistence plugins.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized error
+      description: Remove tokens, private paths, source files and conversation content. Never upload your full profile.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I removed secrets and private data from this report.
+          required: true
