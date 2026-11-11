@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "reviews": [
+    {
+      "package": "@dsh-suite/plugin-team-board",
+      "version": "0.2.1",
+      "group": "plugins",
+      "evidencePaths": [
+        "dist/index.js"
+      ],
+      "zh": "多智能体共享状态用 Cordis 服务键物化而非模块级全局变量，并把快照落盘到固定目录以便跨重启恢复；这比让每个子代理各持内存更可靠。",
+      "en": "Materialize shared multi-agent state through a Cordis service key instead of module-level globals, and persist a snapshot to a fixed directory so it survives restarts."
+    },
+    {
+      "package": "@esroamer/codex-dsh-collab",
+      "version": "0.2.0",
+      "group": "plugins",
+      "evidencePaths": [
+        "index.js"
+      ],
+      "zh": "跨工具协作明确单向发起语义：由外部工具主动调用，DSH 侧不会唤醒空闲会话；把\"谁发起\"写进文档避免误期待。",
+      "en": "Cross-tool collaboration states its one-way initiation explicitly: the external tool initiates and the harness never wakes an idle session, so nobody expects the reverse."
+    },
+    {
+      "package": "@ethanyoq/dsh-ai-novel-writer",
+      "version": "0.1.0",
+      "group": "plugins",
+      "evidencePaths": [
+        "lib/agent.js"
+      ],
+      "zh": "限制专用代理只见两个工具并在 agent.ctx.effect 中成对清理代理级与预设级资源；写入前比较上次读取的哈希版本，避免覆盖他人修改。",
+      "en": "A dedicated agent is restricted to two tools, with paired agent-level and preset-level cleanup effects; writes compare the previously read hash revision to avoid clobbering others."
+    },
+    {
+      "package": "@hanxuanliang/dsh-chaos",
+      "version": "0.1.2",
+      "group": "plugins",
+      "evidencePaths": [
+        "lib/index.js"
+      ],
+      "zh": "持久协作记录放进事务性本地账本，并在 llm/stream 上按 sessionId 门控；资源清理写成 async effect 并等待计时器停止，避免卸载后仍有回调。",
+      "en": "Durable collaboration records live in a transactional local ledger, gated per sessionId on llm/stream; cleanup is an async effect that awaits timer shutdown so no callback survives unload."
+    },
+    {
+      "package": "dsh-webui-oauth",
+      "version": "0.8.4",
+      "group": "plugins",
+      "evidencePaths": [
+        "index.js"
+      ],
+      "zh": "与同类插件争用同一批 webServer 路由时选择\"检测到冲突直接拒绝启动并打印修复指令\"，而不是降级运行；这比静默半可用更可诊断。",
+      "en": "When competing for the same webServer routes, refuse to start and print repair instructions instead of degrading silently — far easier to diagnose than a half-working state."
+    },
+    {
+      "package": "dsh-yolo-mode",
+      "version": "0.6.6",
+      "group": "plugins",
+      "evidencePaths": [
+        "lib/index.js"
+      ],
+      "zh": "用模型自动裁决沙箱升权申请时，必须显式说明它只是在做建议判断，不改变平台既有的审批与权限语义。",
+      "en": "Automating sandbox-escalation adjudication must state plainly that it only advises; it does not alter the platform authorization or permission semantics."
+    },
+    {
+      "package": "dsh-re-workbench",
+      "version": "0.1.0",
+      "group": "plugins",
+      "evidencePaths": [
+        "lib/index.js"
+      ],
+      "zh": "桥接外部重型工具时先提供环境自检工具，让模型在操作前确认依赖与端口状态，避免把\"环境没装\"误判成\"操作失败\"。",
+      "en": "When bridging a heavy external tool, expose an environment self-check first so the model confirms dependencies and port state rather than mistaking a missing install for a failed operation."
+    },
+    {
+      "package": "@hawk2048/oh-my-dsh",
+      "version": "0.4.5",
+      "group": "plugins",
+      "evidencePaths": [
+        "commands/omd-commands.mjs"
+      ],
+      "zh": "同一能力同时提供自然语言技能与斜杠命令两条入口，命令接到具体本机原生原语而不是另造执行器；这让编排可被显式触发也可被模型自动选用。",
+      "en": "Offer both natural-language skills and slash commands for one capability, with commands delegating to native harness primitives instead of inventing a second executor."
+    },
+    {
+      "package": "@joekytc/dsh-swarm",
+      "version": "0.5.1",
+      "group": "plugins",
+      "evidencePaths": [
+        "lib/index.js"
+      ],
+      "zh": "把需求拆成严格有序的阶段链，每阶段只有单一职责和受限工具面，交接以机器可校验的证据契约判定；失败按幂等方式恢复。",
+      "en": "Decompose a requirement into a strictly ordered phase chain where each phase has one responsibility and a restricted tool face, with machine-checked evidence contracts at every handoff and idempotent recovery."
+    },
+    {
+      "package": "@kasenri/dsh-orbit",
+      "version": "0.6.7",
+      "group": "plugins",
+      "evidencePaths": [
+        "lib/index.js"
+      ],
+      "zh": "长期编排把流程控制权留在监督者而非模型自由循环，并在设置变更时主动丢弃缓存的读取函数，避免继续使用过期路由。",
+      "en": "Long-run orchestration keeps control flow with a supervisor rather than a free model loop, and settings changes invalidate the cached readers so stale routes are not reused."
+    },
+    {
+      "package": "@kira905/dsh-task-board-local",
+      "version": "1.2.1",
+      "group": "plugins",
+      "evidencePaths": [
+        "lib/index.js"
+      ],
+      "zh": "\"跑完不由执行方自己宣布完成\"是对自评风险的直接制度化解法：完成状态需要外部确认；fork 时保留 NOTICE 与改动声明。",
+      "en": "Requiring a human sign-off instead of letting the executor declare completion directly institutionalizes distrust of self-report; a fork keeps the upstream NOTICE and states its changes."
+    },
+    {
+      "package": "@limuyang2/dsh-agent-team",
+      "version": "0.1.4",
+      "group": "plugins",
+      "evidencePaths": [
+        "lib/index.js"
+      ],
+      "zh": "团队成员是各自独立的根代理（独立模型、会话、权限），而非伪装成子代理；这保留了权限与上下文的真实边界。",
+      "en": "Team members are independent root agents with their own model, session and permissions rather than disguised subagents, preserving real boundaries of authorization and context."
+    },
+    {
+      "package": "@kanchengw/dsh-collab",
+      "version": "0.1.0",
+      "group": "plugins",
+      "evidencePaths": [
+        "lib/index.js"
+      ],
+      "zh": "人类协作房间明确\"宿主拥有唯一权威会话、参与者不直接访问宿主代理或文件系统\"，把多用户边界写进架构而非仅靠约定。",
+      "en": "A human collaboration room states that the host owns the single authoritative session and participants get no direct access to the host agent or filesystem — a boundary in the architecture, not just a convention."
+    },
+    {
+      "package": "@lucagiftzek/dsh-orchestrator",
+      "version": "0.1.1",
+      "group": "plugins",
+      "evidencePaths": [
+        "lib/index.js",
+        "lib/client.js"
+      ],
+      "zh": "把扇出与取消代理、以及多种任务类型（命令、抓取、HTTP）统一在一套 orch_* 工具下，宿主侧只暴露受限前缀路由，客户端面板走设置区插槽。",
+      "en": "Fold agent fan-out/cancel and several task kinds (command, scrape, http) into one orch_* tool family, exposing only a prefixed host route and a settings-section slot for the panel."
+    },
+    {
+      "package": "@nanmicoder/dsh-agent-teams",
+      "version": "0.1.29",
+      "group": "plugins",
+      "evidencePaths": [
+        "lib/index.js"
+      ],
+      "zh": "团队控制面提供查询当前状态与\"急停\"两个显式端点，且急停只接受 POST 并返回 405 允许头；把破坏性控制的语义做进 HTTP 层。",
+      "en": "A team control plane exposes explicit state and halt endpoints, with halt accepting only POST and returning a 405 with an allow header — destructive semantics encoded in the HTTP layer."
+    },
+    {
+      "package": "@neomei/dsh-client-ui-roundtable",
+      "version": "0.1.0-rc.7",
+      "group": "plugins",
+      "evidencePaths": [
+        "lib/invariant.js",
+        "lib/client.js"
+      ],
+      "zh": "把包级不变量注册到 ctx.invariants，并把本地化集中在 ctx.locale.register；可见与文案都不散落在组件里。",
+      "en": "Register package invariants through ctx.invariants and centralize localization in ctx.locale.register instead of scattering them through components."
+    },
+    {
+      "package": "@oxmumu3/dsh-agent-twin",
+      "version": "0.4.0-preview.6",
+      "group": "plugins",
+      "evidencePaths": [
+        "index.js",
+        "src/client.js"
+      ],
+      "zh": "分身能力明确\"材料有来源、权限有边界\"，并在发布说明里区分已验证（安装、蒸馏、候选试跑）与未验收（真实 Slack 收发）；这种分层声明值得照做。",
+      "en": "State that a twin's material has provenance and its permissions have boundaries, and separate verified steps (install, distill, candidate trial) from unaccepted ones (real Slack delivery) in release notes."
+    },
+    {
+      "package": "@paipaipai666/dsh-pstack",
+      "version": "0.5.0-beta.6",
+      "group": "plugins",
+      "evidencePaths": [
+        "dist/chart.mjs",
+        "dist/doctor.mjs"
+      ],
+      "zh": "工具解析工作区失败时返回 undefined 而不是抛错，并附带 doctor 自检工具读取真实的 DSH_HOME 与 profile 目录，便于定位环境问题。",
+      "en": "A tool returns undefined when workspace resolution fails instead of throwing, and ships a doctor tool that reads the real DSH_HOME and profile directory to diagnose environment problems."
+    },
+    {
+      "package": "@sakura12/oh-my-deepseekharness",
+      "version": "0.7.2",
+      "group": "plugins",
+      "evidencePaths": [
+        "README.md"
+      ],
+      "zh": "移植其他生态的编排理念时明确标注上游来源（OMC/OMX），把\"改编自谁\"写进首页，降低使用者对行为一致性的误解。",
+      "en": "When porting orchestration ideas from another ecosystem, name the upstream projects on the front page so users do not assume behavioral equivalence."
+    }
+  ]
+}
