@@ -15,8 +15,8 @@ npm run verify
 
 1. 运行时语法、包元数据、组合 ID 唯一性、模块/配置解析、locale/icon 导出和精确宿主版本。
 2. 31 项测试：推理选档、未知能力、用户手选、失败/取消、保留档位、模型切换、空闲生命周期保护、官方裁剪器及隔离/清理。
-3. 真实隔离 Host 中的完整预设激活、工具执行、压力裁剪、切小窗口、手动压缩、JSONL 校验与两个独立进程的正常退出/恢复；手动推理选择必须保留。
-4. npm 打包、白名单校验、TGZ 解包，并对解包后的实际安装内容重复 Host/恢复场景。
+3. 真实隔离 Host 中的完整预设激活、工具执行、压力裁剪、切小窗口、手动压缩、JSONL 校验与两个独立进程的正常退出/恢复；手动推理选择必须保留；并从本包内 `skills/grilling/SKILL.md` 发现 `grilling` 且逐字加载正文。
+4. npm 打包、白名单校验、TGZ 解包，并对解包后的实际安装内容重复 Host/恢复场景与技能发现断言；技能正文 Git blob 须与上游 `d2f09a18` 一致。
 
 模型适配器为本地确定性模拟。这证明受控条件下的执行/生命周期行为，不证明真实供应商效果或普遍兼容。测试不重启用户引擎，不改其 profile、不复制凭据、不创建 Web 服务器。
 
@@ -39,8 +39,8 @@ The full check includes:
 
 1. Runtime JavaScript syntax, package metadata, unique composition IDs, module/schema resolution, locale/icon exports and exact Harness version.
 2. 31 tests covering reasoning selection, unknown capabilities, manual choices, errors/cancellation, retention tiers, model switches, idle lifecycle protection, official pruner behavior and service isolation/cleanup.
-3. Full preset activation in a real isolated Harness Host, real tool execution, pressure pruning, switching to a smaller declared model, manual compaction, JSONL validation, and normal shutdown/resume in two independent processes. Manual reasoning choices must survive resume.
-4. `npm pack`, release-file allowlist checks, TGZ extraction and repeating the full Host/recovery scenario against the extracted package rather than the source checkout.
+3. Full preset activation in a real isolated Harness Host, real tool execution, pressure pruning, switching to a smaller declared model, manual compaction, JSONL validation, and normal shutdown/resume in two independent processes; manual reasoning choices must survive resume; `grilling` must be discovered from this package's `skills/grilling/SKILL.md` and load verbatim.
+4. `npm pack`, release-file allowlist checks, TGZ extraction and repeating the full Host/recovery and skill-discovery scenarios against the extracted package; the vendored body's Git blob must match upstream `d2f09a18`.
 
 The model adapter is local and deterministic. This proves execution/lifecycle behavior under fixtures, not real-provider quality or universal compatibility. The test does not restart the user's engine, touch their profile, copy credentials or create a Web server.
 

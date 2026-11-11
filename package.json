@@ -1,6 +1,6 @@
 {
   "name": "dsh-omni-mode",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "private": true,
   "license": "MIT",
   "repository": { "type": "git", "url": "git+https://github.com/lxy0714/dsh-omni-mode.git" },
@@ -22,7 +22,7 @@
     "./icon": "./icon.svg",
     "./package.json": "./package.json"
   },
-  "files": ["quality.js", "adaptive.js", "pool.js", "cordis.patch.yml", "locale/**/*.json", "icon.svg", "README.md", "README.en.md", "LICENSE", "THIRD_PARTY_NOTICES.md", "CHANGELOG.md", "CONTRIBUTING.md", "SECURITY.md", "VERIFICATION.md", "docs/*.md"],
+  "files": ["quality.js", "adaptive.js", "pool.js", "cordis.patch.yml", "locale/**/*.json", "icon.svg", "skills/**/*.md", "skills/grilling/LICENSE", "README.md", "README.en.md", "LICENSE", "THIRD_PARTY_NOTICES.md", "CHANGELOG.md", "CONTRIBUTING.md", "SECURITY.md", "VERIFICATION.md", "docs/*.md"],
   "scripts": {
     "test": "node --test quality.test.js adaptive.test.js",
     "test:host": "node integration.mjs",

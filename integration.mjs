@@ -110,6 +110,15 @@ if (!phase) {
       ? await ctx.agents.create({sessionId,meta:{cwd:run},agentOptions:{provider:'omni-fixture',model:'large'},setup})
       : await ctx.agents.resume({resumeSessionId:sessionId,setup});
     const agent=handle.agent;
+    const lookup={cwd:run,scope:agent};
+    const skills=agent.ctx.get('skills');
+    assert(skills,'skill registry service must be available');
+    const catalog=await skills.list(lookup);
+    const grilling=catalog.find(entry=>entry.name==='grilling');
+    assert(grilling,'bundled grilling skill must be discoverable from the installed package');
+    assert(grilling.path?.endsWith('skills/grilling/SKILL.md'),`discovered skill must come from the package: ${grilling.path}`);
+    const loaded=await skills.get('grilling',lookup);
+    assert(loaded?.content.includes('design tree'),'grilling body must load verbatim through the native registry');
     if(phase==='create')assert.equal(agent.model.current().reasoningEffort,'effort-high');
     else assert.equal(agent.model.current().reasoningEffort,'effort-medium','resume must retain manual selection');
     const composition=ctx.agentPresets.inspectCompositions(agent.ctx);
@@ -154,7 +163,7 @@ if (!phase) {
     assert(events.some(event=>event.type==='assistant/message'));
     assert(events.some(event=>event.type==='turn/end'&&event.data.reason.kind==='completed'));
     for(let i=0;i<events.length;i++)assert.equal(events[i].seq,i);
-    const report={phase,pid:process.pid,fullPresetActivated:true,modelCalls:calls,eventCount,selectedEffort:agent.model.current().reasoningEffort,serviceLeaks:0,adaptiveSwitchVerified,manualCompactionVerified,realProvider:false};
+    const report={phase,pid:process.pid,fullPresetActivated:true,bundledSkill:'grilling',bundledSkillLoaded:true,modelCalls:calls,eventCount,selectedEffort:agent.model.current().reasoningEffort,serviceLeaks:0,adaptiveSwitchVerified,manualCompactionVerified,realProvider:false};
     fs.writeFileSync(path.join(run,`${phase}.json`),JSON.stringify(report,null,2)+'\n');
     console.log(JSON.stringify(report));
   } finally {

@@ -9,7 +9,7 @@ A cross-project, quality-first native agent preset: understand the goal, plan wh
 The current compatibility gate is **DSH 0.2.2-rc.1**.
 
 ```sh
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.3.1
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.4.0
 ```
 
 Or download the fixed-version TGZ from [Releases](https://github.com/lxy0714/dsh-omni-mode/releases) and add it through the Harness plugin manager. Use your actual profile; desktop applications should use their own plugin-management entry point.
@@ -17,6 +17,10 @@ Or download the fixed-version TGZ from [Releases](https://github.com/lxy0714/dsh
 Restart the engine, create a new conversation, and select `全能模式`. Existing live conversations retain their earlier preset revision. Plain JavaScript runtime files are shipped; no user-side build is required.
 
 The former local bundle `@local/dsh-omni-preset` declares the same `omni` ID: remove that bundle through the manager before enabling this one. Do not delete your whole profile. This is a GitHub/Release distribution, **not an npm publication**; `private: true` intentionally prevents accidental npm publishing.
+
+## Bundled grilling skill
+
+Omni mode bundles Matt Pocock's MIT-licensed `grilling` skill (verbatim; no copy into `~/.dsh/skills`). To stress-test a plan, decision or idea, ask to "grill this plan" or "poke holes in this idea": it interviews in rounds over a design tree, asks only what you can decide now, recommends an answer per question, and implements only after shared understanding. Asking to integrate or install the skill does not start an interview, and ordinary explicit execution does not require it. See [using grilling](docs/grilling.md#english).
 
 ## Behavior
 

@@ -11,7 +11,7 @@
 当前兼容门限定为 **DSH 0.2.2-rc.1**。先检查你的宿主版本，不要用豁免强装不兼容版本。
 
 ```sh
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.3.1
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.4.0
 ```
 
 或者从 [Releases](https://github.com/lxy0714/dsh-omni-mode/releases) 下载固定版本 TGZ 后，通过 DSH 插件管理器添加。桌面用户使用应用自己的插件管理器及实际 profile，不要把 `web` 原样套到所有部署。
@@ -29,6 +29,10 @@ dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.3.1
 - 信息保留按模型窗口与输出保留选择隔离的官方裁剪器；切小窗口前采用保守容量。
 - 保留官方压缩、溢出恢复与存档关系；元数据未知或发现失败时回退，而不是猜一个巨大窗口。
 - 质量优先，不为节省费用主动降级目标；不为了“全能”盲调所有工具、无限重试或强行并发写同一文件。
+
+## 内置 grilling 技能
+
+本预设内置 Matt Pocock 的 MIT `grilling` 技能（原文逐字未改），无需复制到 `~/.dsh/skills`。想对方案、决策或想法做压力测试时，直接说「grill 一下这个方案」或「拷问我这个想法」；它按设计树分轮提问，只问你当前能决定的问题，每个问题附推荐答案，达成共识后再实施。仅要求集成/安装技能不会启动访谈，普通明确执行也不强制进入。详见 [grilling 使用说明](docs/grilling.md)。
 
 ## 重要边界
 

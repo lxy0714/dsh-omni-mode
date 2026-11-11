@@ -9,7 +9,8 @@
 - [自行修改](customization.md#中文)：fork、本地修改、安装与并存规则。
 - [验证分层](verification.md#中文)：测试、真实 Host、模拟推理及未验证项。
 - [许可证说明](license.md#中文)：MIT 权利、义务和英文原文的地位。
-- [发行说明](release-notes.md#中文)：当前文档补丁的变化与安装方式。
+- [grilling 使用说明](grilling.md#中文)：内置技能的触发方式、设计树访谈、边界和来源。
+- [发行说明](release-notes.md#中文)：当前技能集成版本的变化与安装方式。
 - [贡献指南](../CONTRIBUTING.md#中文)、[安全说明](../SECURITY.md#中文)、[版本记录](../CHANGELOG.md#中文)。
 
 ## English
@@ -19,5 +20,6 @@
 - [Customization](customization.md#english): forks, local edits, installation and parallel versions.
 - [Verification](verification.md#english): tests, real Host/mock inference and unverified areas.
 - [License explanation](license.md#english): MIT rights, duties and the canonical original.
-- [Release notes](release-notes.md#english): the current documentation patch and installation.
+- [Using grilling](grilling.md#english): invoking the bundled skill, design-tree interviews, boundaries and provenance.
+- [Release notes](release-notes.md#english): the current skill-integration release and installation.
 - [Contributing](../CONTRIBUTING.md#english), [Security](../SECURITY.md#english), [Changelog](../CHANGELOG.md#english).
