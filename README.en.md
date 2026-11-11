@@ -1,6 +1,6 @@
 # Omni mode for DeepSeek Harness
 
-[中文](README.md) · [Compatibility](docs/compatibility.md) · [Coexistence](docs/coexistence.md) · [Customization](docs/customization.md)
+[中文](README.md) · [Compatibility](docs/compatibility.md#english) · [Coexistence](docs/coexistence.md#english) · [Customization](docs/customization.md#english)
 
 A cross-project, quality-first native agent preset: understand the goal, plan when useful, combine available capabilities, verify, and deliver. It is a configurable bundle, not a new model or a permission bypass. Preset ID: `omni`; display name: `全能模式`.
 
@@ -9,7 +9,7 @@ A cross-project, quality-first native agent preset: understand the goal, plan wh
 The current compatibility gate is **DSH 0.2.2-rc.1**.
 
 ```sh
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.3.0
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.3.1
 ```
 
 Or download the fixed-version TGZ from [Releases](https://github.com/lxy0714/dsh-omni-mode/releases) and add it through the Harness plugin manager. Use your actual profile; desktop applications should use their own plugin-management entry point.
@@ -32,7 +32,7 @@ This does not alter model weights, guarantee better answers, enable missing serv
 
 MIT licensed: use, modify, fork and redistribute while retaining the license and applicable notices. Clone/fork the repository, edit the source and install its absolute local directory through the plugin manager. Restart the engine and create a new conversation after code changes. Avoid editing package-manager caches, which upgrades may overwrite.
 
-`cordis.patch.yml` contains persona/tool composition; `quality.js` controls initialization; `adaptive.js` controls retention; `pool.js` bridges private services. See the [customization guide](docs/customization.md). A parallel fork must rename package, preset/declaration IDs and private services to avoid collisions.
+`cordis.patch.yml` contains persona/tool composition; `quality.js` controls initialization; `adaptive.js` controls retention; `pool.js` bridges private services. See the [customization guide](docs/customization.md#english). A parallel fork must rename package, preset/declaration IDs and private services to avoid collisions.
 
 ## Development and verification
 
@@ -43,8 +43,8 @@ npm run verify
 
 The development Harness version is pinned. Tests discover the local runtime dependency, or accept `DSH_TEST_BASE` pointing to an existing installation package.json. No author-machine path is required.
 
-Checks cover manifests/syntax, 31 policy/Cordis tests, full native session persistence across independent processes and extracted TGZ consumption. **Inference uses a deterministic local adapter. These checks do not establish real-provider quality, long-term stability, or universal platform/plugin compatibility.** See [verification](docs/verification.md) and the actual [Actions](https://github.com/lxy0714/dsh-omni-mode/actions) results.
+Checks cover manifests/syntax, 31 policy/Cordis tests, full native session persistence across independent processes and extracted TGZ consumption. **Inference uses a deterministic local adapter. These checks do not establish real-provider quality, long-term stability, or universal platform/plugin compatibility.** See [verification](docs/verification.md#english) and the actual [Actions](https://github.com/lxy0714/dsh-omni-mode/actions) results.
 
 For upgrades, back up customizations, remove the previous bundle through the manager, install the fixed version and restart. Uninstall only this bundle, not unrelated settings or sessions. Report sanitized reproduction details through [Issues](https://github.com/lxy0714/dsh-omni-mode/issues).
 
-[MIT](LICENSE) · [Third-party notices](THIRD_PARTY_NOTICES.md) · [Security](SECURITY.md)
+[MIT original](LICENSE) · [License explanation](docs/license.md#english) · [Third-party notices](THIRD_PARTY_NOTICES.md#english) · [Security](SECURITY.md#english) · [Documentation index](docs/README.md#english)

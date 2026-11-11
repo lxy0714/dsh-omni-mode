@@ -1,13 +1,13 @@
 {
   "name": "dsh-omni-mode",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "private": true,
   "license": "MIT",
   "repository": { "type": "git", "url": "git+https://github.com/lxy0714/dsh-omni-mode.git" },
   "homepage": "https://github.com/lxy0714/dsh-omni-mode#readme",
   "bugs": { "url": "https://github.com/lxy0714/dsh-omni-mode/issues" },
   "type": "module",
-  "description": "A quality-first, cross-project DeepSeek Harness preset with capability-aware reasoning and adaptive context retention.",
+  "description": "全能模式：跨项目、质量优先，支持能力感知推理与自适应信息保留。 / Omni mode: a quality-first DeepSeek Harness preset with capability-aware reasoning and adaptive retention.",
   "keywords": ["deepseek-harness", "dsh-plugin", "dsh-bundle", "agent-preset", "omni-mode"],
   "engines": { "dsh": "0.2.2-rc.1", "node": ">=22.16.0" },
   "exports": {
@@ -26,7 +26,7 @@
   "scripts": {
     "test": "node --test quality.test.js adaptive.test.js",
     "test:host": "node integration.mjs",
-    "check": "node scripts/verify-package.mjs",
+    "check": "node scripts/check-docs.mjs && node scripts/verify-package.mjs",
     "pack:check": "node scripts/verify-package.mjs --pack",
     "verify": "npm run check && npm test && npm run test:host && npm run pack:check"
   },

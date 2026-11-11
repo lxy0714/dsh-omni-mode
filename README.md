@@ -11,7 +11,7 @@
 当前兼容门限定为 **DSH 0.2.2-rc.1**。先检查你的宿主版本，不要用豁免强装不兼容版本。
 
 ```sh
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.3.0
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.3.1
 ```
 
 或者从 [Releases](https://github.com/lxy0714/dsh-omni-mode/releases) 下载固定版本 TGZ 后，通过 DSH 插件管理器添加。桌面用户使用应用自己的插件管理器及实际 profile，不要把 `web` 原样套到所有部署。
@@ -68,4 +68,4 @@ npm run verify
 
 反馈请到 [Issues](https://github.com/lxy0714/dsh-omni-mode/issues)，注明 DSH/Node/系统、插件版本、最小复现、已脱敏错误和共存插件；不要上传令牌、整个 profile、会话原文或私人项目。
 
-[MIT License](LICENSE) · [第三方声明](THIRD_PARTY_NOTICES.md) · [安全说明](SECURITY.md)
+[MIT 原文](LICENSE) · [许可证双语说明](docs/license.md) · [第三方声明](THIRD_PARTY_NOTICES.md) · [安全说明](SECURITY.md) · [双语文档目录](docs/README.md)

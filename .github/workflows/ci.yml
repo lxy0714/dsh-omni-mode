@@ -1,4 +1,4 @@
-name: CI
+name: CI / 持续集成
 on:
   push:
     branches: [main]
@@ -7,13 +7,18 @@ permissions:
   contents: read
 jobs:
   verify:
+    name: 验证 / Verify
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: 检出源码 / Check out source
+        uses: actions/checkout@v4
+      - name: 配置 Node.js / Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: npm
-      - run: npm ci --ignore-scripts --no-audit --no-fund
-      - run: npm run verify
+      - name: 安装固定依赖 / Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: 检查双语页面、测试与发行包 / Verify bilingual docs, tests and package
+        run: npm run verify

@@ -1,29 +1,29 @@
-name: Bug report / 问题反馈
-description: Report a reproducible issue without credentials or private logs.
+name: 问题反馈 / Bug report
+description: 提交可复现问题，不包含凭据或私人日志。 / Report a reproducible issue without secrets or private logs.
 body:
   - type: input
     id: versions
     attributes:
-      label: Versions
-      description: Plugin, DSH, Node, OS and installation method.
+      label: 版本与环境 / Versions and environment
+      description: 插件、DSH、Node、系统和安装方式。 / Plugin, DSH, Node, OS and installation method.
     validations:
       required: true
   - type: textarea
     id: reproduction
     attributes:
-      label: Minimal reproduction
-      description: Expected and actual behavior; relevant coexistence plugins.
+      label: 最小复现 / Minimal reproduction
+      description: 预期、实际行为及共存插件。 / Expected and actual behavior, plus relevant coexistence plugins.
     validations:
       required: true
   - type: textarea
     id: logs
     attributes:
-      label: Sanitized error
-      description: Remove tokens, private paths, source files and conversation content. Never upload your full profile.
+      label: 脱敏错误 / Sanitized error
+      description: 删除令牌、私人路径、源码与对话；不要上传整个 profile。 / Remove tokens, private paths, source and conversations; never upload the full profile.
   - type: checkboxes
     id: privacy
     attributes:
-      label: Privacy
+      label: 隐私确认 / Privacy
       options:
-        - label: I removed secrets and private data from this report.
+        - label: 我已移除秘密与私人数据。 / I removed secrets and private data.
           required: true

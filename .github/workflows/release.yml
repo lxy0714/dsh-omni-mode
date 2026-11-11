@@ -1,39 +1,44 @@
-name: Release
+name: Release / 版本发布
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing version tag, for example v1.3.0
+        description: 现有版本标签，例如 v1.3.1 / Existing version tag, for example v1.3.1
         required: true
 permissions:
   contents: read
 jobs:
   release:
+    name: 发布 / Publish release
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - name: 检出版本 / Check out version
+        uses: actions/checkout@v4
         with:
           ref: ${{ inputs.tag }}
-      - uses: actions/setup-node@v4
+      - name: 配置 Node.js / Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: npm
-      - name: Match tag and package version
+      - name: 核对标签与包版本 / Match tag and package version
         env:
           TAG: ${{ inputs.tag }}
         run: test "$TAG" = "v$(node -p 'require("./package.json").version')"
-      - run: npm ci --ignore-scripts --no-audit --no-fund
-      - run: npm run verify
-      - name: Pack release and checksums
+      - name: 安装固定依赖 / Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: 运行全部验证 / Run full verification
+        run: npm run verify
+      - name: 打包与生成校验和 / Pack release and checksums
         run: |
           mkdir -p artifacts
           npm pack --ignore-scripts --pack-destination artifacts
           node --input-type=module -e 'import fs from "node:fs";import crypto from "node:crypto";const files=fs.readdirSync("artifacts").filter(x=>x.endsWith(".tgz"));fs.writeFileSync("artifacts/SHA256SUMS.txt",files.map(x=>crypto.createHash("sha256").update(fs.readFileSync("artifacts/"+x)).digest("hex")+"  "+x).join("\n")+"\n");'
-      - name: Create fixed-version GitHub release
+      - name: 创建双语版本说明 / Create bilingual release
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ inputs.tag }}
-        run: gh release create "$TAG" artifacts/*.tgz artifacts/SHA256SUMS.txt --verify-tag --title "Omni mode $TAG" --generate-notes
+        run: gh release create "$TAG" artifacts/*.tgz artifacts/SHA256SUMS.txt --verify-tag --title "全能模式 / Omni mode $TAG" --notes-file docs/release-notes.md

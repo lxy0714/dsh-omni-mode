@@ -1,14 +1,14 @@
-name: Feature request / 功能建议
-description: Describe a concrete outcome and compatibility considerations.
+name: 功能建议 / Feature request
+description: 描述具体目标及兼容考虑。 / Describe a concrete goal and compatibility considerations.
 body:
   - type: textarea
     id: goal
     attributes:
-      label: Goal and use case
+      label: 目标与使用场景 / Goal and use case
     validations:
       required: true
   - type: textarea
     id: design
     attributes:
-      label: Proposed behavior and boundaries
-      description: Include affected models, platforms or other plugins if relevant.
+      label: 期望行为与边界 / Proposed behavior and boundaries
+      description: 说明受影响的模型、平台或插件。 / Include affected models, platforms or plugins.
