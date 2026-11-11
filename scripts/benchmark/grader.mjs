@@ -118,14 +118,17 @@ export function gradeCase(testCase, { files = {}, toolCalls = [], finalText = ''
     if (!allowed.includes(c.name) || !c.args || typeof c.args !== 'object') return false;
     if (['fixture_read', 'fixture_write'].includes(c.name)) {
       if (!validPath(c.args.path)) return false;
-      if (c.name === 'fixture_read') return own(testCase.files, c.args.path) || (process.writePaths ?? []).includes(c.args.path);
+      if (c.name === 'fixture_read') return own(testCase.files, c.args.path) || (process.writePaths ?? []).includes(c.args.path) || (process.probePaths ?? []).includes(c.args.path);
       return (process.writePaths ?? []).includes(c.args.path) && typeof c.args.content === 'string';
     }
     if (c.name === 'fixture_check') return validPath(c.args.target) && (expected.rules ?? []).some(r => r.path === c.args.target);
     if (c.name === 'skill') return ['grilling', 'omni-method'].includes(c.args.name);
     return true;
   };
-  add('tool-scope', Array.isArray(toolCalls) && rawCalls.every(c => c && typeof c === 'object' && c.args && typeof c.args === 'object') && calls.every(callOK), 'Only declared fixture tools and allowed virtual paths may be attempted.');
+  add('tool-scope', Array.isArray(toolCalls) && rawCalls.every(c => c && typeof c === 'object' && c.args && typeof c.args === 'object') && calls.every(callOK), 'Only declared fixture tools and allowed virtual/probe paths may be attempted.');
+  // Probing a path the task expects to be absent is legitimate investigation, not a scope violation.
+  const probePaths = process.probePaths ?? [];
+  add('evidence-probe', probePaths.every(p => calls.some(c => c.name === 'fixture_read' && c.args.path === p && !own(testCase.files, p))), 'Expected-absent evidence may be probed without being treated as unauthorized access.');
   const replay = { ...testCase.files }, verifiedChecks = new Map();
   let feedbackValid = true, evidenceValid = true, answerIndex = 0, answerValid = true;
   calls.forEach((c, i) => {

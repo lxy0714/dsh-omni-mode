@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "baseline": "1.5.0",
   "title": "Omni controlled real-model task fixtures",
   "categories": [
@@ -2689,9 +2689,7 @@
           "reads": [
             "request.txt"
           ],
-          "checks": [
-            "out/result.json"
-          ],
+          "checks": [],
           "requireCapabilities": true
         },
         "referenceFiles": {
@@ -2753,9 +2751,7 @@
           "reads": [
             "request.json"
           ],
-          "checks": [
-            "out/result.json"
-          ],
+          "checks": [],
           "questions": {
             "min": 1,
             "max": 1,
@@ -3151,6 +3147,7 @@
           "question-policy",
           "read-evidence",
           "capability-discovery",
+          "evidence-probe",
           "observed-artifacts"
         ],
         "process": {
@@ -3163,7 +3160,10 @@
           "checks": [
             "out/result.json"
           ],
-          "requireCapabilities": true
+          "requireCapabilities": true,
+          "probePaths": [
+            "raw-ledger.csv"
+          ]
         },
         "referenceFiles": {
           "out/result.json": "{\n  \"status\": \"blocked\",\n  \"missing\": [\n    \"raw-ledger.csv\"\n  ],\n  \"canConfirmTotal\": false,\n  \"sessionRestored\": false\n}\n"

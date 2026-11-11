@@ -14,6 +14,8 @@ function oracle(c) {
   if (c.expected.process.requireCapabilities) call('fixture_capabilities', {}, { tools: c.tools, environment: 'controlled-fixture', externalServices: false });
   for (const path of c.expected.process.reads ?? []) call('fixture_read', { path }, { content: files[path] });
   if (c.expected.process.search) call('fixture_search', { query: 'task primary evidence' }, { sources: c.sources });
+  // A task may legitimately require probing evidence the fixture expects to be absent.
+  for (const path of c.expected.process.probePaths ?? []) call('fixture_read', { path }, { error: 'UNKNOWN_VIRTUAL_PATH' });
   for (let i = 0; i < (c.expected.process.questions?.min ?? 0); i++) call('ask_user_question', { question: 'Which of the unresolved owner choices should govern this task?' }, { answer: c.userAnswers[i] ?? null });
   for (const target of c.expected.process.repairTargets ?? []) call('fixture_check', { target }, checkTarget(c, files, target));
   for (const [path, content] of Object.entries(c.expected.referenceFiles)) {
@@ -27,7 +29,7 @@ const failed = (result, id) => result.checks.some(c => c.id === id && !c.passed)
 
 test('frozen suite exactly matches auditable source; 40 unique bilingual tasks, five per category', () => {
   assert.deepEqual(suite, authored);
-  assert.equal(suite.schemaVersion, 1);
+  assert.equal(suite.schemaVersion, 2);
   assert.equal(suite.baseline, '1.5.0');
   assert.equal(suite.cases.length, 40);
   assert.equal(new Set(suite.cases.map(c => c.id)).size, 40);
