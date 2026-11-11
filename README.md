@@ -11,7 +11,7 @@
 当前兼容门限定为 **DSH 0.2.2-rc.1**。先检查你的宿主版本，不要用豁免强装不兼容版本。
 
 ```sh
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.4.0
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.5.0
 ```
 
 或者从 [Releases](https://github.com/lxy0714/dsh-omni-mode/releases) 下载固定版本 TGZ 后，通过 DSH 插件管理器添加。桌面用户使用应用自己的插件管理器及实际 profile，不要把 `web` 原样套到所有部署。
@@ -32,7 +32,7 @@ dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.4.0
 
 ## 内置 grilling 技能
 
-本预设内置 Matt Pocock 的 MIT `grilling` 技能（原文逐字未改），无需复制到 `~/.dsh/skills`。想对方案、决策或想法做压力测试时，直接说「grill 一下这个方案」或「拷问我这个想法」；它按设计树分轮提问，只问你当前能决定的问题，每个问题附推荐答案，达成共识后再实施。仅要求集成/安装技能不会启动访谈，普通明确执行也不强制进入。详见 [grilling 使用说明](docs/grilling.md)。
+本预设内置 Matt Pocock 的 MIT `grilling` 技能（原文逐字未改），无需复制到 `~/.dsh/skills`。**默认启用**：当任务含有需要你拍板的设计取舍（方案/架构选型、技术栈或依赖替换、数据模型、权限与安全边界、破坏性或不可逆操作、范围与验收标准、成本权衡），或需求仍有会改变实现方向的关键歧义时，模型会先加载 grilling，按设计树分轮提问，只问当前能决定的问题，每个问题附推荐答案，达成共识后再实施。纯执行、已明确步骤、机械改动、查证事实、修复已定位缺陷不会进入访谈，不会把每个任务都变成多轮问答。你也可以随时说跳过访谈。详见 [grilling 使用说明](docs/grilling.md)。
 
 ## 重要边界
 

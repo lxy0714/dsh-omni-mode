@@ -1,6 +1,6 @@
 {
   "name": "dsh-omni-mode",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "private": true,
   "license": "MIT",
   "repository": { "type": "git", "url": "git+https://github.com/lxy0714/dsh-omni-mode.git" },

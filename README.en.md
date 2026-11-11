@@ -9,7 +9,7 @@ A cross-project, quality-first native agent preset: understand the goal, plan wh
 The current compatibility gate is **DSH 0.2.2-rc.1**.
 
 ```sh
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.4.0
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.5.0
 ```
 
 Or download the fixed-version TGZ from [Releases](https://github.com/lxy0714/dsh-omni-mode/releases) and add it through the Harness plugin manager. Use your actual profile; desktop applications should use their own plugin-management entry point.
@@ -20,7 +20,7 @@ The former local bundle `@local/dsh-omni-preset` declares the same `omni` ID: re
 
 ## Bundled grilling skill
 
-Omni mode bundles Matt Pocock's MIT-licensed `grilling` skill (verbatim; no copy into `~/.dsh/skills`). To stress-test a plan, decision or idea, ask to "grill this plan" or "poke holes in this idea": it interviews in rounds over a design tree, asks only what you can decide now, recommends an answer per question, and implements only after shared understanding. Asking to integrate or install the skill does not start an interview, and ordinary explicit execution does not require it. See [using grilling](docs/grilling.md#english).
+Omni mode bundles Matt Pocock's MIT-licensed `grilling` skill (verbatim; no copy into `~/.dsh/skills`). **Enabled by default**: when a task contains a design trade-off you own — architecture or stack selection, dependency replacement, data model, permission or security boundary, destructive or irreversible action, scope and acceptance criteria, cost trade-offs — or the requirement still has ambiguity that would change the implementation direction, the model first loads grilling, interviews in rounds over a design tree, asks only what you can decide now with a recommended answer, and implements after explicit agreement. Plain execution, already-specified steps, mechanical edits, fact lookups and fixes of an identified defect do not enter an interview, so ordinary tasks do not turn into multi-round questioning. You can tell it to skip the interview at any time. See [using grilling](docs/grilling.md#english).
 
 ## Behavior
 

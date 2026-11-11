@@ -8,12 +8,17 @@
 
 ### 什么时候用
 
-在对话中明确要求即可，例如「grill 一下这个方案」「拷问我这个想法」「压力测试这个决策」「帮我挑毛病再实现」。在这些情况下模型应加载该技能，按设计树分轮提问。
+**默认启用**：全能模式的人设要求，在任务含有需要你拍板的设计取舍时先走 grilling，不必你再说「grill 一下」。触发范围是：
 
-以下情况**不应**自动进入访谈：
+- 方案或架构选型、技术栈与依赖替换、数据模型设计；
+- 权限、审批、安全或数据外发边界；
+- 破坏性或不可逆操作；
+- 交付范围、验收标准、成本与时间权衡；
+- 需求仍有关键歧义，会改变实现方向。
 
-- 你只是要求把技能集成、安装或发布进预设（本版就是这种情况）。
-- 你已明确交代需求并要求直接执行；此时普通任务照常推进，只有真正影响范围的用户决策才询问。
+你也可以随时主动点名，例如「拷问我这个想法」「压力测试这个决策」。
+
+以下情况**不**进入访谈，按普通任务直接推进：需求已明确、步骤既定、机械改动、查证事实、修复已定位缺陷、纯执行或纯读取；以及你只是要求把技能集成或安装进预设这类元任务。
 
 ### 它怎么工作
 
@@ -26,7 +31,8 @@
 
 ### 边界
 
-- 它不会强制你接受推荐答案，也不会在你不回答时继续实施。
+- 它不会强制你接受推荐答案，也不会在你不回答时继续实施；你随时可以要求跳过或提前结束访谈，之后按你的指示直接推进。
+- 「默认启用」不等于每个任务都被追问：纯执行类任务不会进入访谈，以免增加无谓轮次。
 - 它不扩大工具、权限、账号或外发范围；访谈期间仍然遵守当前授权与计划模式。
 - 较长流程可能多花几轮和若干次工具调用，属于访谈成本，不是模型质量提升。
 - 有命令界面的宿主可用 `/grilling` 显式调用；否则用自然语言要求即可。
@@ -42,12 +48,17 @@ Omni mode bundles Matt Pocock's `grilling` skill. It ships with this package —
 
 ### When it applies
 
-Ask for it explicitly, e.g. "grill this plan", "stress-test this decision", or "poke holes in this before implementing". The model should then load the skill and interview in rounds.
+**Enabled by default**: the persona asks the model to grill whenever a task contains a design trade-off you own, without waiting for you to say "grill this". That covers:
 
-It should **not** start an interview when:
+- architecture or stack selection, dependency replacement, data-model design;
+- permission, approval, security or data-sending boundaries;
+- destructive or irreversible actions;
+- delivery scope, acceptance criteria, cost or schedule trade-offs;
+- requirements whose remaining ambiguity would change the implementation direction.
 
-- You only asked to integrate, install or publish the skill into the preset (as this release does).
-- You already stated the requirement and asked for direct execution; ordinary work proceeds, and only genuine user-owned scope decisions are asked.
+You can still invoke it explicitly, e.g. "poke holes in this idea" or "stress-test this decision".
+
+It does **not** enter an interview for: already-specified requirements and steps, mechanical edits, fact lookups, fixes of an identified defect, plain execution or reads — nor when you only ask to integrate or install the skill itself.
 
 ### How it works
 
@@ -60,7 +71,8 @@ It should **not** start an interview when:
 
 ### Boundaries
 
-- A recommended answer is never forced on you, and it does not implement while your answers are pending.
+- A recommended answer is never forced on you, and it does not implement while your answers are pending; you can ask to skip or end the interview at any point and it will proceed directly.
+- "Enabled by default" does not mean every task is interrogated: plain execution stays direct, to avoid needless rounds.
 - It does not widen tools, permissions, accounts or external sending; current authorization and plan mode still apply during the interview.
 - A long interview costs more rounds and tool calls. That is interview cost, not a model-quality improvement.
 - Hosts with a command surface can invoke `/grilling`; otherwise ask in natural language.

@@ -4,6 +4,12 @@
 
 ## 中文
 
+### 1.5.0 — 默认启用 grilling
+
+- 人设新增默认策略：涉及方案/架构选型、依赖替换、数据模型、权限与安全边界、破坏性操作、范围与验收、成本权衡，或存在会改变实现方向的关键歧义时，先加载 grilling 分轮提问并在共识后实施。
+- 纯执行、需求已明确、机械改动、查证事实、修复已定位缺陷不进入访谈，避免把日常任务变成多轮问答；用户可随时跳过。
+- 更新中英双语说明；不改变技能原文、许可证、选档与保留策略、权限边界和兼容门禁。
+
 ### 1.4.0 — 内置 grilling 技能
 
 - 随包分发 Matt Pocock 的 MIT `grilling` 技能，固定上游提交并保留英文原文、许可证、来源与校验信息。
@@ -39,6 +45,12 @@
 - 引入跨项目规划、能力发现、执行、验证和交付规则。
 
 ## English
+
+### 1.5.0 — Grilling enabled by default
+
+- The persona now grills before implementing whenever a task contains a design trade-off — architecture/stack selection, dependency replacement, data model, permission or security boundaries, destructive actions, scope and acceptance, cost trade-offs — or ambiguity that would change the implementation direction.
+- Plain execution, fully specified requirements, mechanical edits, fact lookups and fixes of an identified defect stay direct, so daily work does not become multi-round questioning; you can skip at any time.
+- Bilingual docs updated. The vendored skill text, its license, reasoning/retention policy, authorization boundaries and the compatibility gate are unchanged.
 
 ### 1.4.0 — Bundled grilling skill
 
