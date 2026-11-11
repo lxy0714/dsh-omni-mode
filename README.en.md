@@ -22,6 +22,16 @@ The former local bundle `@local/dsh-omni-preset` declares the same `omni` ID: re
 
 Omni mode bundles Matt Pocock's MIT-licensed `grilling` skill (verbatim; no copy into `~/.dsh/skills`). **Enabled by default**: when a task contains a design trade-off you own — architecture or stack selection, dependency replacement, data model, permission or security boundary, destructive or irreversible action, scope and acceptance criteria, cost trade-offs — or the requirement still has ambiguity that would change the implementation direction, the model first loads grilling, interviews in rounds over a design tree, asks only what you can decide now with a recommended answer, and implements after explicit agreement. Plain execution, already-specified steps, mechanical edits, fact lookups and fixes of an identified defect do not enter an interview, so ordinary tasks do not turn into multi-round questioning. You can tell it to skip the interview at any time. See [using grilling](docs/grilling.md#english).
 
+## Capability boundaries (important)
+
+A preset changes **behavior and tool subsets**; it does not create capability out of nothing:
+
+- **The preset can influence**: workflow, tool subset, reasoning level, retention, bundled skills and persona rules.
+- **Requires a separate plugin**: alternative compaction, memory recall, model routing, vision/OCR, browser login state, session rollback, notifications/IM, Office/DB, device control, MCP panels, market indexes, themes.
+- **Requires an account or host configuration**: provider keys or subscriptions, external service quotas, connection strings and webhooks, sandbox/approval tiers, scheduler and terminal form.
+
+See [capability boundaries](docs/capabilities.md#english) and [coexistence](docs/coexistence.md#english); [source research](https://github.com/lxy0714/dsh-omni-mode/blob/main/research/README.md) tracks the 100+100 study progress (repository only).
+
 ## Behavior
 
 - Discover and combine capabilities actually available to the current agent: files, search, shells, skills, tools, plugins, MCP, libraries and subagents.

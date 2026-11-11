@@ -6,10 +6,13 @@
 
 - [兼容性](compatibility.md#中文)：宿主、Node、平台与模型能力范围。
 - [插件共存](coexistence.md#中文)：其他插件/MCP 的调用条件与潜在冲突。
+- [能力边界](capabilities.md#中文)：预设能影响什么、哪些必须另装插件或需要账号。
 - [自行修改](customization.md#中文)：fork、本地修改、安装与并存规则。
 - [验证分层](verification.md#中文)：测试、真实 Host、模拟推理及未验证项。
 - [许可证说明](license.md#中文)：MIT 权利、义务和英文原文的地位。
 - [grilling 使用说明](grilling.md#中文)：内置技能的触发方式、设计树访谈、边界和来源。
+- [对照评测结果](benchmark-results.md#中文)：真实模型同路由对照的实际数据与未证明项。
+- [来源研究](https://github.com/lxy0714/dsh-omni-mode/blob/main/research/README.md)：100+100 学习来源的核验口径、进度与局限（仅仓库，不随安装包分发）。
 - [发行说明](release-notes.md#中文)：当前技能集成版本的变化与安装方式。
 - [贡献指南](../CONTRIBUTING.md#中文)、[安全说明](../SECURITY.md#中文)、[版本记录](../CHANGELOG.md#中文)。
 
@@ -17,9 +20,12 @@
 
 - [Compatibility](compatibility.md#english): Harness, Node, platform and model scope.
 - [Coexistence](coexistence.md#english): calling other plugins/MCP and potential conflicts.
+- [Capability boundaries](capabilities.md#english): what the preset can influence versus what needs a plugin or account.
 - [Customization](customization.md#english): forks, local edits, installation and parallel versions.
 - [Verification](verification.md#english): tests, real Host/mock inference and unverified areas.
 - [License explanation](license.md#english): MIT rights, duties and the canonical original.
 - [Using grilling](grilling.md#english): invoking the bundled skill, design-tree interviews, boundaries and provenance.
+- [Paired evaluation results](benchmark-results.md#english): measured same-route real-model data and what it does not prove.
+- [Source research](https://github.com/lxy0714/dsh-omni-mode/blob/main/research/README.md): counting method, progress and limits for the 100+100 learning sources (repository only, not shipped).
 - [Release notes](release-notes.md#english): the current skill-integration release and installation.
 - [Contributing](../CONTRIBUTING.md#english), [Security](../SECURITY.md#english), [Changelog](../CHANGELOG.md#english).

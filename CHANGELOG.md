@@ -4,6 +4,14 @@
 
 ## 中文
 
+### 未发布 — 证据优先与验证加固
+
+- 人设新增三条原则：缺证据必须如实报告而非臆测补全；真正歧义先问并等回答；不以反复写—查代替达成目标。
+- 测试从 31 项增至 48 项：技能来源改为真实路径与完整正文严格比对，并加入外部同名诱饵负例；补齐容量阈值、缓存 TTL、取消与主机共存边界。
+- 修正包元数据：Node 受支持下限对齐官方 `>=24.9.0`；修正 lock 版本号错位；CI 增加 24.9 与 24 双矩阵。
+- 新增 100+100 来源静态研究与双语报告（状态 partial，插件缺口如实标注）。
+- 新增同路由真实模型对照评测框架与 40 题冻结任务集；实测未证明改进，结论与局限记录于评测文档，不对外宣称提升。
+
 ### 1.5.0 — 默认启用 grilling
 
 - 人设新增默认策略：涉及方案/架构选型、依赖替换、数据模型、权限与安全边界、破坏性操作、范围与验收、成本权衡，或存在会改变实现方向的关键歧义时，先加载 grilling 分轮提问并在共识后实施。
@@ -45,6 +53,14 @@
 - 引入跨项目规划、能力发现、执行、验证和交付规则。
 
 ## English
+
+### Unreleased — evidence-first principles and verification hardening
+
+- Persona gains three principles: report missing evidence truthfully instead of guessing; ask on genuine ambiguity and wait; do not substitute write-check loops for completion.
+- Tests grow from 31 to 48: skill provenance now compares the real path and full body, with an external same-name decoy negative case; capacity thresholds, cache TTL, cancellation and host-coexistence boundaries are covered.
+- Package metadata fixed: the supported Node floor now matches the official `>=24.9.0`; a lock version mismatch is corrected; CI adds a 24.9 and 24 matrix.
+- Adds static research over 100+100 sources with a bilingual report (status partial; plugin gap stated honestly).
+- Adds a same-route real-model paired evaluation harness with 40 frozen tasks; the run does not establish an improvement, and the conclusion and limits are recorded rather than claimed as a gain.
 
 ### 1.5.0 — Grilling enabled by default
 
