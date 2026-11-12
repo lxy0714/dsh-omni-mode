@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "reviews": [
+    {
+      "package": "@lucagiftzek/dsh-phone",
+      "version": "0.3.2",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "电话连接器把普通 JSON API 与音频 upgrade 路由分别注册并分别回收；宿主缺少 registerUpgrade 时明确关闭该音频入口、记录降级原因，而不把侧栏可用等同于音频链路可用。",
+      "en": "The phone connector registers and disposes its JSON API and audio upgrade route separately; when registerUpgrade is unavailable it explicitly disables that audio entry and logs the degradation rather than equating sidebar availability with an available audio path."
+    },
+    {
+      "package": "@zt8989/dsh-agentmail",
+      "version": "0.3.1",
+      "group": "plugins",
+      "evidencePaths": ["dist/index.js"],
+      "zh": "发信工具先等待本地绑定账本加载，再把 session/thread 标记补进主题；列表只返回紧凑邮件行，正文另用 message_id 读取，让会话归属与正文取用成为两个显式契约。",
+      "en": "The send tool waits for the local binding ledger before adding a session/thread marker to the subject; listing returns compact mail rows and bodies require a separate message_id read, making conversation ownership and body retrieval explicit contracts."
+    },
+    {
+      "package": "dsh-agent-frugality",
+      "version": "0.1.5",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "可选去重替换在 tools/post-execute 对原始正文取哈希、预记账，并用 rootCallId/token 标记让后续 tools/result 跳过重复记账；这避免把替换后的摘要当原文污染内容索引。",
+      "en": "Optional dedup replacement hashes and records the original body in tools/post-execute, then marks rootCallId/token so tools/result skips a second entry; this avoids polluting the content index with the replacement summary."
+    },
+    {
+      "package": "dsh-agent-picker",
+      "version": "0.6.2",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "名册驱动的外部执行器在注册工具前检查 launch 配方引用的脚本是否存在，并跳过已被其他插件占用的工具名；工具说明统一 prompt/description 参数且明确外部 Agent 看不到当前上下文。",
+      "en": "Roster-driven external executors check scripts referenced by launch recipes before tool registration and skip names already owned by other plugins; descriptions standardize prompt/description arguments and explicitly state that the external Agent cannot see the current context."
+    },
+    {
+      "package": "dsh-enter-plan-mode",
+      "version": "1.0.3",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js", "lib/plan-mode-tool.js"],
+      "zh": "进入计划模式工具在调用时优先用 agentPresets.serviceFor(agent, 'planMode') 解析预设隔离服务，再退回 agent 与插件上下文，并校验 get/set 方法；不要把根上下文未找到服务误当成能力不存在。",
+      "en": "The enter-plan tool first resolves the isolated preset service with agentPresets.serviceFor(agent, 'planMode') at call time, then falls back to agent and plugin contexts and validates get/set methods; failure to find a service at the root need not mean the capability is absent."
+    },
+    {
+      "package": "dsh-motor-ai-l0",
+      "version": "0.6.10",
+      "group": "plugins",
+      "evidencePaths": ["index.mjs", "tools/l0/index.mjs", "tools/l0/pipeline.mjs"],
+      "zh": "聚合工具把参数矩阵、校验和排序留在程序内，返回 generated/passed/warning/failed 与 count_ok、TopN 和 handoff_path；大批候选不必靠模型在多轮工具之间搬运，且截断与计数差异可显式展示。",
+      "en": "The aggregate tool keeps matrix generation, validation and ranking inside the program, returning generated/passed/warning/failed counts, count_ok, TopN and handoff_path; large candidate sets need not be relayed by the model across tools, and truncation or count discrepancies can be shown explicitly.",
+      "riskZh": "经验公式筛选不是求解器验真；包内默认补丁还配置了 commerceBackendUrl 与免费额度开关，不能仅凭遥测开关默认 false 就推断所有调用离线。",
+      "riskEn": "Empirical screening is not solver verification; the shipped patch also configures commerceBackendUrl and the free-quota switch, so false telemetry defaults alone do not establish that every call is offline."
+    },
+    {
+      "package": "dsh-phone-drop",
+      "version": "0.4.2",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "异步 LAN 服务启动后再次检查 stopped，若作用域已卸载立即关闭刚建立的监听器；effect 同时负责服务关闭与健康计时器回收，防止重载期间晚到的启动结果遗留端口。",
+      "en": "After asynchronous LAN startup, the plugin rechecks stopped and immediately closes a newly opened listener if its scope has already unloaded; effects own both listener shutdown and health-timer cleanup, avoiding late-start port leftovers during reload.",
+      "riskZh": "默认配置是 0.0.0.0 且 token 为空；这里仅研究生命周期处理，不将局域网直连描述为已验证的访问保护。",
+      "riskEn": "Defaults bind 0.0.0.0 with an empty token; this review studies lifecycle handling, not verified access protection for the LAN endpoint."
+    },
+    {
+      "package": "dsh-plugin-local-life",
+      "version": "0.3.2",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js", "lib/local.js"],
+      "zh": "把生活算术拆成无 DSH 导入的纯函数，再用单个 action 枚举工具分发；预算函数返回分项、allocatedTotal、leftover 与 balanced，账单分摊显式处理舍入差额，结果不只是一段模型生成的数字。",
+      "en": "Everyday arithmetic is separated into pure functions without DSH imports and dispatched through one action-enumerated tool; budgeting returns allocations, allocatedTotal, leftover and balanced, while bill splitting explicitly handles rounding differences instead of returning only model-generated numbers."
+    },
+    {
+      "package": "dsh-plugin-recommender",
+      "version": "0.2.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "audit_plugin 的输出契约把模式扫描 findings 的 file/line/count 与下载量、星数、发布时间等 stats 分开，并在使用指导中明说扫描是启发式；推荐信息与代码取证应保留不同来源和含义。",
+      "en": "The audit_plugin output contract separates pattern-scan findings with file/line/count from download, star and publication stats, and its guidance explicitly calls the scan heuristic; recommendation metadata and code evidence should retain distinct provenance and meaning.",
+      "riskZh": "静态模式评分和口碑不能证明插件安全；本次没有调用其安装工具。",
+      "riskEn": "Static pattern scores and popularity do not prove plugin safety; its installation tool was not invoked."
+    },
+    {
+      "package": "dsh-mcp-host",
+      "version": "0.6.4",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js", "lib/lazy.js"],
+      "zh": "默认只注册 bootstrap 工具，激活时把 MCP 定义挂到调用者 agent.ctx.tools，并暂时隐藏 bootstrap；按 turn/end 或空闲计时释放该 Agent 的工具定义，而 MCP 连接的生命周期另由插件 close 管理。",
+      "en": "Only a bootstrap tool is registered by default; activation mounts MCP definitions in the caller's agent.ctx.tools and temporarily hides bootstrap, while turn/end or idle timers release that Agent's definitions and plugin close separately owns the MCP connection lifetime."
+    },
+    {
+      "package": "@tr1v3r/dsh-proxy",
+      "version": "0.2.6",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "代理开关由 loader/volatile-update 重新读取当前配置，状态查询用 connection.fetch.register 的独立 GET 接口；卸载时 restore 恢复原 dispatcher 与环境变量，而不是让进程级代理修改残留。",
+      "en": "Proxy switching rereads current configuration on loader/volatile-update, and status uses a separate GET endpoint through connection.fetch.register; disposal calls restore to reinstate the prior dispatcher and environment rather than leaving process-wide proxy changes behind."
+    },
+    {
+      "package": "@trench-xinxin/dsh-tool-lens",
+      "version": "2.0.5",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.mjs"],
+      "zh": "代码图查询优先采用 exec.cwd，再回退 fs.root.displayPath、session.cwd 与进程目录；索引调用传入 exec.signal，缺少 slice 种子或 path 终点时返回明确缺参摘要，让根目录选择、取消和查询前提在适配层可见。",
+      "en": "Code-graph queries prefer exec.cwd before fs.root.displayPath, session.cwd and the process directory; indexing receives exec.signal, and missing slice seeds or path endpoints produce explicit missing-input summaries, exposing root selection, cancellation and query prerequisites in the adapter."
+    },
+    {
+      "package": "@gnanesh/dsh-session-coldstore",
+      "version": "0.1.2",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "冷存储把 sweep 暂存与 commit 分开，提交必须带仍匹配的 batchId，dryRun 开启时拒绝提交；即使直接 freeze 指定会话，也重新计算同一套候选策略，而不把点名当豁免条件。",
+      "en": "Cold storage separates staged sweep from commit, requires a still-matching batchId and refuses commits under dryRun; even direct freeze of named sessions recomputes the same candidate policy instead of treating explicit IDs as exemptions."
+    },
+    {
+      "package": "@yeastcloud/dsh-anchor",
+      "version": "0.14.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "重锚钩子先等待下游 pre-step 的 enter 决定并检测已有自身消息，随后按会话历史决定首次注入或阈值重注入；超长文本只按长度变化告警，避免每步重复刷日志，也不重复插入同一条消息。",
+      "en": "Reanchoring first awaits the downstream pre-step enter decision and detects its own existing message, then uses session history to choose first injection or threshold reinjection; overlong text warns only when its size signature changes, avoiding repeated logs and duplicate injection.",
+      "riskZh": "CC-BY-NC-SA-4.0；研究注入机制不代表可直接复制到商业代码。",
+      "riskEn": "CC-BY-NC-SA-4.0; studying the injection mechanism does not imply permission to copy it into commercial code."
+    },
+    {
+      "package": "dsh-auto-handoff",
+      "version": "0.2.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js", "lib/coordinator.js"],
+      "zh": "交接只在 agent/pre-step 拒绝下一步；人类新消息到达时，若新会话尚未创建就取消迁移并放行原会话，若已创建则尝试转投，失败仍释放锁回原会话，避免同一消息两处执行或被陈旧锁卡住。",
+      "en": "Handoff rejects only the next step through agent/pre-step; a new human message cancels migration and continues in the original session before a replacement exists, or is forwarded afterward, with failed forwarding releasing the latch and falling back to the original, avoiding duplicate execution and stale-lock blockage."
+    },
+    {
+      "package": "dsh-minimal-first-turn",
+      "version": "0.1.0",
+      "group": "plugins",
+      "evidencePaths": ["src/host.mjs"],
+      "zh": "最小首轮适配先等待 bootstrap fiber 就绪，并确认组装后的目录确实包含全部 bootstrap 工具；任何缺项都保留原目录并记录原因，随后用会话事件边界决定是否晋升回完整工具面，而非永久替换预设。",
+      "en": "The minimal-first-turn adapter waits for its bootstrap fiber and verifies that the assembled catalog contains every bootstrap tool; missing entries preserve the original catalog with a diagnostic, while session-event boundaries determine promotion back to the full surface rather than permanently replacing the preset.",
+      "riskZh": "README说明灵感来自 dsh-anchored-standard 且属独立实验；这里只确认所读的挂载与回退实现，不外推首轮行为改善。",
+      "riskEn": "The README credits inspiration from dsh-anchored-standard and calls this an independent experiment; this review confirms only the inspected mounting and fallback implementation, not improved first-turn behavior."
+    },
+    {
+      "package": "dsh-plugin-bridge",
+      "version": "0.5.2",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js", "lib/migrate.js"],
+      "zh": "迁移 worker 的完成检查只轮询目标会话尾部，按提交前 afterSeq 水位识别新 turn/start、step/start 与 turn/end，并保留结束原因；不拿全局会话列表的 running 快照或消息已排队当作执行完成。",
+      "en": "Migration-worker completion checks poll only the target session tail, use the pre-submission afterSeq watermark to recognize fresh turn/start, step/start and turn/end events, and retain the end reason; global running snapshots or queued messages are not treated as completed execution."
+    },
+    {
+      "package": "dsh-plugin-canvas",
+      "version": "0.1.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js", "lib/host/routes.js"],
+      "zh": "画布 SSE 连接先发送带 revision 的 hello 基线，断档由客户端重新取状态而非重放全部帧；最后一个订阅断开就清除心跳，整体卸载同时撤销路由、结束连接与清空订阅集合。",
+      "en": "Canvas SSE sends a revision-bearing hello baseline so gaps trigger a state refetch rather than replaying all frames; the last disconnect clears the heartbeat, and full disposal removes routes, ends connections and clears subscribers."
+    },
+    {
+      "package": "dsh-session-flow",
+      "version": "1.5.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/host.js"],
+      "zh": "会话健康分类把 inflight、最近事件、未闭合工具调用与纯静默分开：未闭合工具进入 tool-wait，缺时间戳返回 unknown，不把长工具无输出直接判成 stalled；分类是可单测的纯函数，路由只消费结果。",
+      "en": "Session-health classification distinguishes inflight activity, recent events, open tool calls and silence: an open tool yields tool-wait and missing timestamps yield unknown, rather than labeling every quiet long tool stalled; classification is a separately testable pure function consumed by the route."
+    },
+    {
+      "package": "dsh-session-hotkeys",
+      "version": "1.9.5",
+      "group": "plugins",
+      "evidencePaths": ["lib/client.js"],
+      "zh": "快捷键插件把页脚入口与 shell.overlay 分槽注册，归档确认框单独处理 Escape、Tab 与方向键的焦点切换；导出 inject 明确等待 sessions/workspaces/locale，而可选 uiWorkspace 留到按键时惰性解析。",
+      "en": "The hotkey plugin registers footer entry and shell.overlay separately, gives its archive confirmation explicit Escape, Tab and arrow-key focus handling, and declares sessions/workspaces/locale in inject while resolving optional uiWorkspace lazily at keypress time."
+    },
+    {
+      "package": "dsh-session-inherit",
+      "version": "0.7.0",
+      "group": "plugins",
+      "evidencePaths": ["index.mjs"],
+      "zh": "/inherit 解析器仅把符合 SESSION_ID_RE 的裸参数当会话 id，其余裸文本按下一步说明处理，另保留 --next 显式写法；输入解释与 preview/commit/retry 路由分开，避免把自然语言任务误报成非法 id。",
+      "en": "The /inherit parser treats a bare argument as a session ID only when it matches SESSION_ID_RE, otherwise interpreting it as next-step text while retaining explicit --next syntax; parsing is separate from preview/commit/retry routes, avoiding invalid-ID errors for natural-language tasks."
+    },
+    {
+      "package": "dsh-slash-new",
+      "version": "1.0.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js", "client/client.js"],
+      "zh": "Host 命令只返回结果，浏览器在 command/executed 后通过 connectBlank/connectWorkspace 开空白会话，再用原生 /permission 重放可继承权限；实际新建成功与命令成功必须分开观察，缺服务或新 id 时明确告警。",
+      "en": "The host command only settles a result; after command/executed the browser opens a blank through connectBlank/connectWorkspace and replays inheritable permission through native /permission, so actual session creation must be observed separately from command success, with explicit warnings for missing services or a new ID.",
+      "riskZh": "实现明确不继承 custom 权限混合，而保留宿主默认；且权限重放异步进行，不能照搬 README 将其概括为所有情况下权限绝不改变。",
+      "riskEn": "The implementation explicitly does not inherit a custom permission mix and keeps the host default; permission replay is also asynchronous, so the README must not be generalized into unchanged permissions in every case."
+    },
+    {
+      "package": "dsh-workspace-settings",
+      "version": "1.0.3",
+      "group": "plugins",
+      "evidencePaths": ["index.js"],
+      "zh": "工作区默认模型覆盖每次重新决策；已有 requestHeader 或显式 pending 选择不同模型时让路，并在 system-prompt/assemble 与 agent/request 两处同步 provider/model，切路由前先去掉旧 reasoningEffort 以免跨模型遗留档位。",
+      "en": "Workspace-default model overrides are reconsidered each time, yield to an existing requestHeader or a different explicit pending selection, synchronize provider/model in both system-prompt/assemble and agent/request, and strip inherited reasoningEffort before routing to avoid carrying an old model's effort."
+    },
+    {
+      "package": "@astron-team/skillhub-dsh",
+      "version": "0.6.3",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "技能搜索的内部 selectionRef 与 sessionId/cwd/sourceRevision 绑定，历史恢复还核对同一 callId 的唯一调用/结果、事件顺序及非继承事件；结果说明区分文件存在、完整性、宿主发现与可调用性，不把无本来源记录说成全局未安装。",
+      "en": "Internal skill-search selectionRef values are bound to sessionId/cwd/sourceRevision, and history recovery checks a unique same-callId call/result, ordering and non-inherited events; result guidance distinguishes file presence, integrity, host discovery and invocability instead of equating no current-source record with global absence."
+    },
+    {
+      "package": "@goodandready/dsh-goal",
+      "version": "0.2.35",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "目标附件以 goal/changed 的 create/resume 重置该 goal 的预算账，再只在 goals.get(agent) 返回 active 时做预算检查和里程碑提示；UI 广播与完成报告是旁路，错误单独记录，不应被当作目标真实完成的独立验收。",
+      "en": "The goal add-on resets that goal's budget on goal/changed create/resume and performs budget checks and milestone guidance only when goals.get(agent) is active; UI broadcasts and completion reports are side channels with separately logged failures, not independent acceptance of actual goal completion."
+    },
+    {
+      "package": "dsh-plugin-wiki-tools",
+      "version": "0.14.2",
+      "group": "plugins",
+      "evidencePaths": ["index.js", "lib/vault.js"],
+      "zh": "writePage 在页面锁内补齐 frontmatter、保留原 created 和未知字段，并在来源哈希未变时返回 alreadyIngested；共享主索引、文件夹索引和日志再按页面→__vault__ 的固定顺序获取全库锁，将单页并发与共享簿记并发分开。",
+      "en": "Inside the page lock, writePage completes frontmatter, preserves the original created value and unknown fields, and returns alreadyIngested for an unchanged source hash; shared master-index, folder-index and log updates then acquire the vault lock in a fixed page → __vault__ order, separating per-page concurrency from shared bookkeeping."
+    },
+    {
+      "package": "dsh-pm-workbench",
+      "version": "0.1.0",
+      "group": "plugins",
+      "evidencePaths": ["index.js"],
+      "zh": "本机启动器将路径解析、依赖预检和启动回执拆开：显式路径无效就报该路径的错误，不偷偷回退默认目录；启动时清除继承的 ELECTRON_RUN_AS_NODE，以 detached/stdio ignore 提交进程，并区分提交启动与窗口真正出现。",
+      "en": "The local launcher separates path resolution, dependency preflight and acknowledgement: an invalid explicit path errors instead of silently falling back, launch removes inherited ELECTRON_RUN_AS_NODE and uses detached/ignored stdio, and the receipt distinguishes submitting a launch from the window actually appearing.",
+      "riskZh": "默认 apply 在找不到默认安装目标时会启动 PowerShell，下载安装器并执行；这不限于用户后来调用启动工具。本次没有运行该行为。",
+      "riskEn": "By default, apply starts PowerShell to download and execute an installer when no default installation target exists; this is not restricted to a later user tool call. That behavior was not run here."
+    },
+    {
+      "package": "dsh-roam-planner",
+      "version": "0.2.3",
+      "group": "plugins",
+      "evidencePaths": ["index.js", "server/tools.js", "server/trips.js"],
+      "zh": "行程采用 draft→candidate→adopted 状态转换：编辑丢弃旧候选并增加 revision，冻结候选只增加 version，采纳只接受 candidate 快照并保留 baseline 供下轮比较；工具返回 tripId/status/revision，不把工作稿和已提交计划共用一个可覆盖字段。",
+      "en": "Trips use draft → candidate → adopted transitions: editing drops the old candidate and increments revision, freezing increments only version, and adoption accepts only a candidate snapshot while retaining a baseline for the next draft; tools return tripId/status/revision instead of sharing one overwritable field between drafts and committed plans."
+    },
+    {
+      "package": "dsh-task-runner",
+      "version": "1.1.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js", "lib/registry.js"],
+      "zh": "任务登记在 session/created 认领任务根目录严格子目录中的非 subagent 会话，session/disposed 只解除关联而保留目录；TaskRegistry 启动时把消失目录标为 missing，通过串行写链上的临时文件+rename 保存清单，让 UI 分组有可恢复的宿主登记层。",
+      "en": "Task registration adopts non-subagent sessions in strict descendants of the task root on session/created and only detaches associations on session/disposed, retaining directories; TaskRegistry marks disappeared directories missing at startup and saves manifests through temporary-file-plus-rename operations on a serialized write chain, backing UI grouping with a recoverable host registry."
+    },
+    {
+      "package": "dsh-tool-manager",
+      "version": "1.2.13",
+      "group": "plugins",
+      "evidencePaths": ["dist/index.js", "dist/runtime.js"],
+      "zh": "保存工具分组时合并 standing preset 工具与探针、活跃 Agent 观察到的作用域工具，避免误判空组；Agent 本地 guard 拒绝关闭或未开放组调用，组装提示词过滤对应说明段，tool_list 留在 host 层供 PTC 继承，目录与执行面共享作用域感知。",
+      "en": "Group saving merges standing-preset tools with scoped tools observed by probes and live Agents to avoid false empty groups; an Agent-local guard rejects disabled or unopened-group calls, prompt assembly removes corresponding guidance, and host-level tool_list supports PTC inheritance, keeping catalog and execution scope-aware."
+    },
+    {
+      "package": "dsh-web-search-zai",
+      "version": "0.2.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js", "lib/provider.js"],
+      "zh": "搜索适配注册到既有 ctx.web，不另造模型工具；配置 thunk 在每次搜索开始时只求值一次，让模式、端点和凭据解析共用操作级快照。coding-plan 与 REST 按 billingMode 分支，MCP 分支合并调用方取消、截止和卸载信号，并在 finally 清理计时器与活动集合。",
+      "en": "Search registers with existing ctx.web rather than another model tool; its configuration thunk is evaluated once at search start, giving mode, endpoint and credential resolution an operation-level snapshot. Coding-plan and REST branch on billingMode, while MCP combines caller cancellation, deadline and unload signals and clears timers and active-operation entries in finally."
+    },
+    {
+      "package": "lume-dsh-plugin",
+      "version": "0.9.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js", "lib/host/sections.js", "lib/host/injection.js"],
+      "zh": "人设契约、身份名和固定纪律送入 systemPrompt.section，记忆、习得风格、语料与切换播报送入 systemPrompt.context；运行段合并最多三条核心称呼记忆与相关性检索结果，并按轮次衰减示例数量，在结构上分离稳定身份和易变检索数据。",
+      "en": "Persona contract, identity name and fixed discipline go to systemPrompt.section, while memories, learned style, examples and switch announcements go to systemPrompt.context; the runtime part merges up to three core naming memories with relevance results and decays example count by turn, structurally separating stable identity from changing retrieval data."
+    }
+  ]
+}

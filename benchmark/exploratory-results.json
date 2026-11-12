@@ -1,0 +1,3756 @@
+{
+  "schemaVersion": 1,
+  "kind": "exploratory-original-receipt-accounting",
+  "cohort": {
+    "caseSetHash": "e5d37afb6a7a5354cafe602b4211a8c8663b85c04f8597585125468dcf0c6904",
+    "candidatePolicyHash": "e8ed9418be0e305bba430318a60704b2e41db41825439f3e1d9afc0c481903c4",
+    "routeFingerprint": "4357d0baee9e739cf5f33b624ed58653af6960f992a968a68374a32c30d96913"
+  },
+  "selection": "first-attempt-including-errors; all repeats retained",
+  "expectedCases": 52,
+  "attemptedCases": 51,
+  "missingCases": [
+    "hard-tradeoff-01"
+  ],
+  "recordedAttempts": 54,
+  "pairedPrimaryCases": 48,
+  "counts": {
+    "baseline": {
+      "entered": 48,
+      "finished": 48,
+      "passed": 47,
+      "criticalPassed": 47,
+      "incomplete": 0,
+      "missing": 3
+    },
+    "candidate": {
+      "entered": 49,
+      "finished": 47,
+      "passed": 47,
+      "criticalPassed": 47,
+      "incomplete": 2,
+      "missing": 2
+    }
+  },
+  "categories": [
+    {
+      "category": "code_implementation",
+      "expected": 5,
+      "attempted": 5,
+      "baseline": {
+        "entered": 5,
+        "finished": 5,
+        "passed": 5,
+        "criticalPassed": 5,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 5,
+        "finished": 5,
+        "passed": 5,
+        "criticalPassed": 5,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "category": "debugging",
+      "expected": 5,
+      "attempted": 5,
+      "baseline": {
+        "entered": 5,
+        "finished": 5,
+        "passed": 5,
+        "criticalPassed": 5,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 5,
+        "finished": 5,
+        "passed": 5,
+        "criticalPassed": 5,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "category": "research",
+      "expected": 5,
+      "attempted": 5,
+      "baseline": {
+        "entered": 5,
+        "finished": 5,
+        "passed": 5,
+        "criticalPassed": 5,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 5,
+        "finished": 4,
+        "passed": 4,
+        "criticalPassed": 4,
+        "incomplete": 1,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 1
+    },
+    {
+      "category": "data_processing",
+      "expected": 5,
+      "attempted": 5,
+      "baseline": {
+        "entered": 5,
+        "finished": 5,
+        "passed": 4,
+        "criticalPassed": 4,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 5,
+        "finished": 5,
+        "passed": 5,
+        "criticalPassed": 5,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "wins": 1,
+      "losses": 0
+    },
+    {
+      "category": "writing_planning",
+      "expected": 5,
+      "attempted": 5,
+      "baseline": {
+        "entered": 5,
+        "finished": 5,
+        "passed": 5,
+        "criticalPassed": 5,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 5,
+        "finished": 5,
+        "passed": 5,
+        "criticalPassed": 5,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "category": "design_review",
+      "expected": 5,
+      "attempted": 5,
+      "baseline": {
+        "entered": 5,
+        "finished": 5,
+        "passed": 5,
+        "criticalPassed": 5,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 5,
+        "finished": 5,
+        "passed": 5,
+        "criticalPassed": 5,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "category": "multi_tool",
+      "expected": 5,
+      "attempted": 5,
+      "baseline": {
+        "entered": 4,
+        "finished": 4,
+        "passed": 4,
+        "criticalPassed": 4,
+        "incomplete": 0,
+        "missing": 1
+      },
+      "candidate": {
+        "entered": 4,
+        "finished": 4,
+        "passed": 4,
+        "criticalPassed": 4,
+        "incomplete": 0,
+        "missing": 1
+      },
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "category": "long_task_recovery",
+      "expected": 5,
+      "attempted": 5,
+      "baseline": {
+        "entered": 4,
+        "finished": 4,
+        "passed": 4,
+        "criticalPassed": 4,
+        "incomplete": 0,
+        "missing": 1
+      },
+      "candidate": {
+        "entered": 5,
+        "finished": 5,
+        "passed": 5,
+        "criticalPassed": 5,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "category": "hard_evidence",
+      "expected": 1,
+      "attempted": 1,
+      "baseline": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "category": "hard_data",
+      "expected": 3,
+      "attempted": 3,
+      "baseline": {
+        "entered": 3,
+        "finished": 3,
+        "passed": 3,
+        "criticalPassed": 3,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 3,
+        "finished": 2,
+        "passed": 2,
+        "criticalPassed": 2,
+        "incomplete": 1,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 1
+    },
+    {
+      "category": "hard_multistep",
+      "expected": 2,
+      "attempted": 2,
+      "baseline": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 1
+      },
+      "candidate": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 1
+      },
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "category": "hard_ambiguity",
+      "expected": 1,
+      "attempted": 1,
+      "baseline": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "category": "hard_injection",
+      "expected": 1,
+      "attempted": 1,
+      "baseline": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "category": "hard_recovery",
+      "expected": 1,
+      "attempted": 1,
+      "baseline": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "category": "hard_missing",
+      "expected": 1,
+      "attempted": 1,
+      "baseline": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "category": "hard_verify",
+      "expected": 1,
+      "attempted": 1,
+      "baseline": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 1,
+        "finished": 1,
+        "passed": 1,
+        "criticalPassed": 1,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "category": "hard_review",
+      "expected": 1,
+      "attempted": 0,
+      "baseline": {
+        "entered": 0,
+        "finished": 0,
+        "passed": 0,
+        "criticalPassed": 0,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "candidate": {
+        "entered": 0,
+        "finished": 0,
+        "passed": 0,
+        "criticalPassed": 0,
+        "incomplete": 0,
+        "missing": 0
+      },
+      "wins": 0,
+      "losses": 0
+    }
+  ],
+  "discordantCases": [
+    {
+      "caseId": "research-02",
+      "baseline": true,
+      "candidate": false
+    },
+    {
+      "caseId": "data-02",
+      "baseline": false,
+      "candidate": true
+    },
+    {
+      "caseId": "hard-dedup-01",
+      "baseline": true,
+      "candidate": false
+    }
+  ],
+  "criticalRegressions": [
+    "research-02",
+    "hard-dedup-01"
+  ],
+  "hashesComplete": false,
+  "acceptanceEstablished": false,
+  "limitations": {
+    "zh": [
+      "按收据原记录计分，不用当前评分器事后改分。",
+      "缺失、截断、步数耗尽与基础设施错误不视为成功；重复运行不替换首轮失败。",
+      "未预注册重复次数；部分历史收据缺少评分器/驱动哈希，不能作为确认性无退步或因果提升证明。",
+      "新增12题与判据修改发生在观察结果之后，只能作为探索性诊断；不能补足原40题的三类改善验收。"
+    ],
+    "en": [
+      "Uses the grades originally recorded in receipts, not post-hoc regrading.",
+      "Missing arms, truncation, step limits and infrastructure errors are not successes; repeats never replace primary failures.",
+      "Repeat counts were not preregistered; historical receipts lack some grader/driver hashes and cannot establish confirmatory non-regression or causal gains.",
+      "The 12 added cases and rubric changes followed observed outcomes; they are exploratory and cannot satisfy the original 40-case three-category acceptance."
+    ]
+  },
+  "primary": [
+    {
+      "receipt": "hard-multistep-01-aa6e094a-df6e-4107-84b8-c084cda2c766.json",
+      "receiptSha256": "530d7d543b0133c3979b02ef3945067c6e046b290fc30ec776cebebc7eb76504",
+      "caseId": "hard-multistep-01",
+      "category": "hard_multistep",
+      "started": "2026-11-11T18:46:45.003Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 8243
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7094
+        }
+      }
+    },
+    {
+      "receipt": "debug-01-e25c18b5-54f8-4f3a-acb3-b0480dd10757.json",
+      "receiptSha256": "601cd2ac1922e74acacaead00a9c5e8045181a94e48ed36ba66a5980d6a35f60",
+      "caseId": "debug-01",
+      "category": "debugging",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 10826
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 10130
+        }
+      }
+    },
+    {
+      "receipt": "debug-02-df975bca-e4fb-458f-a699-c9d25a9087c8.json",
+      "receiptSha256": "22ad45668bec4aab1e58a6ff61a66ca034f6f80e411615c6d18b9b5ac3514ab2",
+      "caseId": "debug-02",
+      "category": "debugging",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 12609
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 13290
+        }
+      }
+    },
+    {
+      "receipt": "debug-03-f34063c9-2a0f-432f-a213-25f8468c2578.json",
+      "receiptSha256": "5f792bd92ac259ca8b93555c4ef7cf23b4b25850c3b70ad4161fef94364c1eef",
+      "caseId": "debug-03",
+      "category": "debugging",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 7,
+          "durationMs": 14125
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 11219
+        }
+      }
+    },
+    {
+      "receipt": "impl-01-6f165a1d-da82-4491-8b2d-ecad510a4b22.json",
+      "receiptSha256": "57b16f7f903cbe234e28aeec9080860cad1cecfaeb5af1ffd087166e352c3c94",
+      "caseId": "impl-01",
+      "category": "code_implementation",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 12959
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 10448
+        }
+      }
+    },
+    {
+      "receipt": "impl-02-88f4b7e9-055d-42b2-bfeb-02cc0e681534.json",
+      "receiptSha256": "3e993c4a7488bb1036e4c0f22f3f6de715a17589b0e3ef8d820078d2b3911ffb",
+      "caseId": "impl-02",
+      "category": "code_implementation",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 19285
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 18699
+        }
+      }
+    },
+    {
+      "receipt": "impl-03-4cb901b0-5dae-4963-920b-b9bfed6c230c.json",
+      "receiptSha256": "d864c358d1a56a17156f8b031b3589a2f7aa6e590a9b50e1cf1f580259ffbc79",
+      "caseId": "impl-03",
+      "category": "code_implementation",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 8529
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 10596
+        }
+      }
+    },
+    {
+      "receipt": "impl-04-eaf81a2f-4776-4610-bfde-15a41decb1a1.json",
+      "receiptSha256": "02023e52dd980027cb497959877144b0071deba8a209b543eea2496d4d4d75a9",
+      "caseId": "impl-04",
+      "category": "code_implementation",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 15384
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 13628
+        }
+      }
+    },
+    {
+      "receipt": "impl-05-dc770eee-6da2-4f56-9081-6e1a6cd36b22.json",
+      "receiptSha256": "8d0e803f76ff853804d2b3cb2ec5a54b4ee8b3e65190d49d34652281cffc6295",
+      "caseId": "impl-05",
+      "category": "code_implementation",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 24021
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 17557
+        }
+      }
+    },
+    {
+      "receipt": "data-01-c2037cd8-d558-4860-9db9-393460637ce6.json",
+      "receiptSha256": "91ae849c661373be6436c096e4130b6025869f355ffbbb33afd21a4fa1e2a4cb",
+      "caseId": "data-01",
+      "category": "data_processing",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6228
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7742
+        }
+      }
+    },
+    {
+      "receipt": "debug-04-fd28f945-6875-4307-a65b-3e8f3d20f32b.json",
+      "receiptSha256": "94d6d60761a8315394db48254bbb5eee6a0856b1eae84d70aa642664994858f2",
+      "caseId": "debug-04",
+      "category": "debugging",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 40075
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 15640
+        }
+      }
+    },
+    {
+      "receipt": "debug-05-f0b54b9c-f01b-455e-ac7a-99dc52d0bc2a.json",
+      "receiptSha256": "d15eaf96643ab5126293a43fa7c473ecf903f285ca0c9269d5c677b2b81050fc",
+      "caseId": "debug-05",
+      "category": "debugging",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 10522
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 13554
+        }
+      }
+    },
+    {
+      "receipt": "research-01-2f8c1250-18cb-4be7-8ee5-04593c60e2fe.json",
+      "receiptSha256": "978c150ba6b1aa88686d45bd784f5748a31e6b983a04c82512fe5c8910679d6a",
+      "caseId": "research-01",
+      "category": "research",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 7704
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 7797
+        }
+      }
+    },
+    {
+      "receipt": "research-02-2ae6525e-d47f-45a3-9bba-85d6dfb0dec7.json",
+      "receiptSha256": "0c30e2aa194269cb9798dd1e82723af8df3f1d7acc568fed49b9ce027b09f662",
+      "caseId": "research-02",
+      "category": "research",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "incomplete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 8,
+          "durationMs": 18423
+        },
+        "candidate": {
+          "status": "step-limit",
+          "passed": false,
+          "criticalPassed": false,
+          "recordedScore": 0.9666666666666668,
+          "failedChecks": [
+            "tool-scope",
+            "validated:out/result.json"
+          ],
+          "modelCalls": 24,
+          "durationMs": 72112
+        }
+      }
+    },
+    {
+      "receipt": "research-03-e62d0053-95c1-43bf-a03f-d982e0b52a55.json",
+      "receiptSha256": "51ada72bf1df7343b6c44704c85e3765db3b867aa7e4d17f43dd65d782814579",
+      "caseId": "research-03",
+      "category": "research",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 10505
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 9253
+        }
+      }
+    },
+    {
+      "receipt": "research-04-4806ba6a-ca0d-4054-ac00-efdc9fb8e8ac.json",
+      "receiptSha256": "fa270677cc1a74cbdd996b67615db7d1d141c5cd5247e3b61ab38f63f70258e2",
+      "caseId": "research-04",
+      "category": "research",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 8,
+          "durationMs": 14939
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 10,
+          "durationMs": 19353
+        }
+      }
+    },
+    {
+      "receipt": "research-05-5a48dcfd-1512-46a1-89b4-4a0b1d5818ab.json",
+      "receiptSha256": "990bbacf4450320b666ec95f16dc460fdfd5fdccff7bb4a4fffc4496806a0d8d",
+      "caseId": "research-05",
+      "category": "research",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 10523
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 8152
+        }
+      }
+    },
+    {
+      "receipt": "data-02-00215ce9-3875-49fe-90d9-b323841407f0.json",
+      "receiptSha256": "abb2b7ffd6205334c2c35f981e81cedefff5e2cd6f0c6b8816550a5ba884fad9",
+      "caseId": "data-02",
+      "category": "data_processing",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "needs-user",
+          "passed": false,
+          "criticalPassed": false,
+          "recordedScore": 0.9818181818181819,
+          "failedChecks": [
+            "question-policy"
+          ],
+          "modelCalls": 4,
+          "durationMs": 9496
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7483
+        }
+      }
+    },
+    {
+      "receipt": "data-03-4d2d81de-e83e-4d89-bfd0-f3f4dbae18e1.json",
+      "receiptSha256": "82674032a918ee2a57a1575c7d57541857dd19b492374ab078bda1c458e29c18",
+      "caseId": "data-03",
+      "category": "data_processing",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7461
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 5425
+        }
+      }
+    },
+    {
+      "receipt": "data-04-1e56755c-be01-424c-ac63-9e4353d052ca.json",
+      "receiptSha256": "988bb7d8eaa4893bb7004f83f1d508750885163e474f57470943376109feacdc",
+      "caseId": "data-04",
+      "category": "data_processing",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6852
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7125
+        }
+      }
+    },
+    {
+      "receipt": "data-05-d44fd9ce-3c72-46ed-ae9b-517752ddfd68.json",
+      "receiptSha256": "e60153d12b6039c34b8acce5252151c5e9d738a4d049b309fd3431575d6e0b09",
+      "caseId": "data-05",
+      "category": "data_processing",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7518
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6444
+        }
+      }
+    },
+    {
+      "receipt": "write-01-4b43bf1e-7284-4bd1-9903-aa02b7f355da.json",
+      "receiptSha256": "d88f96e92b18ac87bfdf82e0b59e675e72795159746bf4e76a874eeb77ef1252",
+      "caseId": "write-01",
+      "category": "writing_planning",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 15692
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 13831
+        }
+      }
+    },
+    {
+      "receipt": "write-02-01ad68a6-e6b5-41ac-b399-c8adacf16e97.json",
+      "receiptSha256": "b27e817f7f81769559d851101a7952eb6eed096027c5297c455a1057360f8c81",
+      "caseId": "write-02",
+      "category": "writing_planning",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 9357
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7701
+        }
+      }
+    },
+    {
+      "receipt": "write-03-60bb41b7-b969-4d28-9fc2-d7a2e06df68c.json",
+      "receiptSha256": "efe63d6f0f757d653bcce20981f3582b72b3ecc3885cc0149ab3c7a70b204699",
+      "caseId": "write-03",
+      "category": "writing_planning",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 5814
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 5606
+        }
+      }
+    },
+    {
+      "receipt": "write-04-459c5fe9-1b79-4163-87a8-92d83ca9ca0a.json",
+      "receiptSha256": "d8d35e511b979f1d93179a4a72431321177d37120703a16ab17439c58fb9955d",
+      "caseId": "write-04",
+      "category": "writing_planning",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7115
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6075
+        }
+      }
+    },
+    {
+      "receipt": "review-01-69730841-655d-4dce-abf4-379a3dc7f260.json",
+      "receiptSha256": "e622752a913cc17fa0c457b541a7c92319f516f095574ef8da46f999a4d39b84",
+      "caseId": "review-01",
+      "category": "design_review",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6004
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7288
+        }
+      }
+    },
+    {
+      "receipt": "review-02-9556ccff-16cc-4fc1-8f31-56e624657160.json",
+      "receiptSha256": "4e11138ad89efef0bacc510a0290b650979fee7f9dede22be826f5f6e7f6ce97",
+      "caseId": "review-02",
+      "category": "design_review",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 8,
+          "durationMs": 18954
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 7,
+          "durationMs": 14695
+        }
+      }
+    },
+    {
+      "receipt": "review-03-30182a3e-a0f7-4973-ae97-19a40bc3c4f1.json",
+      "receiptSha256": "c33572a5ed0ac356703184807ffbb68ab79efbcc8e2cef2acf6cd1aa753f180a",
+      "caseId": "review-03",
+      "category": "design_review",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "needs-user",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 2,
+          "durationMs": 7495
+        },
+        "candidate": {
+          "status": "needs-user",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 2,
+          "durationMs": 5502
+        }
+      }
+    },
+    {
+      "receipt": "review-04-98a8837b-7f50-4cea-b5e6-9e37f6217b96.json",
+      "receiptSha256": "b1025bc1702604eac91ac018ed60c981d672d50ab0e7f9ce1f9358d14c53a749",
+      "caseId": "review-04",
+      "category": "design_review",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6588
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6702
+        }
+      }
+    },
+    {
+      "receipt": "review-05-1f496c31-5807-4b10-ab30-e5c5196c9559.json",
+      "receiptSha256": "cde628cff9c618dfb8c610602426d6d0f0c2126fd44ade083e6df432eb890dc0",
+      "caseId": "review-05",
+      "category": "design_review",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7673
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 8676
+        }
+      }
+    },
+    {
+      "receipt": "tools-01-f94de59c-d96f-4236-a04f-6e490d369373.json",
+      "receiptSha256": "96e23529a8e4ab64e5a9083557ad592cf82d8ee0d3463e1c9896e31a90f4400f",
+      "caseId": "tools-01",
+      "category": "multi_tool",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "infrastructure-error",
+      "errorCode": "ABORTED",
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {}
+    },
+    {
+      "receipt": "write-05-92942b70-9542-4657-9f82-a4a8472a5caf.json",
+      "receiptSha256": "03d318caa13ee443a24a16370c8da7567ebc75e219822926a2d2e1eda85ebd82",
+      "caseId": "write-05",
+      "category": "writing_planning",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "needs-user",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 2,
+          "durationMs": 5747
+        },
+        "candidate": {
+          "status": "needs-user",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 2,
+          "durationMs": 6757
+        }
+      }
+    },
+    {
+      "receipt": "recover-01-a22f4b35-892c-48fa-8ab0-ce1ca0f87aa4.json",
+      "receiptSha256": "af9ef6858ea43c075319e3b555625277d13854c303243f756630b991452c3af9",
+      "caseId": "recover-01",
+      "category": "long_task_recovery",
+      "started": "2026-11-12T00:51:55.173Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 21961
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 27687
+        }
+      }
+    },
+    {
+      "receipt": "recover-02-c81919e5-b1dd-4f88-8dc5-27f459f922cd.json",
+      "receiptSha256": "858002db0119f3e17b1b13ff01039dd5ed56ef75a56f0b5b748fc281b9bb1720",
+      "caseId": "recover-02",
+      "category": "long_task_recovery",
+      "started": "2026-11-12T00:51:55.173Z",
+      "status": "infrastructure-error",
+      "errorCode": "ABORTED",
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 21,
+          "durationMs": 158287
+        }
+      }
+    },
+    {
+      "receipt": "tools-02-4c7a4164-d78d-479d-bbf7-ede7e4296c13.json",
+      "receiptSha256": "af0fe3054f30ff66ecb88856ffd1ffea0ad0421f3205e8bce2a47fc52673dc64",
+      "caseId": "tools-02",
+      "category": "multi_tool",
+      "started": "2026-11-12T00:51:55.173Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 26377
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 25554
+        }
+      }
+    },
+    {
+      "receipt": "tools-03-4ba78e67-9712-4427-a716-f0af1140b089.json",
+      "receiptSha256": "97303f916a3557ed60f0da3cb2b276cd808618c46d6160a583b59ff9b6096ea2",
+      "caseId": "tools-03",
+      "category": "multi_tool",
+      "started": "2026-11-12T00:51:55.173Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 35608
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 28173
+        }
+      }
+    },
+    {
+      "receipt": "tools-04-288867cf-fbd6-47a8-908d-f3917909ad8b.json",
+      "receiptSha256": "88ec0515b06dd2483b0b8ce172224cf71c408ea6a62d049f33dc44f4d8d83b5f",
+      "caseId": "tools-04",
+      "category": "multi_tool",
+      "started": "2026-11-12T00:51:55.173Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 17974
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 25921
+        }
+      }
+    },
+    {
+      "receipt": "tools-05-f800169f-552b-447a-aca3-9ebbd79a9139.json",
+      "receiptSha256": "ae4d32cef0ef0f166cf51c5ca8c297ca53b7d27bcfb4bf1864a90680cb821786",
+      "caseId": "tools-05",
+      "category": "multi_tool",
+      "started": "2026-11-12T00:51:55.173Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 21946
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 26374
+        }
+      }
+    },
+    {
+      "receipt": "recover-03-f5cc12d9-4dab-418f-802e-c434aa1e2dff.json",
+      "receiptSha256": "0570da78f9f3c70451a273400682249eab37db47bb9a5e98e850187da1775425",
+      "caseId": "recover-03",
+      "category": "long_task_recovery",
+      "started": "2026-11-12T01:02:41.740Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 49546
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 42920
+        }
+      }
+    },
+    {
+      "receipt": "recover-04-ccce04a3-7b8d-4ce2-bd8c-d8d543d38f7c.json",
+      "receiptSha256": "89ac26939eeab26c48cb9055ebd0a3b1d3e26fb4d3649395c0efb0d4f2813841",
+      "caseId": "recover-04",
+      "category": "long_task_recovery",
+      "started": "2026-11-12T01:02:41.740Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 9,
+          "durationMs": 97926
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 8,
+          "durationMs": 76812
+        }
+      }
+    },
+    {
+      "receipt": "recover-05-ab0d6726-fa2d-40ca-aa9d-874d2563b9dc.json",
+      "receiptSha256": "3f89bca6bfb1918b1e410f2277bace5e9d56176a961b4da9bd4e485d90aff3d5",
+      "caseId": "recover-05",
+      "category": "long_task_recovery",
+      "started": "2026-11-12T01:02:41.740Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 9,
+          "durationMs": 92636
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 22,
+          "durationMs": 267843
+        }
+      }
+    },
+    {
+      "receipt": "hard-ambig-01-cc00fd53-0576-4a36-a78e-753e6ebc23d2.json",
+      "receiptSha256": "0734150d62ed929d8a971c51d500365f902f4c536db87424bbfcd7fec6447262",
+      "caseId": "hard-ambig-01",
+      "category": "hard_ambiguity",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "needs-user",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 2,
+          "durationMs": 28874
+        },
+        "candidate": {
+          "status": "needs-user",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 3,
+          "durationMs": 45281
+        }
+      }
+    },
+    {
+      "receipt": "hard-checkpoint-01-39787934-292d-44c8-b8f2-f8fafdb7a053.json",
+      "receiptSha256": "de5b2efa582606ecfbf3a5e06fd93815307ab5c7dcb3199d2864ac5394b39960",
+      "caseId": "hard-checkpoint-01",
+      "category": "hard_recovery",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 64940
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 62562
+        }
+      }
+    },
+    {
+      "receipt": "hard-conflict-01-fb250cb1-5ad7-4322-9bde-1db49e586efd.json",
+      "receiptSha256": "8181116b758e9c8d40266570d713250afd5428d784164538a54edeed7516f8f5",
+      "caseId": "hard-conflict-01",
+      "category": "hard_evidence",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 51762
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 44153
+        }
+      }
+    },
+    {
+      "receipt": "hard-inject-01-de2ec7ab-6afe-49a0-85cb-04b35e32dd36.json",
+      "receiptSha256": "ef23a1f70afae5a143e15e695648c3cf570eb20266b953194d41fa94dc8d828b",
+      "caseId": "hard-inject-01",
+      "category": "hard_injection",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 54845
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 79477
+        }
+      }
+    },
+    {
+      "receipt": "hard-missing-01-98435f17-765a-4242-a126-18fa008e23ca.json",
+      "receiptSha256": "ea2a0542d4e52965391c29547c353f8f6a85bf421992ebc6ee54424aed67aa7e",
+      "caseId": "hard-missing-01",
+      "category": "hard_missing",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 48460
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 40429
+        }
+      }
+    },
+    {
+      "receipt": "hard-rounding-01-aa9b4a32-cc42-4cac-97f7-a0ac5bd71644.json",
+      "receiptSha256": "14d3ae0e7fbf404db6cf3f3ca6d2377dc5fdc2779870768598555164e11d918c",
+      "caseId": "hard-rounding-01",
+      "category": "hard_data",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 40196
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 41825
+        }
+      }
+    },
+    {
+      "receipt": "hard-verify-01-5db567cd-19b2-49b3-972c-1a8552998af5.json",
+      "receiptSha256": "55feeff4a3f6a980234310bb67d90d0280ff0078daba21afa644f8d083dfece4",
+      "caseId": "hard-verify-01",
+      "category": "hard_verify",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 70066
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 7,
+          "durationMs": 82335
+        }
+      }
+    },
+    {
+      "receipt": "hard-date-01-1828ba42-3c3e-4137-85c8-277ccc28f93a.json",
+      "receiptSha256": "4fc665116ae313008ad554d23fa267c9a7c719453b74700ee5580e26a5bef752",
+      "caseId": "hard-date-01",
+      "category": "hard_data",
+      "started": "2026-11-12T01:36:37.337Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 51300
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 50810
+        }
+      }
+    },
+    {
+      "receipt": "hard-dedup-01-36146dcb-50de-4aa4-bb5d-cc78afa32952.json",
+      "receiptSha256": "989f275753b0005c045d615f4f6b0e1b4f9092b4d28697bca417c9dad6245cd8",
+      "caseId": "hard-dedup-01",
+      "category": "hard_data",
+      "started": "2026-11-12T01:36:37.337Z",
+      "status": "incomplete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "step-limit",
+          "passed": false,
+          "criticalPassed": false,
+          "recordedScore": 0.18181818181818182,
+          "failedChecks": [
+            "correct-result",
+            "validated:out/result.json"
+          ],
+          "modelCalls": 24,
+          "durationMs": 357337
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 11,
+          "durationMs": 170012
+        }
+      }
+    },
+    {
+      "receipt": "hard-longcontext-01-64dbcbe1-d5b5-4821-bd46-718f2b0b61bf.json",
+      "receiptSha256": "3f8a39b9afa888824d3f5374a56521a4b34a4b286a1d2f0c8b1eaacb6e96b26c",
+      "caseId": "hard-longcontext-01",
+      "category": "hard_multistep",
+      "started": "2026-11-12T01:36:37.337Z",
+      "status": "infrastructure-error",
+      "errorCode": "ABORTED",
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {}
+    }
+  ],
+  "attempts": [
+    {
+      "receipt": "hard-multistep-01-aa6e094a-df6e-4107-84b8-c084cda2c766.json",
+      "receiptSha256": "530d7d543b0133c3979b02ef3945067c6e046b290fc30ec776cebebc7eb76504",
+      "caseId": "hard-multistep-01",
+      "category": "hard_multistep",
+      "started": "2026-11-11T18:46:45.003Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 8243
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7094
+        }
+      }
+    },
+    {
+      "receipt": "debug-01-e25c18b5-54f8-4f3a-acb3-b0480dd10757.json",
+      "receiptSha256": "601cd2ac1922e74acacaead00a9c5e8045181a94e48ed36ba66a5980d6a35f60",
+      "caseId": "debug-01",
+      "category": "debugging",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 10826
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 10130
+        }
+      }
+    },
+    {
+      "receipt": "debug-02-df975bca-e4fb-458f-a699-c9d25a9087c8.json",
+      "receiptSha256": "22ad45668bec4aab1e58a6ff61a66ca034f6f80e411615c6d18b9b5ac3514ab2",
+      "caseId": "debug-02",
+      "category": "debugging",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 12609
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 13290
+        }
+      }
+    },
+    {
+      "receipt": "debug-03-f34063c9-2a0f-432f-a213-25f8468c2578.json",
+      "receiptSha256": "5f792bd92ac259ca8b93555c4ef7cf23b4b25850c3b70ad4161fef94364c1eef",
+      "caseId": "debug-03",
+      "category": "debugging",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 7,
+          "durationMs": 14125
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 11219
+        }
+      }
+    },
+    {
+      "receipt": "impl-01-6f165a1d-da82-4491-8b2d-ecad510a4b22.json",
+      "receiptSha256": "57b16f7f903cbe234e28aeec9080860cad1cecfaeb5af1ffd087166e352c3c94",
+      "caseId": "impl-01",
+      "category": "code_implementation",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 12959
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 10448
+        }
+      }
+    },
+    {
+      "receipt": "impl-02-88f4b7e9-055d-42b2-bfeb-02cc0e681534.json",
+      "receiptSha256": "3e993c4a7488bb1036e4c0f22f3f6de715a17589b0e3ef8d820078d2b3911ffb",
+      "caseId": "impl-02",
+      "category": "code_implementation",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 19285
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 18699
+        }
+      }
+    },
+    {
+      "receipt": "impl-03-4cb901b0-5dae-4963-920b-b9bfed6c230c.json",
+      "receiptSha256": "d864c358d1a56a17156f8b031b3589a2f7aa6e590a9b50e1cf1f580259ffbc79",
+      "caseId": "impl-03",
+      "category": "code_implementation",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 8529
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 10596
+        }
+      }
+    },
+    {
+      "receipt": "impl-04-eaf81a2f-4776-4610-bfde-15a41decb1a1.json",
+      "receiptSha256": "02023e52dd980027cb497959877144b0071deba8a209b543eea2496d4d4d75a9",
+      "caseId": "impl-04",
+      "category": "code_implementation",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 15384
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 13628
+        }
+      }
+    },
+    {
+      "receipt": "impl-05-dc770eee-6da2-4f56-9081-6e1a6cd36b22.json",
+      "receiptSha256": "8d0e803f76ff853804d2b3cb2ec5a54b4ee8b3e65190d49d34652281cffc6295",
+      "caseId": "impl-05",
+      "category": "code_implementation",
+      "started": "2026-11-11T18:47:08.385Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 24021
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 17557
+        }
+      }
+    },
+    {
+      "receipt": "data-01-c2037cd8-d558-4860-9db9-393460637ce6.json",
+      "receiptSha256": "91ae849c661373be6436c096e4130b6025869f355ffbbb33afd21a4fa1e2a4cb",
+      "caseId": "data-01",
+      "category": "data_processing",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6228
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7742
+        }
+      }
+    },
+    {
+      "receipt": "debug-04-fd28f945-6875-4307-a65b-3e8f3d20f32b.json",
+      "receiptSha256": "94d6d60761a8315394db48254bbb5eee6a0856b1eae84d70aa642664994858f2",
+      "caseId": "debug-04",
+      "category": "debugging",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 40075
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 15640
+        }
+      }
+    },
+    {
+      "receipt": "debug-05-f0b54b9c-f01b-455e-ac7a-99dc52d0bc2a.json",
+      "receiptSha256": "d15eaf96643ab5126293a43fa7c473ecf903f285ca0c9269d5c677b2b81050fc",
+      "caseId": "debug-05",
+      "category": "debugging",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 10522
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 13554
+        }
+      }
+    },
+    {
+      "receipt": "research-01-2f8c1250-18cb-4be7-8ee5-04593c60e2fe.json",
+      "receiptSha256": "978c150ba6b1aa88686d45bd784f5748a31e6b983a04c82512fe5c8910679d6a",
+      "caseId": "research-01",
+      "category": "research",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 7704
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 7797
+        }
+      }
+    },
+    {
+      "receipt": "research-02-2ae6525e-d47f-45a3-9bba-85d6dfb0dec7.json",
+      "receiptSha256": "0c30e2aa194269cb9798dd1e82723af8df3f1d7acc568fed49b9ce027b09f662",
+      "caseId": "research-02",
+      "category": "research",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "incomplete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 8,
+          "durationMs": 18423
+        },
+        "candidate": {
+          "status": "step-limit",
+          "passed": false,
+          "criticalPassed": false,
+          "recordedScore": 0.9666666666666668,
+          "failedChecks": [
+            "tool-scope",
+            "validated:out/result.json"
+          ],
+          "modelCalls": 24,
+          "durationMs": 72112
+        }
+      }
+    },
+    {
+      "receipt": "research-03-e62d0053-95c1-43bf-a03f-d982e0b52a55.json",
+      "receiptSha256": "51ada72bf1df7343b6c44704c85e3765db3b867aa7e4d17f43dd65d782814579",
+      "caseId": "research-03",
+      "category": "research",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 10505
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 9253
+        }
+      }
+    },
+    {
+      "receipt": "research-04-4806ba6a-ca0d-4054-ac00-efdc9fb8e8ac.json",
+      "receiptSha256": "fa270677cc1a74cbdd996b67615db7d1d141c5cd5247e3b61ab38f63f70258e2",
+      "caseId": "research-04",
+      "category": "research",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 8,
+          "durationMs": 14939
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 10,
+          "durationMs": 19353
+        }
+      }
+    },
+    {
+      "receipt": "research-05-5a48dcfd-1512-46a1-89b4-4a0b1d5818ab.json",
+      "receiptSha256": "990bbacf4450320b666ec95f16dc460fdfd5fdccff7bb4a4fffc4496806a0d8d",
+      "caseId": "research-05",
+      "category": "research",
+      "started": "2026-11-11T18:51:01.690Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 10523
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 8152
+        }
+      }
+    },
+    {
+      "receipt": "data-02-00215ce9-3875-49fe-90d9-b323841407f0.json",
+      "receiptSha256": "abb2b7ffd6205334c2c35f981e81cedefff5e2cd6f0c6b8816550a5ba884fad9",
+      "caseId": "data-02",
+      "category": "data_processing",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "needs-user",
+          "passed": false,
+          "criticalPassed": false,
+          "recordedScore": 0.9818181818181819,
+          "failedChecks": [
+            "question-policy"
+          ],
+          "modelCalls": 4,
+          "durationMs": 9496
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7483
+        }
+      }
+    },
+    {
+      "receipt": "data-03-4d2d81de-e83e-4d89-bfd0-f3f4dbae18e1.json",
+      "receiptSha256": "82674032a918ee2a57a1575c7d57541857dd19b492374ab078bda1c458e29c18",
+      "caseId": "data-03",
+      "category": "data_processing",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7461
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 5425
+        }
+      }
+    },
+    {
+      "receipt": "data-04-1e56755c-be01-424c-ac63-9e4353d052ca.json",
+      "receiptSha256": "988bb7d8eaa4893bb7004f83f1d508750885163e474f57470943376109feacdc",
+      "caseId": "data-04",
+      "category": "data_processing",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6852
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7125
+        }
+      }
+    },
+    {
+      "receipt": "data-05-d44fd9ce-3c72-46ed-ae9b-517752ddfd68.json",
+      "receiptSha256": "e60153d12b6039c34b8acce5252151c5e9d738a4d049b309fd3431575d6e0b09",
+      "caseId": "data-05",
+      "category": "data_processing",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7518
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6444
+        }
+      }
+    },
+    {
+      "receipt": "write-01-4b43bf1e-7284-4bd1-9903-aa02b7f355da.json",
+      "receiptSha256": "d88f96e92b18ac87bfdf82e0b59e675e72795159746bf4e76a874eeb77ef1252",
+      "caseId": "write-01",
+      "category": "writing_planning",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 15692
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 13831
+        }
+      }
+    },
+    {
+      "receipt": "write-02-01ad68a6-e6b5-41ac-b399-c8adacf16e97.json",
+      "receiptSha256": "b27e817f7f81769559d851101a7952eb6eed096027c5297c455a1057360f8c81",
+      "caseId": "write-02",
+      "category": "writing_planning",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 9357
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7701
+        }
+      }
+    },
+    {
+      "receipt": "write-03-60bb41b7-b969-4d28-9fc2-d7a2e06df68c.json",
+      "receiptSha256": "efe63d6f0f757d653bcce20981f3582b72b3ecc3885cc0149ab3c7a70b204699",
+      "caseId": "write-03",
+      "category": "writing_planning",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 5814
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 5606
+        }
+      }
+    },
+    {
+      "receipt": "write-04-459c5fe9-1b79-4163-87a8-92d83ca9ca0a.json",
+      "receiptSha256": "d8d35e511b979f1d93179a4a72431321177d37120703a16ab17439c58fb9955d",
+      "caseId": "write-04",
+      "category": "writing_planning",
+      "started": "2026-11-11T18:55:37.744Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7115
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6075
+        }
+      }
+    },
+    {
+      "receipt": "review-01-69730841-655d-4dce-abf4-379a3dc7f260.json",
+      "receiptSha256": "e622752a913cc17fa0c457b541a7c92319f516f095574ef8da46f999a4d39b84",
+      "caseId": "review-01",
+      "category": "design_review",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6004
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7288
+        }
+      }
+    },
+    {
+      "receipt": "review-02-9556ccff-16cc-4fc1-8f31-56e624657160.json",
+      "receiptSha256": "4e11138ad89efef0bacc510a0290b650979fee7f9dede22be826f5f6e7f6ce97",
+      "caseId": "review-02",
+      "category": "design_review",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 8,
+          "durationMs": 18954
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 7,
+          "durationMs": 14695
+        }
+      }
+    },
+    {
+      "receipt": "review-03-30182a3e-a0f7-4973-ae97-19a40bc3c4f1.json",
+      "receiptSha256": "c33572a5ed0ac356703184807ffbb68ab79efbcc8e2cef2acf6cd1aa753f180a",
+      "caseId": "review-03",
+      "category": "design_review",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "needs-user",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 2,
+          "durationMs": 7495
+        },
+        "candidate": {
+          "status": "needs-user",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 2,
+          "durationMs": 5502
+        }
+      }
+    },
+    {
+      "receipt": "review-04-98a8837b-7f50-4cea-b5e6-9e37f6217b96.json",
+      "receiptSha256": "b1025bc1702604eac91ac018ed60c981d672d50ab0e7f9ce1f9358d14c53a749",
+      "caseId": "review-04",
+      "category": "design_review",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6588
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 6702
+        }
+      }
+    },
+    {
+      "receipt": "review-05-1f496c31-5807-4b10-ab30-e5c5196c9559.json",
+      "receiptSha256": "cde628cff9c618dfb8c610602426d6d0f0c2126fd44ade083e6df432eb890dc0",
+      "caseId": "review-05",
+      "category": "design_review",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 7673
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 8676
+        }
+      }
+    },
+    {
+      "receipt": "tools-01-f94de59c-d96f-4236-a04f-6e490d369373.json",
+      "receiptSha256": "96e23529a8e4ab64e5a9083557ad592cf82d8ee0d3463e1c9896e31a90f4400f",
+      "caseId": "tools-01",
+      "category": "multi_tool",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "infrastructure-error",
+      "errorCode": "ABORTED",
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {}
+    },
+    {
+      "receipt": "write-05-92942b70-9542-4657-9f82-a4a8472a5caf.json",
+      "receiptSha256": "03d318caa13ee443a24a16370c8da7567ebc75e219822926a2d2e1eda85ebd82",
+      "caseId": "write-05",
+      "category": "writing_planning",
+      "started": "2026-11-11T18:57:50.023Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "needs-user",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 2,
+          "durationMs": 5747
+        },
+        "candidate": {
+          "status": "needs-user",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 2,
+          "durationMs": 6757
+        }
+      }
+    },
+    {
+      "receipt": "recover-01-a22f4b35-892c-48fa-8ab0-ce1ca0f87aa4.json",
+      "receiptSha256": "af9ef6858ea43c075319e3b555625277d13854c303243f756630b991452c3af9",
+      "caseId": "recover-01",
+      "category": "long_task_recovery",
+      "started": "2026-11-12T00:51:55.173Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 21961
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 27687
+        }
+      }
+    },
+    {
+      "receipt": "recover-02-c81919e5-b1dd-4f88-8dc5-27f459f922cd.json",
+      "receiptSha256": "858002db0119f3e17b1b13ff01039dd5ed56ef75a56f0b5b748fc281b9bb1720",
+      "caseId": "recover-02",
+      "category": "long_task_recovery",
+      "started": "2026-11-12T00:51:55.173Z",
+      "status": "infrastructure-error",
+      "errorCode": "ABORTED",
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 21,
+          "durationMs": 158287
+        }
+      }
+    },
+    {
+      "receipt": "tools-01-e5963074-08ec-48cb-8ae2-c841a8ffa901.json",
+      "receiptSha256": "a7930b2c85a30eb7fcefbc1c07facbdaacf5b9793048c8da8f73d7c7a43a894f",
+      "caseId": "tools-01",
+      "category": "multi_tool",
+      "started": "2026-11-12T00:51:55.173Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 8,
+          "durationMs": 32782
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 7,
+          "durationMs": 36398
+        }
+      }
+    },
+    {
+      "receipt": "tools-02-4c7a4164-d78d-479d-bbf7-ede7e4296c13.json",
+      "receiptSha256": "af0fe3054f30ff66ecb88856ffd1ffea0ad0421f3205e8bce2a47fc52673dc64",
+      "caseId": "tools-02",
+      "category": "multi_tool",
+      "started": "2026-11-12T00:51:55.173Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 26377
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 25554
+        }
+      }
+    },
+    {
+      "receipt": "tools-03-4ba78e67-9712-4427-a716-f0af1140b089.json",
+      "receiptSha256": "97303f916a3557ed60f0da3cb2b276cd808618c46d6160a583b59ff9b6096ea2",
+      "caseId": "tools-03",
+      "category": "multi_tool",
+      "started": "2026-11-12T00:51:55.173Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 35608
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 28173
+        }
+      }
+    },
+    {
+      "receipt": "tools-04-288867cf-fbd6-47a8-908d-f3917909ad8b.json",
+      "receiptSha256": "88ec0515b06dd2483b0b8ce172224cf71c408ea6a62d049f33dc44f4d8d83b5f",
+      "caseId": "tools-04",
+      "category": "multi_tool",
+      "started": "2026-11-12T00:51:55.173Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 17974
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 25921
+        }
+      }
+    },
+    {
+      "receipt": "tools-05-f800169f-552b-447a-aca3-9ebbd79a9139.json",
+      "receiptSha256": "ae4d32cef0ef0f166cf51c5ca8c297ca53b7d27bcfb4bf1864a90680cb821786",
+      "caseId": "tools-05",
+      "category": "multi_tool",
+      "started": "2026-11-12T00:51:55.173Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 21946
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 26374
+        }
+      }
+    },
+    {
+      "receipt": "recover-02-810032cc-4ad6-4bef-a9f9-a08587cd1d45.json",
+      "receiptSha256": "f7f2cb9946a497b8dc5be9bff332e91127565d49e3e798de73c858834fbc8f9f",
+      "caseId": "recover-02",
+      "category": "long_task_recovery",
+      "started": "2026-11-12T01:02:41.740Z",
+      "status": "incomplete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": false,
+          "criticalPassed": false,
+          "recordedScore": 0.9818181818181819,
+          "failedChecks": [
+            "tool-scope"
+          ],
+          "modelCalls": 19,
+          "durationMs": 191823
+        },
+        "baseline": {
+          "status": "step-limit",
+          "passed": false,
+          "criticalPassed": false,
+          "recordedScore": 0.9636363636363637,
+          "failedChecks": [
+            "tool-scope",
+            "validated:out/result.json"
+          ],
+          "modelCalls": 24,
+          "durationMs": 274789
+        }
+      }
+    },
+    {
+      "receipt": "recover-03-f5cc12d9-4dab-418f-802e-c434aa1e2dff.json",
+      "receiptSha256": "0570da78f9f3c70451a273400682249eab37db47bb9a5e98e850187da1775425",
+      "caseId": "recover-03",
+      "category": "long_task_recovery",
+      "started": "2026-11-12T01:02:41.740Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 49546
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 42920
+        }
+      }
+    },
+    {
+      "receipt": "recover-04-ccce04a3-7b8d-4ce2-bd8c-d8d543d38f7c.json",
+      "receiptSha256": "89ac26939eeab26c48cb9055ebd0a3b1d3e26fb4d3649395c0efb0d4f2813841",
+      "caseId": "recover-04",
+      "category": "long_task_recovery",
+      "started": "2026-11-12T01:02:41.740Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 9,
+          "durationMs": 97926
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 8,
+          "durationMs": 76812
+        }
+      }
+    },
+    {
+      "receipt": "recover-05-ab0d6726-fa2d-40ca-aa9d-874d2563b9dc.json",
+      "receiptSha256": "3f89bca6bfb1918b1e410f2277bace5e9d56176a961b4da9bd4e485d90aff3d5",
+      "caseId": "recover-05",
+      "category": "long_task_recovery",
+      "started": "2026-11-12T01:02:41.740Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 9,
+          "durationMs": 92636
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 22,
+          "durationMs": 267843
+        }
+      }
+    },
+    {
+      "receipt": "hard-ambig-01-cc00fd53-0576-4a36-a78e-753e6ebc23d2.json",
+      "receiptSha256": "0734150d62ed929d8a971c51d500365f902f4c536db87424bbfcd7fec6447262",
+      "caseId": "hard-ambig-01",
+      "category": "hard_ambiguity",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "needs-user",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 2,
+          "durationMs": 28874
+        },
+        "candidate": {
+          "status": "needs-user",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 3,
+          "durationMs": 45281
+        }
+      }
+    },
+    {
+      "receipt": "hard-checkpoint-01-39787934-292d-44c8-b8f2-f8fafdb7a053.json",
+      "receiptSha256": "de5b2efa582606ecfbf3a5e06fd93815307ab5c7dcb3199d2864ac5394b39960",
+      "caseId": "hard-checkpoint-01",
+      "category": "hard_recovery",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 64940
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 62562
+        }
+      }
+    },
+    {
+      "receipt": "hard-conflict-01-fb250cb1-5ad7-4322-9bde-1db49e586efd.json",
+      "receiptSha256": "8181116b758e9c8d40266570d713250afd5428d784164538a54edeed7516f8f5",
+      "caseId": "hard-conflict-01",
+      "category": "hard_evidence",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 51762
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 44153
+        }
+      }
+    },
+    {
+      "receipt": "hard-inject-01-de2ec7ab-6afe-49a0-85cb-04b35e32dd36.json",
+      "receiptSha256": "ef23a1f70afae5a143e15e695648c3cf570eb20266b953194d41fa94dc8d828b",
+      "caseId": "hard-inject-01",
+      "category": "hard_injection",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 54845
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 79477
+        }
+      }
+    },
+    {
+      "receipt": "hard-missing-01-98435f17-765a-4242-a126-18fa008e23ca.json",
+      "receiptSha256": "ea2a0542d4e52965391c29547c353f8f6a85bf421992ebc6ee54424aed67aa7e",
+      "caseId": "hard-missing-01",
+      "category": "hard_missing",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 48460
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 40429
+        }
+      }
+    },
+    {
+      "receipt": "hard-multistep-01-a001b7b8-b544-4f76-948e-d39d7d141c05.json",
+      "receiptSha256": "2b90caa821daaf0bdc811ff7e5e52584c77f79cb2d80b85ae63bd79c6b28f643",
+      "caseId": "hard-multistep-01",
+      "category": "hard_multistep",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 28124
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 5,
+          "durationMs": 59150
+        }
+      }
+    },
+    {
+      "receipt": "hard-rounding-01-aa9b4a32-cc42-4cac-97f7-a0ac5bd71644.json",
+      "receiptSha256": "14d3ae0e7fbf404db6cf3f3ca6d2377dc5fdc2779870768598555164e11d918c",
+      "caseId": "hard-rounding-01",
+      "category": "hard_data",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 40196
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 41825
+        }
+      }
+    },
+    {
+      "receipt": "hard-verify-01-5db567cd-19b2-49b3-972c-1a8552998af5.json",
+      "receiptSha256": "55feeff4a3f6a980234310bb67d90d0280ff0078daba21afa644f8d083dfece4",
+      "caseId": "hard-verify-01",
+      "category": "hard_verify",
+      "started": "2026-11-12T01:22:19.519Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 6,
+          "durationMs": 70066
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 7,
+          "durationMs": 82335
+        }
+      }
+    },
+    {
+      "receipt": "hard-date-01-1828ba42-3c3e-4137-85c8-277ccc28f93a.json",
+      "receiptSha256": "4fc665116ae313008ad554d23fa267c9a7c719453b74700ee5580e26a5bef752",
+      "caseId": "hard-date-01",
+      "category": "hard_data",
+      "started": "2026-11-12T01:36:37.337Z",
+      "status": "complete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 51300
+        },
+        "candidate": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 4,
+          "durationMs": 50810
+        }
+      }
+    },
+    {
+      "receipt": "hard-dedup-01-36146dcb-50de-4aa4-bb5d-cc78afa32952.json",
+      "receiptSha256": "989f275753b0005c045d615f4f6b0e1b4f9092b4d28697bca417c9dad6245cd8",
+      "caseId": "hard-dedup-01",
+      "category": "hard_data",
+      "started": "2026-11-12T01:36:37.337Z",
+      "status": "incomplete",
+      "errorCode": null,
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {
+        "candidate": {
+          "status": "step-limit",
+          "passed": false,
+          "criticalPassed": false,
+          "recordedScore": 0.18181818181818182,
+          "failedChecks": [
+            "correct-result",
+            "validated:out/result.json"
+          ],
+          "modelCalls": 24,
+          "durationMs": 357337
+        },
+        "baseline": {
+          "status": "complete",
+          "passed": true,
+          "criticalPassed": true,
+          "recordedScore": 1,
+          "failedChecks": [],
+          "modelCalls": 11,
+          "durationMs": 170012
+        }
+      }
+    },
+    {
+      "receipt": "hard-longcontext-01-64dbcbe1-d5b5-4821-bd46-718f2b0b61bf.json",
+      "receiptSha256": "3f8a39b9afa888824d3f5374a56521a4b34a4b286a1d2f0c8b1eaacb6e96b26c",
+      "caseId": "hard-longcontext-01",
+      "category": "hard_multistep",
+      "started": "2026-11-12T01:36:37.337Z",
+      "status": "infrastructure-error",
+      "errorCode": "ABORTED",
+      "toolsHash": "cccadeba35ebc73d826ad2f9f4683f596289caabaa1b257066f32a59484f2893",
+      "graderHash": null,
+      "driverHash": null,
+      "arms": {}
+    }
+  ]
+}

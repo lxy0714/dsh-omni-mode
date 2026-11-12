@@ -33,7 +33,7 @@ function usageAdd(total,usage){
  if(!usage)return;
  for(const [key,value] of Object.entries(usage))if(typeof value==='number'&&Number.isFinite(value))total[key]=(total[key]??0)+value;
 }
-async function runArm(ctx,caseData,variant,prompt,skills,route,signal,grader){
+export async function runArm(ctx,caseData,variant,prompt,skills,route,signal,grader){
  const state={files:Object.assign(Object.create(null),structuredClone(caseData.files)),toolCalls:[],questions:[],finalText:''};
  const schemas=definitions.filter(def=>caseData.tools.includes(def.name));
  const messages=[{role:'user',content:[{type:'text',text:caseData.prompt.zh}]}];
@@ -58,7 +58,9 @@ async function runArm(ctx,caseData,variant,prompt,skills,route,signal,grader){
    default:return {error:'UNAVAILABLE_TOOL'};
   }
  };
- for(let step=0;step<24;step++){
+ let errorCode=null;
+  try {
+  for(let step=0;step<24;step++){
   signal.throwIfAborted();modelCalls++;
   const blocks=[];let finish;
   for await(const chunk of ctx.llm.stream({...route,system:prompt+contract,messages,tools:schemas,signal})){
@@ -89,10 +91,16 @@ async function runArm(ctx,caseData,variant,prompt,skills,route,signal,grader){
   }
   if(waiting){status='needs-user';break;}
  }
- // JSON fixture maps have no meaningful JS prototype. Normalize the internal
+ } catch(error) {
+   // Keep prior tool calls and partial artifacts; errors cannot erase an arm.
+   const code=String(error?.code??error?.name??'EVALUATOR_ERROR');
+   errorCode=/^[A-Za-z0-9_:/-]{1,100}$/.test(code)?code:'EVALUATOR_ERROR';
+   status=signal.aborted?'aborted':'infrastructure-error';
+  }
+  // JSON fixture maps have no meaningful JS prototype. Normalize the internal
  // null-prototype safety map before passing it to the frozen JSON grader.
  const grade=grader.gradeCase(caseData,{...state,files:{...state.files}});
- return {variant,status,modelCalls,durationMs:Date.now()-started,usage,...state,grade};
+ return {variant,status,errorCode,modelCalls,durationMs:Date.now()-started,usage,...state,grade};
 }
 export function apply(ctx){
  let running=false;
@@ -126,12 +134,17 @@ export function apply(ctx){
    // ESM caches modules per specifier; a content hash keeps a long-lived process
    // from silently grading new fixtures with an older grader.
    const graderPath=path.join(root,'scripts','benchmark','grader.mjs');
-   const grader=await import(pathToFileURL(graderPath).href+'?v='+sha(await fs.readFile(graderPath,'utf8')));
+   const graderRaw=await fs.readFile(graderPath,'utf8');
+    const graderHash=sha(graderRaw);
+    const driverHash=sha(await fs.readFile(fileURLToPath(import.meta.url),'utf8'));
+    const grader=await import(pathToFileURL(graderPath).href+'?v='+graderHash);
    const candidateSkills={};
    for(const name of ['grilling','omni-method']){
     try{candidateSkills[name]=body(await fs.readFile(path.join(root,'skills',name,'SKILL.md'),'utf8'));}catch{if(name==='grilling')throw Error('Candidate grilling skill is missing');}
    }
    const arms={baseline:{prompt:baseline.persona,skills:{grilling:body(baseline.grilling)}},candidate:{prompt:candidate,skills:candidateSkills}};
+    const skillHashes=Object.fromEntries(Object.entries(arms).map(([variant,arm])=>[variant,Object.fromEntries(Object.entries(arm.skills).map(([name,content])=>[name,sha(content)]))]));
+    const routeIdentity={provider:route.provider,model:route.model,...(route.reasoningEffort===undefined?{}:{reasoningEffort:route.reasoningEffort})};
    const outputDir=path.join(root,'.verification','benchmark');await fs.mkdir(outputDir,{recursive:true});
    const started=new Date().toISOString();const summaries=[];running=true;
    try{
@@ -139,10 +152,15 @@ export function apply(ctx){
      const order=parseInt(sha(testCase.id).slice(0,2),16)%2?['candidate','baseline']:['baseline','candidate'];
      const results=[];let errorCode=null;
      try{
-      for(const variant of order){const arm=arms[variant];results.push(await runArm(ctx,testCase,variant,arm.prompt.replaceAll('{{model}}',route.model),arm.skills,route,signal,grader));}
+      for(const variant of order){
+        const arm=arms[variant];
+        const result=await runArm(ctx,testCase,variant,arm.prompt.replaceAll('{{model}}',route.model),arm.skills,route,signal,grader);
+        results.push(result);
+        if(result.errorCode){errorCode=result.errorCode;break;}
+       }
      }catch(error){errorCode=String(error?.code??error?.name??'EVALUATOR_ERROR').slice(0,100);}
      const status=errorCode?'infrastructure-error':results.every(result=>['complete','needs-user'].includes(result.status))?'complete':'incomplete';
-     const receipt={schemaVersion:1,status,errorCode,scored:args.mode!=='pilot',caseId:testCase.id,category:testCase.category,started,...descriptor,running:false,routeFingerprint,toolsHash:sha(JSON.stringify(definitions.filter(d=>testCase.tools.includes(d.name)))),order,results};
+     const receipt={schemaVersion:2,status,errorCode,scored:args.mode!=='pilot',caseId:testCase.id,category:testCase.category,started,...descriptor,running:false,routeFingerprint,routeIdentity,graderHash,driverHash,contractHash:sha(contract),baselinePolicyHash:sha(baseline.persona),skillHashes,caseHash:sha(JSON.stringify(testCase)),language:'zh',maxModelCalls:24,toolsHash:sha(JSON.stringify(definitions.filter(d=>testCase.tools.includes(d.name)))),order,results};
      const filename=`${testCase.id}-${crypto.randomUUID()}.json`;await fs.writeFile(path.join(outputDir,filename),JSON.stringify(receipt,null,2)+'\n');
      summaries.push({status,errorCode,scored:args.mode!=='pilot',caseId:testCase.id,category:testCase.category,results:results.map(result=>({variant:result.variant,status:result.status,score:result.grade.score,passed:result.grade.passed,criticalPassed:result.grade.criticalPassed,failed:result.grade.checks.filter(check=>!check.passed).map(check=>check.id),modelCalls:result.modelCalls,durationMs:result.durationMs,usage:result.usage})),receipt:path.join('.verification','benchmark',filename)});
      if(errorCode)break;

@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "round": 7,
+  "method": "Static source data only: no research target installed, imported, evaluated or executed. Read actual manifest, README, declared patch paths, runtime seams and dynamic resource files; verified archive SRI/SHA-256 and evidence-file hashes. No profile/core/benchmark/package-version changes.",
+  "result": {
+    "newQualifiedConfigurations": 10,
+    "newlyQualifiedProjectFamilies": 7,
+    "baselineQualifiedConfigurations": 90,
+    "expectedQualifiedConfigurationsAfterInventoryMerge": 100,
+    "expectedQualifiedProjectsAfterInventoryMerge": 63,
+    "requiresInventoryMerge": true,
+    "mergeInstructions": "Lead must merge only the five packet package records by package+version and five source records by sourceId into the latest full inventory, preserving concurrent reviews and other records; never replace the latest inventory wholesale with the external collector snapshot. Then run normal audit/report/verification under Lead scope. This review itself does not edit research/sources.json.",
+    "newlyCollectedPackages": [
+      "dsh-pptx-builder",
+      "gord-dsh-worktree",
+      "dsh-draw-mode",
+      "dsh-tsm-agent",
+      "dsh-novel-solo"
+    ],
+    "limitations": [
+      "Qualification is static native registration/selectability and substantive source composition, not successful live mounting, runtime safety or measured model quality.",
+      "Source-declared lineage and material architectural differences were inspected; exhaustive whole-repository git genealogy is not claimed.",
+      "Different counts of project records and qualified projects are expected: excluded/legacy records are retained."
+    ]
+  },
+  "reviews": [
+    {
+      "package": "@jhcai11/oh-my-dsh",
+      "version": "0.1.2",
+      "group": "presets",
+      "evidencePaths": [
+        "package.json",
+        "presets/omd-sisyphus.patch.yml",
+        "presets/omd-hephaestus.patch.yml",
+        "presets/omd-prometheus.patch.yml",
+        "presets/omd-atlas.patch.yml",
+        "src/runtime/runtime.js",
+        "src/agents/registry.js",
+        "src/agents/prompts.js",
+        "src/hooks/index.js",
+        "src/tools/index.js",
+        "src/skills/index.js"
+      ],
+      "presetIds": [
+        "omd-sisyphus",
+        "omd-hephaestus",
+        "omd-prometheus",
+        "omd-atlas"
+      ],
+      "zh": "原生四主面通过config.agent选择真实角色，运行时加载不同prompt、技能子集、委派白名单与写入策略；访谈规划、批准计划指挥、深度实现和全域统筹不是换名。七个委派专用面仍不计数。",
+      "en": "Four native primary faces select real roles through config.agent, loading different prompts, skill subsets, delegation allowlists and write policies: interview planning, approved-plan conducting, deep implementation and broad orchestration are not renames. Seven delegation-only faces remain uncounted.",
+      "presetRationaleZh": "纠正reviews.json中四主面尚待角色映射的暂缓，而非推翻内部角色排除：清单注册四个preset，补丁的agent字段进入Runtime.agentId，再进入loadAgentPrompt、systemPrompt及实际角色权限/技能注册。Sisyphus为全域统筹，Hephaestus为受限派工的深度实现，Prometheus写域限.omd/并交接批准计划，Atlas不直接write/edit而指挥批准计划。四者是主会话入口；名字相似的slim只有一个原生预设，hawk只有命令/技能，无同构重复。",
+      "presetRationaleEn": "Resolves only the four-primary role-mapping hold in reviews.json, not the internal-role exclusions: declared preset agent fields flow through Runtime.agentId, loadAgentPrompt, systemPrompt and real permission/skill registration. Sisyphus is broad orchestration; Hephaestus deep implementation with restricted delegates; Prometheus .omd/-limited interview planning and approved-plan handoff; Atlas conducts an approved plan without direct write/edit. All four are primary session entries. Slim has one differently composed native preset; Hawk has commands/skills rather than native presets, so shared vocabulary is not isomorphism.",
+      "riskZh": "readOnly只阻断源码列出的write/edit，不等于阻断一切shell写入或完整沙箱；prompt/标签不能替代宿主权限。",
+      "riskEn": "readOnly denies the source-listed write/edit tools, not every shell-side mutation or a complete sandbox; prompt labels do not replace host permissions."
+    },
+    {
+      "package": "dsh-pentester",
+      "version": "6.5.0",
+      "group": "presets",
+      "evidencePaths": [
+        "package.json",
+        "cordis.patch.yml",
+        "presets/pentester/preset.patch.yml",
+        "presets/pentester/run-state.mjs",
+        "lib/index.js"
+      ],
+      "presetIds": [
+        "pentester"
+      ],
+      "zh": "Root用正向工具白名单与注入的run-state统筹PTES阶段，授权范围、运行时与委派覆盖记录分开；19个专家只作为内部AgentProfile，不冒充19套可选预设。",
+      "en": "The root coordinates PTES stages through a positive tool allowlist and injected run-state, separating authorized scope, frozen runtime and delegation coverage. Nineteen specialist AgentProfiles are internal workers, not nineteen extra presets.",
+      "presetRationaleZh": "实际package.json的bundle.patch数组包含根插件补丁与presets/pentester/preset.patch.yml；后者明确声明id pentester，README将用户入口标为Root Session。run-state行经导出子路径挂入该预设，调用宿主pentester服务注册领域工具并安装Root白名单/状态注入。与blue/redteam的通用调度不同，这里是持久PentestRun、PTES阶段推进/回溯、覆盖门禁与独立生命周期；只计一个Root。",
+      "presetRationaleEn": "The actual manifest patch array includes the host patch and presets/pentester/preset.patch.yml, which declares pentester; README identifies it as the user Root Session. Its exported run-state row calls the host pentester service to register domain tools and install root allowlisting/state injection. Persistent PentestRun lifecycle, PTES stage advance/rollback and coverage gates distinguish it from broad blue/red-team dispatch. Count only one root.",
+      "riskZh": "只研究静态编排，不扫描、不执行攻击、不启动Docker/SSH或工具载荷；安全测试必须有明确授权，来源免责声明也承认这些门禁不构成法律授权或绝对防护。包有prepare脚本，未执行。",
+      "riskEn": "Static orchestration study only: no scans, attacks, Docker/SSH startup or tool payload execution. Security testing requires explicit authorization; the source admits its gates are neither legal authorization nor absolute protection. Its prepare script was not run."
+    },
+    {
+      "package": "dsh-pptx-builder",
+      "version": "1.1.0",
+      "group": "presets",
+      "evidencePaths": [
+        "package.json",
+        "cordis.patch.yml",
+        "index.js"
+      ],
+      "presetIds": [
+        "presentations"
+      ],
+      "zh": "用受控pptx工具编辑真实OOXML交付，先inspect再按元素id修改；数值图表必须带来源，文件通用工具只保留读取，不给此面添加任意shell写作执行链。",
+      "en": "Edit a real OOXML deliverable through bounded pptx tools, inspecting before element-id updates; numerical charts carry sources, while generic file access is read-only rather than an arbitrary shell execution chain.",
+      "presetRationaleZh": "manifest真实补丁插入Host工具插件和独立preset-presentations；README明确在新会话模式选择器出现。子树为演示设计persona、只读文件、网页、提问、TODO、present和隔离压缩；Host index.js实际注册11个pptx_*工具。区别于已计ppt-assistant的引擎脚本/完整文件执行面，本面以有状态元素id/模板/原生工具操作OOXML；不是翻译或换名。",
+      "presetRationaleEn": "The manifest-declared patch inserts both the host tool plugin and a separate preset-presentations; README explicitly places it in the new-session mode picker. Its composition is a deck-design persona, read-only files, web, questions, TODO, present and isolated compaction; host index.js actually registers eleven pptx_* tools. Unlike accepted ppt-assistant's engine scripts/full file execution, it operates OOXML via stateful element ids, templates and native tools, not translation or renaming.",
+      "riskZh": "pptx_*在宿主全局注册，不宣称仅此预设能见；图表/公式等工具可能启动本机Python，研究未运行。",
+      "riskEn": "pptx_* tools register host-wide; do not claim preset-only visibility. Chart/formula tools may start local Python; none were run."
+    },
+    {
+      "package": "gord-dsh-worktree",
+      "version": "0.6.1",
+      "group": "presets",
+      "evidencePaths": [
+        "package.json",
+        "cordis.patch.yml",
+        "lib/index.js"
+      ],
+      "presetIds": [
+        "fast"
+      ],
+      "zh": "快速面物理省掉plan/goal/subagent/workflow，保留必要澄清、TODO、真实退出码、后台结果收集和影响匹配的验证；减少往返不等于伪造成功或免审批。",
+      "en": "Fast physically omits plan/goal/subagent/workflow while preserving clarification, TODO, real exit codes, background-result collection and impact-matched checks; fewer round trips do not mean fabricated success or bypassed approval.",
+      "presetRationaleZh": "真实补丁独立声明preset-fast/id fast；README明确可手选且默认模式仍是用户选择。不是重发四个官方builtin：实际移除规划、目标、调度链并重写直接行动/证据/验证契约。与awesome比较，fast保留pwsh、TODO、web、present及tool-result-pruner，awesome明确去TODO并改shell/fs/search/压缩阈值；两者工具结构和任务契约实质不同。",
+      "presetRationaleEn": "The actual patch independently declares preset-fast/id fast; README explicitly makes it selectable and leaves the default to the user. It does not republish the four official builtins: it removes planning/goals/delegation and installs a direct action/evidence/verification contract. Compared with awesome, fast retains pwsh, TODO, web, present and a tool-result pruner, while awesome removes TODO and tunes shell/fs/search/compaction; both the tool structure and task contract differ substantively.",
+      "riskZh": "Host插件apply会尝试补丁检查/修改Web bundle，另有可选核心并发补丁；未安装或执行，绝不引入这些核心修改。手工旧preset-fast与bundle并存可能重复。",
+      "riskEn": "The host apply path attempts Web bundle patch checks/changes and offers optional core concurrency patches; none were installed/executed or adopted. A preexisting hand-written preset-fast can duplicate the bundle declaration."
+    },
+    {
+      "package": "dsh-draw-mode",
+      "version": "2.0.1",
+      "group": "presets",
+      "evidencePaths": [
+        "package.json",
+        "cordis.patch.yml",
+        "index.js"
+      ],
+      "presetIds": [
+        "draw"
+      ],
+      "zh": "绘图能力来自用户导出的API工作流，先发现实际模型/slots再选提示词与参数；区分改图、反推与纯问答，反推后等待用户确认，失败重跑有上限。",
+      "en": "Drawing capability comes from user-exported API workflows: discover actual models/slots before choosing prompts and parameters; distinguish edits, reverse prompting and questions, require confirmation after reversal, and bound retries.",
+      "presetRationaleZh": "真实manifest补丁插入Host桥和独立preset-draw/id draw；Host index.js注册五个draw_*工具，配置子树完整可追踪。和已计drawing不是同构fork：drawing把19个comfyui_*工具限定在预设、内置Anima/Krea2与角色tag/LoRA规则；draw是宿主全局五工具的空工作流框架，按用户API JSON/sidecar识别slots、不带模型管线，且persona、规划/工具树不同。",
+      "presetRationaleEn": "The actual manifest patch inserts the host bridge and a separate preset-draw/id draw; index.js registers five draw_* tools and the complete preset subtree is traceable. It is not isomorphic to accepted drawing: drawing scopes nineteen comfyui_* tools and supplies Anima/Krea2/tag/LoRA policies; draw is a host-wide five-tool empty workflow framework with user API JSON/sidecar slot discovery, no model pipeline, and a different persona/planning/tool tree.",
+      "riskZh": "工具是宿主全局，非预设内隔离；可选自动启停可能启动或终止进程，idleShutdownScope:port范围更宽。默认关闭不等于无需权限审计；未生成图片或调用ComfyUI。",
+      "riskEn": "Tools are host-wide, not preset-isolated. Optional auto-start/shutdown can launch/terminate processes, with broader idleShutdownScope:port. Disabled defaults do not replace permission audits; no image generation or ComfyUI call occurred."
+    },
+    {
+      "package": "dsh-tsm-agent",
+      "version": "0.2.4",
+      "group": "presets",
+      "evidencePaths": [
+        "package.json",
+        "cordis.patch.yml",
+        "lib/index.js",
+        "AGENTS.md",
+        "skills/paradigm/SKILL.md"
+      ],
+      "presetIds": [
+        "dlr"
+      ],
+      "zh": "语义业务面把L1实体结构、L2领域共识、L3题级SOP分层，先映射物理列再SQL，结论附实际查询证据；场景数据不被伪装成多套预设。",
+      "en": "The semantic business face separates L1 entity structure, L2 domain consensus and L3 question-level SOP, maps physical columns before SQL and attaches actual query evidence; scenario datasets do not become extra presets.",
+      "presetRationaleZh": "真实单补丁有顶层semantic-core MCP、状态插件与独立preset-dlr/id dlr。交互会话显式选择该面，persona complete、关闭runtimeContext、禁默认技能根、仅paradigm技能与隔离压缩，不是通用编码面换名。lib/index.js把包内skills目录设入DLR_SKILLS_DIR并处理AGENTS副本；真实AGENTS/技能给出LE/PE/ARC与两跳映射契约。MCP是组合支持能力，不把泛MCP包本身当原生预设；只计DLR交互面一个。",
+      "presetRationaleEn": "The actual single patch contains a top-level semantic-core MCP client, status plugin and a separate preset-dlr/id dlr. Interactive sessions explicitly select this complete persona with runtime-context suppression, disabled default skill roots, paradigm-only skills and isolated compaction: not a renamed coding face. lib/index.js binds the packaged skills directory to DLR_SKILLS_DIR and handles the AGENTS copy; real AGENTS/skill files specify LE/PE/ARC and two-hop mapping. The MCP client supports the native composition; a generic MCP package is not itself counted. Count one DLR interactive face.",
+      "riskZh": "MCP网关在宿主顶层，后端不可达会failOnStartupError；需独立tsm-core-dlr服务和场景。Host启动逻辑可能向DSH_HOME写/清除匹配的AGENTS副本，属于跨预设副作用，不能照搬；未启动服务或执行SQL。",
+      "riskEn": "The MCP gateway is host-level and failOnStartupError requires a separately running tsm-core-dlr service/scenario. Host startup may write/remove a matching DSH_HOME AGENTS copy, a cross-preset side effect not to adopt. No service startup or SQL execution occurred."
+    },
+    {
+      "package": "dsh-novel-solo",
+      "version": "0.2.4",
+      "group": "presets",
+      "evidencePaths": [
+        "package.json",
+        "cordis.patch.yml",
+        "lib/index.js",
+        "template/persona.md",
+        "template/agent.cordis.yml",
+        "template/plugins/llm-tool-choice-pin/index.mjs"
+      ],
+      "presetIds": [
+        "novel-solo"
+      ],
+      "zh": "长篇写作按六类设定文档、逐章正文与独立章节/全书审核串接，量化小模型用纯文本契约和瘦工具面；数量设置只在装载时镜像进persona，不宣称即时生效。",
+      "en": "Long-form writing links six planning artifacts, chapter drafts and independent chapter/book reviews, using a plain-text contract and slim tools for quantized models. The count setting is mirrored into the persona at load time, not live.",
+      "presetRationaleZh": "manifest真实补丁在宿主>=0.1.7时声明preset-novel-solo/id novel-solo，README区分当前声明和旧目录部署，旧路径不另计。动态persona从实际template/persona.md读取，生成补丁与template/agent.cordis.yml仅在本地插件路径转包导出子路径处不同；导出插件真实监听agent/request并对llama设toolChoice:auto。保留str_replace_editor、文件、pwsh及内部spawn/fork审核，禁用web/goal/workflow等；与story的聊天走向开关和tavernweave角色卡/检索不是换名或同构。只计用户写作主面，不计审核子代理或N的不同值。",
+      "presetRationaleEn": "The actual manifest patch declares preset-novel-solo/id novel-solo on hosts >=0.1.7; README distinguishes current declaration from legacy directory deployment, which adds no extra count. The dynamic persona reads real template/persona.md; generated rows match template/agent.cordis.yml except the local plugin path being replaced by its exported subpath. That exported plugin really hooks agent/request and pins llama toolChoice:auto. Its str_replace_editor/files/pwsh/internal spawn/fork-review surface disables web/goals/workflow; it is not a rename/isomorph of story's chat-branch toggle or TavernWeave's cards/retrieval. Count only the user writing face, not review children or different N values.",
+      "riskZh": "版本门控、文件解析与设置镜像均只静态追踪，!!js未求值，未声称当前profile已挂载；pwsh固定启用需相应环境。persona有删旧版/审核文件和强制委派条款，不能覆盖用户授权、数据保留或安全边界；性能数字只是维护者特定环境报告。",
+      "riskEn": "Version gating, resource resolution and setting mirroring were statically traced only; !!js was not evaluated and no current-profile mount is claimed. pwsh is enabled and needs its environment. Persona deletion/mandatory delegation rules cannot override authorization, retention or safety; performance figures are maintainer environment-specific reports."
+    }
+  ],
+  "additionalNotCounted": [
+    {
+      "package": "dsh-scholar-digest",
+      "version": "0.1.1",
+      "presetId": "academic",
+      "decision": "not-used-to-hit-target",
+      "reasonZh": "完整26行builder已静态读通，含学术persona与CNKI/arXiv/PubMed/Semantic Scholar四MCP；README旧手工academic与本包同id不是第二套。现有inventory只解析出id，保守保留原暂缓记录，不用空配置哈希凑数。外部academic-static-closure.json保留不求值的AST数据供Lead另审。",
+      "reasonEn": "The complete 26-row builder was statically traced, including academic persona and four literature MCP sources. README's old manual academic has the same id and is not a second config. Existing inventory resolves only its id; retain the prior hold instead of counting an empty-config hash. An external academic-static-closure.json preserves opaque AST data for separate Lead review."
+    }
+  ]
+}

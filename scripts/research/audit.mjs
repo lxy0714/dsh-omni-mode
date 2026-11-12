@@ -10,7 +10,23 @@ await fs.mkdir(CACHE,{recursive:true});
 const target=path.join(ROOT,'research/sources.json'),inventoryPath=path.join(CACHE,'inventory.json');
 let data=JSON.parse(await fs.readFile(target,'utf8'));
 if(data.compactEvidence) data=JSON.parse(await fs.readFile(inventoryPath,'utf8'));else await fs.writeFile(inventoryPath,JSON.stringify(data,null,2)+'\n');
-const notes={reviews:[]};for(const filename of (await fs.readdir(path.join(ROOT,'research'))).filter(f=>/^reviews(?:\.[a-z0-9-]+)?\.json$/.test(f)).sort()){const n=JSON.parse(await fs.readFile(path.join(ROOT,'research',filename),'utf8'));notes.reviews.push(...n.reviews);}
+// Review notes are additive rounds: a later round may correct an earlier decision
+// (for example approving a configuration the first pass left pending). Plain lexical
+// filename order is wrong here because "reviews.presets-round7.json" sorts before
+// "reviews.presets3.json", silently letting the older note win. Sort base notes first,
+// then later rounds by round number, so explicit re-reviews always take precedence.
+const roundOf=file=>{const match=file.match(/-round(\d+)[a-z]?\.json$/);return match?Number(match[1]):0;};
+const noteFiles=(await fs.readdir(path.join(ROOT,'research'))).filter(f=>/^reviews(?:\.[a-z0-9-]+)?\.json$/.test(f)).sort((a,b)=>roundOf(a)-roundOf(b)||a.localeCompare(b));
+const notes={reviews:[]};const noteOrigin=new Map();
+for(const filename of noteFiles){
+ const n=JSON.parse(await fs.readFile(path.join(ROOT,'research',filename),'utf8'));
+ for(const review of n.reviews){
+  // Later rounds replace the earlier note for the same package instead of appending a
+  // duplicate decision the map constructor would resolve by insertion order alone.
+  if(noteOrigin.has(review.package))notes.reviews=notes.reviews.filter(r=>r.package!==review.package);
+  noteOrigin.set(review.package,filename);notes.reviews.push(review);
+ }
+}
 applyAudit(data,notes);
 const reviewed=data.packages.filter(r=>r.learningPoints?.length);
 const selectedNames=new Set([...reviewed.map(r=>r.package),...data.audit.selectedPresets.map(p=>p.package),...data.audit.selectedPlugins.map(p=>p.package)]);

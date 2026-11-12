@@ -1,0 +1,371 @@
+{
+  "schemaVersion": 1,
+  "reviews": [
+    {
+      "package": "dsh-agent-canvas",
+      "version": "0.1.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/client.js"],
+      "zh": "画布入口通过 conversation.view 槽注册，并在 inject(sessionId) 中把刷新操作绑定到 ctx.sessions.refreshSubagents(sessionId)；本地化注册的释放交给 effect。可借鉴的是会话定向刷新与槽位装配，不是已证明图中的任务关系完整准确。",
+      "en": "The canvas registers in conversation.view and binds refresh to ctx.sessions.refreshSubagents(sessionId) through inject(sessionId); an effect owns locale registration cleanup. The observable lesson is session-targeted refresh and slot composition, not proven completeness or accuracy of the task graph."
+    },
+    {
+      "package": "dsh-agent-compare",
+      "version": "2.0.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/host/index.js"],
+      "zh": "比较入口优先使用 agents.create，退回 shared-root 子代理时明确记录“只检测逃逸、不阻止逃逸”；同时拒绝 delegated agent 再发起比较，并给 comparer 注册卸载清理。能力降级必须报告隔离语义变化，不能只报工具仍可调用。",
+      "en": "The comparison entry prefers agents.create, explicitly warns that shared-root fallback detects rather than prevents escapes, rejects comparison starts from delegated agents, and registers comparer disposal. A fallback must report changed isolation semantics, not merely continued tool availability.",
+      "riskZh": "只读了入口和相关装配片段，未验证隔离执行器、检查器或候选文件采用流程。",
+      "riskEn": "Only entry and related assembly fragments were read; isolated runners, checks, and candidate adoption were not verified."
+    },
+    {
+      "package": "dsh-agent-conductor",
+      "version": "0.4.0",
+      "group": "plugins",
+      "evidencePaths": ["index.js"],
+      "zh": "CLI 派发把 child.done、调用取消和十分钟超时做竞速，取消/异常路径调用 terminate，finally 清除计时器和 abort 监听；面板取消另以 cancelRequested 区分，避免当作正常退出。Web 面板经可选 webServer 注入，不应让纯 CLI 部署因缺面板服务而失去工具。",
+      "en": "CLI dispatch races child.done against cancellation and a ten-minute timeout, calls terminate on cancellation/errors, and clears timers and abort listeners in finally; cancelRequested distinguishes panel cancellation from ordinary exit. Optional webServer injection keeps a missing panel service from disabling CLI-only tooling.",
+      "riskZh": "未运行外部 CLI，也未核验 terminate 对各平台进程树的实际效果。",
+      "riskEn": "No external CLI was run, and platform-specific process-tree termination was not verified."
+    },
+    {
+      "package": "dsh-agent-relay",
+      "version": "0.5.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "中继先异步解析宿主凭据，再建立客户端与收件轮询；状态路由限制回环地址及 GET，并返回 no-store。工具指导明确把对端消息视为不可信输入，卸载路径集中停止轮询、清理会话句柄和自启 broker，值得区分消息可达性与指令权威。",
+      "en": "The relay resolves host credentials asynchronously before creating its client and inbox polling; its status route restricts callers to loopback and GET with no-store responses. Tool guidance treats peer messages as untrusted input, while teardown stops polling, disposes session handles, and stops an owned broker: message reachability is not instruction authority.",
+      "riskZh": "未审计 HMAC 协议实现或异步初始化与卸载之间的全部竞态，不能从状态路由推断整套中继安全。",
+      "riskEn": "HMAC implementation and all initialization/disposal races were not audited; the status route does not establish relay-wide security."
+    },
+    {
+      "package": "dsh-agent-studio",
+      "version": "0.2.1",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "设置、预设注册表与 Web 路由分别注入，路由通过 getScope/getRegistry 等取值函数读取当下状态，避免依赖回调先后顺序；settings/document-updated 先按命名空间过滤再触发 sync。生效、派活、降级三层分别捕错，使某层挂载失败不吞掉配置入口。",
+      "en": "Settings, preset registry, and web routes are injected separately; getters such as getScope/getRegistry retrieve current state without assuming callback order. settings/document-updated filters its namespace before syncing. Apply, delegation, and fallback mounting catch failures independently so one failed layer does not remove configuration access."
+    },
+    {
+      "package": "dsh-agent-team-presets",
+      "version": "0.1.9",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "成员 provider 别名的对账先拒绝空配置、自指别名和不支持 prepareContinuable 的上游；监听 provider 增删后才首次扫描，并用 reconciling 守卫阻止自身注册事件递归触发。卸载释放监听和别名，适合学习动态注册表的身份与重入边界。",
+      "en": "Member-provider reconciliation rejects empty configuration, self-referential aliases, and upstream providers lacking prepareContinuable. It subscribes before the first scan and uses a reconciling guard against events emitted by its own registrations. Disposal releases listeners and aliases, illustrating identity and reentrancy boundaries for dynamic registries."
+    },
+    {
+      "package": "dsh-agent-team-roles",
+      "version": "0.2.1",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js", "lib/host/gate.js"],
+      "zh": "入口在门控配置分支只挂角色作用域的 gate 后立即返回，不碰角色仓库；gate 从已注册 schemas 收集工具名，以 MCP 前缀或精确工具名构造 deny，再把 restrict 的释放函数交给 effect。缺少 schemas/restrict 时明确告警，而非宣称开关已经生效。",
+      "en": "The entry's gate-config branch mounts only a role-scoped gate and returns without touching the role store. Gates collect registered schema names, build deny lists by MCP prefix or exact tool name, and dispose restrictions through effects. Missing schemas/restrict methods produce explicit warnings rather than a claim that toggles took effect.",
+      "riskZh": "所读 gate 只解析挂载时可见的工具；未核验后续新增工具、其他执行路径或权限隔离的完整覆盖。",
+      "riskEn": "The inspected gate resolves tools visible at mounting time; later additions, alternate execution paths, and complete permission isolation were not verified."
+    },
+    {
+      "package": "dsh-agent-team-workflow",
+      "version": "0.2.1-rc.2",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "子代理 start/end 以 runId 标识同一会话的不同运行世代；继承工作区仅记为 probe，必须再从工作单取得参与身份。终态监听先记引用，再用 setImmediate 在 append 回调外结算引擎，不通过父会话的自然语言通知猜完成。",
+      "en": "Subagent start/end handling uses runId to distinguish generations within one session. Inherited workspace location is merely a probe until work-order evidence establishes participation. End handling records a reference and settles the engine with setImmediate outside the append callback instead of inferring completion from natural-language parent notices."
+    },
+    {
+      "package": "dsh-background-agents",
+      "version": "0.10.3",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "启动后台子代理先核验 provider 支持 prepareContinuable，再按父代理串行通过 startGates 检查数量上限；finally 释放启动闸，成功返回稳定 agentId/messageId。bg_message 的契约明确仅确认投递、不返回答案，避免把发信回执误作任务完成。",
+      "en": "Background-child startup checks prepareContinuable support, then serializes admission per parent with startGates before checking the count limit; finally releases the gate, and success returns stable agentId/messageId values. bg_message explicitly acknowledges delivery rather than returning an answer, preventing receipt/completion confusion.",
+      "riskZh": "README 已标退休并推荐宿主原生 continuable subagents；仅作历史契约参考，不建议重装替代原生能力。",
+      "riskEn": "The README marks this retired in favor of native continuable subagents; it is historical contract evidence, not a recommendation to replace native capabilities."
+    },
+    {
+      "package": "dsh-clarify-mode",
+      "version": "0.1.1",
+      "group": "plugins",
+      "evidencePaths": ["index.js"],
+      "zh": "澄清开关写入会话事件并由 projection 读回；prompt 组装先 await next，再仅对 active 会话过滤配置中的隐藏工具。策略段设置 interpolate:false，轮次硬顶文案会要求列出未问项；可学习状态驱动的工具目录裁剪，不应把它称为所有执行通路的写入安全边界。",
+      "en": "The clarification toggle is recorded as a session event and read through a projection. Prompt assembly awaits next, then filters configured hidden tools only for active sessions. Policy sections disable interpolation, and the hard-round-limit text requires reporting unasked items. This illustrates state-driven catalog reduction, not a write-security boundary across every execution path."
+    },
+    {
+      "package": "dsh-context-window",
+      "version": "0.1.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "模型选择事件和 volatile 更新都会重新查询 resolveModelInfo，但仅给已有 requestContext 的会话追加变化后的 request/context，并保留 systemPromptUpdate；卸载统一释放两个监听。显示容量应来自宿主解析的模型事实，不能只改前端百分比分母就称请求一定可执行。",
+      "en": "Model-selection events and volatile updates re-query resolveModelInfo, append changed request/context only to sessions with an existing requestContext, and preserve systemPromptUpdate. Teardown removes both listeners. Displayed capacity should derive from host-resolved model facts; changing a percentage denominator does not establish that requests will execute."
+    },
+    {
+      "package": "dsh-crew",
+      "version": "0.13.0",
+      "group": "plugins",
+      "evidencePaths": ["host/git-guard.js"],
+      "zh": "Git 护栏用 session.header.parentSession 而非 exec.parent 判断根代理，避免把 Code Mode 嵌套调用身份混淆；审批文件在 push 执行前消耗，减少崩溃后重复授权。挂载时拒绝目录形 approvalFile，防止护错名称。",
+      "en": "The Git guard identifies root agents using session.header.parentSession rather than exec.parent, avoiding confusion with nested Code Mode calls. It consumes the approval file before push execution to reduce authorization reuse after crashes and rejects directory-shaped approvalFile settings at mount time.",
+      "riskZh": "实现明确只检查 shell 工具，write/edit 仍可触及审批文件；根代理默认绕过部分检查。不是不可绕过的发布权限系统。",
+      "riskEn": "The implementation explicitly checks shell tools only; write/edit can still touch the approval file, and the root agent bypasses some checks by default. This is not an unbypassable publication authorization system."
+    },
+    {
+      "package": "dsh-custom-subagents",
+      "version": "0.1.5",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "缺失内置定义的播种每次重新读取持久设置，只追加缺项，并带 revision 调用 settings.update；仅 SETTINGS_CONFLICT 重试，最多三次，其他错误继续抛出。定义目录作为 subagentDefinitions 服务提供，关闭函数交给 effect，而非用模块全局缓存替代持久设置。",
+      "en": "Seeding missing built-in definitions re-reads persisted settings each attempt, appends only missing entries, and passes the revision to settings.update. Only SETTINGS_CONFLICT is retried, up to three times; other failures propagate. The catalog is provided as subagentDefinitions with effect-owned closure rather than replacing persisted settings with a module-global cache."
+    },
+    {
+      "package": "dsh-deep-ptc-mode",
+      "version": "1.8.8",
+      "group": "plugins",
+      "evidencePaths": ["lib/tool-compatibility.mjs", "lib/tool-policy.mjs"],
+      "zh": "工具发现与隔离层放在需要 tools/systemPrompt/commands/sessionProjections 的子 fiber，失败时告警而保留官方 PTC 工具。目录 load 限 1–6 个精确名、预算 16000 字节，分别返回 loaded/unavailable/deferred，并明确不执行工具；发现定义与执行业务应是两种契约。",
+      "en": "Tool discovery/quarantine runs in a child fiber requiring tools/systemPrompt/commands/sessionProjections; failure warns while retaining official PTC tools. Directory load accepts 1–6 exact names within a 16,000-byte budget, distinguishes loaded/unavailable/deferred, and explicitly executes no tools. Discovering definitions and performing business operations are separate contracts.",
+      "riskZh": "未运行隔离判据或核验所有 preset 装配分支；fail-open 是此辅助层的降级选择，不是安全隔离保证。",
+      "riskEn": "Quarantine criteria and all preset assembly branches were not exercised; fail-open is an auxiliary-layer fallback, not a security-isolation guarantee."
+    },
+    {
+      "package": "dsh-eteams",
+      "version": "0.2.22",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "中断观察先把 sessionId 解析为成员小任务或领队锚定大任务，未绑定会话直接忽略；session/event 监听分别调用成员暂停和领队中断处理，并捕获同步与异步失败。中断处置应依赖真实会话映射，不能把任何会话停止都广播成整个团队失败。",
+      "en": "Interruption observation maps sessionId to either a member subtask or the captain's anchored task and ignores unbound sessions. The session/event listener calls distinct member-pause and captain-interruption handlers and catches synchronous and asynchronous failures. Interruption scope should follow real session bindings, not broadcast every stopped session as team-wide failure."
+    },
+    {
+      "package": "dsh-modes",
+      "version": "0.9.1",
+      "group": "plugins",
+      "evidencePaths": ["index.js", "tool-descriptions.js"],
+      "zh": "工具说明覆盖行只在有 override 的预设中插入，无覆盖时移除；组装监听 await 下游后仅替换 description，保留工具名与参数，不改全局注册表。每次请求读取最新保存值，但首次新增监听只影响后来启动的会话，且 run_code 内的 SDK 文本不在此改写范围。",
+      "en": "A tool-description row is inserted only into presets with overrides and removed when none remain. Its assembly listener awaits downstream output, changes only description, and leaves names, parameters, and the global registry untouched. Saved values are read per request, but first-time listener insertion affects later sessions only, and run_code SDK text is outside its rewrite scope."
+    },
+    {
+      "package": "dsh-multitask",
+      "version": "1.4.1",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "volatile 更新触发预设重新声明；失败时尝试恢复上一份 composition，连恢复失败也明确告警模式将缺席。清理只释放本实例拥有的声明，避免旧 fiber 晚卸载删掉新实例接管的预设；设置热更新要同时设计回滚和所有权交接。",
+      "en": "Volatile updates trigger preset redeclaration; failure attempts to restore the previous composition, and failed restoration explicitly warns that the mode is missing. Cleanup releases only the current instance's declaration so late disposal of an old fiber does not remove its replacement. Hot settings updates need both rollback and ownership handoff."
+    },
+    {
+      "package": "dsh-openwrite",
+      "version": "0.2.38",
+      "group": "plugins",
+      "evidencePaths": ["plugin.mjs"],
+      "zh": "兼容旧预设目录时先检查管理标记与内容摘要，遇到无标记目录或被改过的版本拒绝覆盖；现代宿主以异步 generator yield 注册释放函数。历史身份别名尊重已有 readDocument 声明，以保留旧会话可恢复性，而不应把每个版本别名当新独立模式。",
+      "en": "Legacy preset-directory handling checks ownership markers and content digests, refusing to overwrite unmarked directories or modified versions. Modern hosts receive registrations through an async generator yielding disposers. Historical identity aliases respect existing readDocument declarations to preserve resumability, not to count every version alias as a new mode."
+    },
+    {
+      "package": "dsh-paoding",
+      "version": "0.4.10",
+      "group": "plugins",
+      "evidencePaths": ["plugins/paoding-config-ui/index.mjs"],
+      "zh": "工作区预设写流程用 applyInFlight 串行闸包住读取状态、baseRevision 校验、配置快照与 installAssignments；写后强刷缓存失败只 warn，不抹去已写成功的事实。路由注册重试只匹配 duplicate prefix route，其他错误原样抛出，避免把真正组合冲突伪装成热重载延迟。",
+      "en": "Workspace-preset writes use an applyInFlight gate around state reads, baseRevision checks, configuration snapshots, and installAssignments. Post-write cache refresh failures warn without erasing the fact that writing succeeded. Route-registration retries match only duplicate prefix-route errors; other errors propagate rather than disguising genuine composition conflicts as reload delay."
+    },
+    {
+      "package": "dsh-plan-and-execute",
+      "version": "0.6.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "每个 session 只建立一个 orchestrator，步骤模型覆盖挂在 agent.ctx 的 request 链；切 provider/model 时先移除继承的 reasoningEffort，避免把上一模型档位带给新模型。排期触发先检查 archivedSessionIds，缺失 agents 服务则告警等打开时补执行，而非假报已唤醒。",
+      "en": "One orchestrator is created per session, with step-model overrides attached to the agent.ctx request chain. Switching provider/model first removes inherited reasoningEffort to avoid carrying another model's effort setting. Scheduled firing checks archivedSessionIds first; missing agents service warns and defers until opening rather than falsely reporting a wake-up."
+    },
+    {
+      "package": "dsh-plugin-task-runner",
+      "version": "0.6.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/worker/index.js"],
+      "zh": "task_worker 先做提示词估算预算拒绝，再按调用会话信号量拒绝超并发，不自动切换模型。settleRun 等结果后始终 dispose，并保留执行和释放双重异常；非 completed 的 stopReason 返回失败，超长结果截断同时保存全文 artifact，finally 释放并发槽。",
+      "en": "task_worker rejects estimated over-budget prompts before per-session semaphore admission and never silently switches models. settleRun always disposes after awaiting the result and preserves both execution and disposal failures. Non-completed stopReason values become failures; long results are truncated with a full artifact saved, and finally releases the concurrency slot.",
+      "riskZh": "token 估算是启发式；未核验底层 provider 的上下文上限或本机实际并发效果。",
+      "riskEn": "Token estimation is heuristic; provider context ceilings and actual local concurrency behavior were not verified."
+    },
+    {
+      "package": "dsh-shutdown-after-task",
+      "version": "0.2.0",
+      "group": "plugins",
+      "evidencePaths": ["index.js"],
+      "zh": "关机状态初始 armed=false，只有已武装且根代理均不 running 时才进入倒计时，并根据错误集合跳过失败批次；这是把危险自动化建模成显式状态机的实例。但所读 arm/disarm/cancel 路由没有 method 检查，不能采信 README 所述 POST 约束已落实。",
+      "en": "Shutdown starts with armed=false and enters countdown only when armed and no root agent is running, skipping errored batches when configured. This models dangerous automation as explicit state. However, the inspected arm/disarm/cancel routes have no method checks, so the README's POST restriction is not established.",
+      "riskZh": "cancelShutdown 会撤销 armed，而新任务分支虽写“模式保持开启”仍调用它，存在可见实现/文案不一致；未执行任何关机操作。",
+      "riskEn": "cancelShutdown disarms the mode even when the new-task branch says it remains armed, exposing an implementation/text mismatch. No shutdown operation was executed."
+    },
+    {
+      "package": "dsh-sort-out-the-thoughts",
+      "version": "0.3.10",
+      "group": "plugins",
+      "evidencePaths": ["index.js"],
+      "zh": "思路工具将 advance 单独交给 markAdvanceAsked 并返回 shouldAsk/from/to；finish 要求传入 id，再把 stage 设为 archived，避免无身份归档。保存返回稳定 id，失败返回 ok:false 与 detail；调用方必须看结构化结果，不能把渲染出的“保存/归档”意图当成功事实。",
+      "en": "The thoughts tool routes advance separately through markAdvanceAsked and returns shouldAsk/from/to. finish requires an id argument before setting stage to archived. Saves return a stable id; failures return ok:false and detail. Callers must inspect structured results rather than treating a rendered save/archive intention as success."
+    },
+    {
+      "package": "dsh-step-governor",
+      "version": "0.2.2",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "tools/pre-execute 在下游决策非 deny 时才累计同目标调用，避免自阻断把计数越抬越高；deny 的 info 按 G2-A/G2-B 分支分别构造，避免缺失字段变 undefined 引发 JSON 序列化错误。可借鉴的是可解释计数和稳定错误载荷，不是已证明机械信号能判断任务语义价值。",
+      "en": "tools/pre-execute counts same-target calls only when the downstream decision is not deny, avoiding self-blocks inflating counters. Denial info is built separately for G2-A/G2-B so absent fields do not become undefined and break JSON serialization. The lesson is explainable counting and stable error payloads, not proof that mechanical signals judge semantic task value."
+    },
+    {
+      "package": "dsh-task-reliability",
+      "version": "0.4.11",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js", "lib/events.js"],
+      "zh": "llm/stream 包装保持同步返回流，直接取得 next() 并返回 wrapStreamForLoop，而非 async 返回 Promise，以兼容 yield* 消费方；无 sessionId 时原样放行。可靠性插件也必须守住事件返回形状，不能只看 for-await 场景可用就认定流适配通用。",
+      "en": "The llm/stream wrapper synchronously obtains next() and returns wrapStreamForLoop instead of an async Promise, preserving compatibility with yield* consumers; requests without sessionId pass through. Reliability plugins must preserve event return shapes rather than assuming for-await compatibility covers all stream adapters.",
+      "riskZh": "同文件的 autopilot 路径会拦截提问或在超时后模拟继续；不能把缺少用户回答当作授权，不建议移植这种语义。",
+      "riskEn": "The same file's autopilot paths intercept questions or simulate continuation after timeouts. Missing user answers are not authorization, and that semantic should not be adopted."
+    },
+    {
+      "package": "dsh-team-control",
+      "version": "0.2.3",
+      "group": "plugins",
+      "evidencePaths": ["index.js"],
+      "zh": "向 sidecar 镜像 agent/status 时先查 sessionMember 绑定；maintenance 的 idle 仍记 running，heldSessions 的 idle 仍记 interrupted，其余 idle 等稳定窗口再收尾，避免压缩或人工中断被误判可继续派工。工具、计时器、缓存和自启 sidecar 在 effect 中集中清理。",
+      "en": "Mirroring agent/status to a sidecar first checks sessionMember bindings. Maintenance idle remains running, heldSessions idle remains interrupted, and ordinary idle waits for a settling window before finalization, preventing compaction or operator interruption from becoming dispatch availability. Effects centralize cleanup of tools, timers, caches, and an owned sidecar.",
+      "riskZh": "另见 prepend approval/request 转给 Lead 的路径；未核验其授权来源，不能把模型 Lead 裁决等同人工许可。",
+      "riskEn": "A prepend approval/request path redirects decisions to a Lead; its authorization provenance was not verified, and model-Lead adjudication is not equivalent to human permission."
+    },
+    {
+      "package": "dsh-team-rooms",
+      "version": "1.0.9",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "房间命令注册可选，缺 commands 时仍可保留工具面；敏感工具操作通过 requireApproval 要求精确 allowed-once，服务缺失或其他结果均抛稳定 RoomError。列表投影还会检查调用会话确为成员，值得分清命令作者授权、工具审批与成员可见性。",
+      "en": "Room commands are optional, leaving tools available without commands. Sensitive tool operations use requireApproval requiring exactly allowed-once; a missing service or other outcome throws a stable RoomError. List projection also checks that the calling session is a member, separating command-author authorization, tool approval, and membership visibility.",
+      "riskZh": "README 标为退休并推荐宿主原生 Agent Teams；只研究历史边界，不当作当前替代实现。",
+      "riskEn": "The README marks it retired in favor of native Agent Teams; study the historical boundaries rather than adopt it as a current replacement."
+    },
+    {
+      "package": "dsh-tool-orchestrate",
+      "version": "0.1.0",
+      "group": "plugins",
+      "evidencePaths": ["dist/index.js", "dist/graph.js"],
+      "zh": "工具在 workflowEngine.start 前调用 normalizeTaskGraph，集中检查任务数、提示词长度、重复 id、缺失/自身依赖和对象根输出 schema；模型数据经 args 交给包内固定脚本。调用取消转给 run.cancel，finally 摘 abort 监听并 await run.dispose，图验证和运行资源结算是两道独立边界。",
+      "en": "Before workflowEngine.start, the tool calls normalizeTaskGraph to check task counts, prompt lengths, duplicate ids, missing/self dependencies, and object-root output schemas. Model data goes through args to a package-owned fixed script. Cancellation calls run.cancel; finally removes the abort listener and awaits run.dispose. Graph validation and runtime resource settlement are separate boundaries.",
+      "riskZh": "未运行 DAG，也未据此宣称子任务结果内容真实或整套实现无注入风险。",
+      "riskEn": "No DAG was executed; this does not establish truthful task results or absence of injection risks throughout the implementation."
+    },
+    {
+      "package": "@agent_forge/forge-dsh",
+      "version": "1.84.5",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "包装器把 PreToolUse 映射到 tools/pre-execute，把 PostToolUse 映射到 post-execute，先筛匹配组再调用外部判定；SessionStart 的上下文按 agent 排队，只有 pre-step 真正投递后才清空，reject 时保留。事件桥要保留各阶段的拒绝/重试语义，不能仅转发同名通知。",
+      "en": "The wrapper maps PreToolUse to tools/pre-execute and PostToolUse to post-execute, selecting matching groups before external adjudication. SessionStart contexts queue per agent and clear only after actual pre-step delivery, remaining queued on rejection. An event bridge must preserve phase-specific rejection/retry semantics, not merely forward similarly named notifications.",
+      "riskZh": "门禁核心在外部 forge 程序；未执行或审计该程序，包装器接通不等于质量规则有效。",
+      "riskEn": "Gate logic lives in the external forge program, which was neither run nor audited; a connected wrapper does not prove effective quality rules."
+    },
+    {
+      "package": "@yxzpro/agent-acta",
+      "version": "2.15.3",
+      "group": "plugins",
+      "evidencePaths": ["plugin/plugin.mjs"],
+      "zh": "原生 Web 桥对非需改写响应直接转发数据块，让 SSE 不被整流缓冲；上游断流后若 headersSent 则只 end，避免二次写头把宿主带崩。CLI 服务消失时用共享 taking Promise 合并 hosted 接管请求，并返回 inject Promise 供宿主等待装配完成。",
+      "en": "The native web bridge forwards chunks directly for responses not requiring rewriting, avoiding whole-stream buffering of SSE. On upstream failure it only ends an already-headed response, avoiding duplicate-header exceptions. A shared taking Promise coalesces hosted takeover when the CLI service disappears, and the inject Promise is returned so the host can await assembly."
+    },
+    {
+      "package": "dsh-agent-bench",
+      "version": "0.1.1",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "bench_suites 返回 source、root 及逐套件 cases/assertions 数，渲染区明确区分 bundled 起始套件与工作区套件，并引导另用 bench_init 做复制。发现测试材料和写入初始化分成不同工具，能减少把“看到内置用例”误说成“用户工程已有这些测试”。",
+      "en": "bench_suites returns source, root, and per-suite case/assertion counts; rendering distinguishes bundled starter material from workspace suites and directs copying through bench_init. Separating discovery from initialization reduces claims that merely visible bundled cases already exist in the user's project.",
+      "riskZh": "本次只核验目录发现/初始化工具契约，未运行基准，也未核验 README 所称沙箱路径限制。",
+      "riskEn": "Only discovery/initialization contracts were inspected; no benchmark ran, and README claims about sandbox path restrictions were not verified."
+    },
+    {
+      "package": "dsh-aosp",
+      "version": "0.2.0",
+      "group": "plugins",
+      "evidencePaths": ["index.mjs"],
+      "zh": "工具注册遇已有同名定义时跳过，并收集成功注册的 disposer 随 effect 释放；aosp_fetch/update/preset 的 pre-execute 先 await 下游，仅将 allow 升为 ask，不覆盖既有 deny。只读按行工具与数百 MB 下载写盘应分别说明风险，而不是共用一个“搜索源码”标签。",
+      "en": "Registration skips existing tool names and collects successful disposers for effect-owned cleanup. The pre-execute hook for aosp_fetch/update/preset awaits downstream decisions and upgrades only allow to ask without overriding deny. Line reads and potentially hundreds-of-megabytes downloads need distinct risk descriptions rather than one generic source-search label."
+    },
+    {
+      "package": "dsh-atelier-plugin",
+      "version": "1.7.0",
+      "group": "plugins",
+      "evidencePaths": ["host.js"],
+      "zh": "请求记录明写采集层是适配器前后归一化数据而非 HTTP 原始线；先对记录副本 redact，再入库并记录摘要字节数，保留期/容量清理跳过 active 请求。统计使用独立版本化 session projections，日志采集层次与 UI 数字的证据含义应明确分开。",
+      "en": "Request records explicitly label capture as normalized data before/after adapters, not raw HTTP wire traffic. Copies are redacted before storage with summary byte metadata; age/capacity pruning skips active requests. Statistics use separate versioned session projections, keeping capture-layer evidence distinct from UI metrics.",
+      "riskZh": "只见 redact 调用，未审计脱敏规则完整性；不能据此保证请求日志绝无秘密。",
+      "riskEn": "The redact call was observed but its complete rules were not audited; secret-free logs are not established."
+    },
+    {
+      "package": "dsh-plugin-compare",
+      "version": "0.1.0",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "比较收集器从 session/event 按 String(session.id) 记录，不从 UI 文案猜执行；RPC 装配标注 trusted-host，controlled-run 先校验输入，进度分别落 completed/failed。配置 maxTrials 再取至多 10，控制试验必须明确边界与失败态，不能只给一条运行按钮。",
+      "en": "The comparison collector records session/event data keyed by String(session.id) rather than inferring execution from UI wording. RPC assembly declares trusted-host authority; controlled-run validates input and records completed/failed progress separately. maxTrials is capped at ten, making experiment bounds and failure states explicit rather than exposing only a run button.",
+      "riskZh": "未展开 controlled runner 和 RPC 权限实现；未证明 A/B 环境隔离或统计因果有效性。",
+      "riskEn": "The controlled runner and RPC authority implementation were not expanded; A/B isolation and statistical causal validity were not established."
+    },
+    {
+      "package": "dsh-code-rag-index-panel",
+      "version": "1.4.1",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "这不是仅配置 MCP：原生 Host 注册 diag/config/action 三条路由并集中回收；action 限 index/rebuild/cancel/setup，取消转发独立 POST /api/cancel，索引服务缺席返回 SERVER_DOWN。设置命名空间是可选 schema 层，注册失败不影响已有索引条路径。",
+      "en": "This is not merely MCP configuration: a native host registers diag/config/action routes with centralized disposal. action accepts only index/rebuild/cancel/setup, forwards cancellation to a distinct POST /api/cancel, and returns SERVER_DOWN when indexing is unavailable. The settings namespace is an optional schema layer whose failure does not remove the existing index-bar path.",
+      "riskZh": "实际检索依赖伴随 MCP 服务；未运行 setup、索引或取消，也未核验路由 guard 的完整授权逻辑。",
+      "riskEn": "Retrieval depends on a companion MCP service. Setup, indexing, and cancellation were not run, and complete route-guard authorization was not verified."
+    },
+    {
+      "package": "dsh-api-probe",
+      "version": "1.0.1",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "探测路由先做 paired/loopback 门控、POST 检查和 JSON 校验，再以 NDJSON 逐行发事件，最终 result 自带完整结果；健康路由另限 GET。路由列表在 makeRoutes(ctx) 内创建以捕获正确作用域，不能只测核心探测函数而漏掉真实请求时的 ctx 引用。",
+      "en": "The probe route checks paired/loopback access, POST, and JSON before emitting NDJSON events; the final result contains the full outcome. Health is a separate GET route. makeRoutes(ctx) constructs handlers in the correct scope, highlighting why core-function tests alone miss request-time ctx-reference failures.",
+      "riskZh": "客户端 close 片段只设 closed 抑制后续输出，不能据此宣称网络探测已被取消；未发起实际探测。",
+      "riskEn": "The client-close fragment only sets closed to suppress output; it does not establish cancellation of network probing. No actual probe was sent."
+    },
+    {
+      "package": "dsh-preset-doctor",
+      "version": "0.9.3",
+      "group": "plugins",
+      "evidencePaths": ["src/index.js"],
+      "zh": "实现中的启动任务固定 runScanFix({mode:'scan'})，延时一秒并在卸载清掉 timer；修复入口另走命令/设置桥。它与 README 开头“自动修复”的概括存在边界差异，研究应以扫描只读与显式修复分面的实际代码为准，不能照抄宣传作自动写盘保证。",
+      "en": "The startup task explicitly calls runScanFix({mode:'scan'}), delayed one second with timer cleanup on disposal; repair uses separate command/settings-bridge paths. This differs from the README's broad automatic-repair introduction. Research should follow the code's read-only scan/explicit repair separation rather than repeat promotional wording as an automatic-write guarantee.",
+      "riskZh": "部分桥回调内部直接传 confirm:true；未审计外层 UI/HTTP 确认链，不能宣称所有修复均已证明获人工授权。",
+      "riskEn": "Some bridge callbacks pass confirm:true internally; outer UI/HTTP confirmation chains were not audited, so human authorization for every repair is not established."
+    },
+    {
+      "package": "dsh-quit-idle-fix",
+      "version": "0.1.0",
+      "group": "plugins",
+      "evidencePaths": ["index.js"],
+      "zh": "清理 idle inbox 前同时要求 agent.status==='idle' 且 nextTurn 为空，只删四种 source.kind 白名单通知，并倒序调用 inbox.splice 避免索引位移；500ms 扫描 timer 随 effect 清除。修假忙应区分用户待办与系统提示，不能粗暴清空 nextStep。",
+      "en": "Idle-inbox cleanup requires both agent.status==='idle' and an empty nextTurn, removes only four allowlisted source.kind notice types, and splices backward to avoid index shifts. Its 500ms sweep timer is effect-disposed. Fixing false activity must distinguish queued user work from system notices, not clear nextStep wholesale.",
+      "riskZh": "未验证这些通知在所有宿主版本中均可冗余删除，也未进行桌面退出验收。",
+      "riskEn": "It was not verified that these notices are redundant in every host version, and desktop quit behavior was not tested."
+    },
+    {
+      "package": "dsh-tray-launcher",
+      "version": "1.5.2",
+      "group": "plugins",
+      "evidencePaths": ["src/plugin.js"],
+      "zh": "宿主 apply 先按 win32 门控，再以固定 argv 启动包内 tray.ps1；DataDir 指向 DSH_HOME/dsh-tray 而非版本化 npm 目录，dispose 调用 child.kill。可学习平台隔离与可更新数据目录的分离，但仅 kill 直接子进程不能据此证明整棵进程树已结算。",
+      "en": "Host apply gates on win32, launches the bundled tray.ps1 with fixed argv, stores DataDir under DSH_HOME/dsh-tray rather than the versioned npm directory, and calls child.kill on disposal. This illustrates platform isolation and update-stable data placement; killing the direct child does not prove whole-tree settlement.",
+      "riskZh": "入口直接使用 node:child_process，未审计 PowerShell 脚本、互斥或自定位实现，未启动托盘。",
+      "riskEn": "The entry uses node:child_process directly; the PowerShell script, mutex, and self-location logic were not audited, and no tray was launched."
+    },
+    {
+      "package": "@free-lzj/dsh-agent-import",
+      "version": "0.3.3",
+      "group": "plugins",
+      "evidencePaths": ["lib/index.js"],
+      "zh": "配置热更新通过 pending Promise 链串行 disposeGeneration、清空旧 record、重新 buildGeneration，再发布新报告；报告路由读取当前 record，无活动代时返回 NO_REPORT。技能报告枚举 DSH 自己目录内 linked/local 条目，而非把外部目录中的候选都冒充已导入。",
+      "en": "Hot configuration updates serialize disposeGeneration, old-record clearing, buildGeneration, and new report publication through a pending Promise chain. Report routes read the current record and return NO_REPORT between generations. Skill reports enumerate linked/local entries in DSH's own directory instead of presenting every foreign candidate as imported.",
+      "riskZh": "未启动导入的 MCP server，也未验证符号链接操作或所有卸载竞态；静态代际装配不是外部配置安全证明。",
+      "riskEn": "No imported MCP server was started, and symlink operations or all disposal races were not verified; static generation assembly is not proof of external-configuration safety."
+    }
+  ]
+}
