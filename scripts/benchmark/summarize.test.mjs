@@ -24,9 +24,22 @@ test('partial infrastructure failures are retained, not replaced with a full ret
  assert.equal(data.pairedPrimaryCases,0);assert.equal(data.primary[0].errorCode,'ABORTED');
 });
 test('a step limit is never a successful completion even if artifacts happened to pass',()=>{
- const data=summarizeReceipts([receipt('limit',[arm('baseline'),arm('candidate',true,'step-limit')])],options);
+ const data=summarizeReceipts([receipt('limit',[arm('baseline'),arm('candidate',true,'step-limit')],{status:'incomplete'})],options);
  assert.equal(data.counts.candidate.passed,0);assert.equal(data.counts.candidate.incomplete,1);
+ // A budget exhaustion is a model-behaviour outcome, not infrastructure: it is counted
+ // as an incomplete arm and still blocks a compare-only-on-finished claim.
+ assert.equal(data.counts.candidate.infrastructure,0);
+ assert.equal(data.pairedPrimaryCases,0);
  assert.deepEqual(data.criticalRegressions,['one']);
+});
+test('transport faults are excluded from outcomes and never counted as model regressions',()=>{
+ const transport=receipt('fault',[arm('baseline'),{variant:'candidate',status:'infrastructure-error',grade:{passed:false,criticalPassed:false,score:0.1,checks:[]}}]);
+ const data=summarizeReceipts([transport],options);
+ assert.equal(data.counts.candidate.infrastructure,1);
+ assert.equal(data.counts.candidate.incomplete,0);
+ assert.equal(data.counts.candidate.passed,0);
+ assert.equal(data.pairedPrimaryCases,0);
+ assert.deepEqual(data.criticalRegressions,[]);
 });
 test('duplicate or unknown arm identities fail closed',()=>{
  assert.throws(()=>summarizeReceipts([receipt('duplicate',[arm('baseline'),arm('baseline')])],options),/arm identity/);

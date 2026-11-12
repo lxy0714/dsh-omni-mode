@@ -5,6 +5,10 @@ import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 const hash = text => createHash('sha256').update(text).digest('hex');
 const finished = arm => ['complete', 'needs-user'].includes(arm.status);
+// Transport/provider faults say nothing about model behaviour. Counting them as arm
+// failures would bias whichever arm happens to hit a flaky call, so they are excluded
+// from outcome comparison and reported on their own line.
+export const infrastructure = arm => arm.status === 'aborted' || arm.status === 'infrastructure-error';
 const passed = arm => finished(arm) && arm.grade?.passed === true;
 const critical = arm => finished(arm) && arm.grade?.criticalPassed === true;
 const variants = ['baseline', 'candidate'];
@@ -26,6 +30,7 @@ export function summarizeReceipts(entries, {caseSetHash, candidatePolicyHash, ro
       status:r.status, errorCode:r.errorCode ?? null, toolsHash:r.toolsHash,
       graderHash:r.graderHash ?? null, driverHash:r.driverHash ?? null,
       arms:Object.fromEntries(r.results.map(a => [a.variant,{status:a.status,
+        infrastructure:infrastructure(a),
         passed:passed(a), criticalPassed:critical(a), recordedScore:a.grade?.score ?? null,
         failedChecks:(a.grade?.checks ?? []).filter(c => !c.passed).map(c => c.id), modelCalls:a.modelCalls,
         durationMs:a.durationMs}]))};
@@ -37,10 +42,16 @@ export function summarizeReceipts(entries, {caseSetHash, candidatePolicyHash, ro
     finished:rows.filter(r => r.arms[v] && finished(r.arms[v])).length,
     passed:rows.filter(r => r.arms[v]?.passed).length,
     criticalPassed:rows.filter(r => r.arms[v]?.criticalPassed).length,
-    incomplete:rows.filter(r => r.arms[v] && !finished(r.arms[v])).length,
+    incomplete:rows.filter(r => r.arms[v] && !finished(r.arms[v]) && !r.arms[v].infrastructure).length,
+    infrastructure:rows.filter(r => r.arms[v]?.infrastructure).length,
     missing:rows.filter(r => !r.arms[v]).length,
   }]));
-  const paired = primary.filter(r => variants.every(v => r.arms[v]));
+  // A pair is comparable only when both arms produced a model outcome. Critical
+  // regressions are judged on every pair where both arms actually ran, including an arm
+  // that exhausted its budget: otherwise a candidate that fails only by running out of
+  // steps would silently escape the non-regression check it is meant to trip.
+  const ran = primary.filter(r => variants.every(v => r.arms[v] && !r.arms[v].infrastructure));
+  const paired = ran.filter(r => variants.every(v => finished(r.arms[v])));
   const discordant = paired.filter(r => r.arms.baseline.passed !== r.arms.candidate.passed);
   const categories = [...new Set(cases.map(c => c.category))].map(category => {
     const rows = primary.filter(r => r.category === category);
@@ -48,7 +59,7 @@ export function summarizeReceipts(entries, {caseSetHash, candidatePolicyHash, ro
       ...count(rows), wins:rows.filter(r => r.arms.candidate?.passed && r.arms.baseline && !r.arms.baseline.passed).length,
       losses:rows.filter(r => r.arms.baseline?.passed && r.arms.candidate && !r.arms.candidate.passed).length};
   });
-  const criticalRegressions = paired.filter(r => r.arms.baseline.criticalPassed && !r.arms.candidate.criticalPassed).map(r => r.caseId);
+  const criticalRegressions = ran.filter(r => r.arms.baseline.criticalPassed && !r.arms.candidate.criticalPassed).map(r => r.caseId);
   const hashesComplete = admitted.every(({receipt:r}) => r.graderHash && r.driverHash);
   return {schemaVersion:1, kind:'exploratory-original-receipt-accounting',
     cohort:{caseSetHash,candidatePolicyHash,routeFingerprint}, selection:'first-attempt-including-errors; all repeats retained',
