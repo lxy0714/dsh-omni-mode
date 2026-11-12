@@ -4,6 +4,13 @@
 
 ## 中文
 
+### 1.6.0-dev.1 — 全能模式执行方法（未正式发布）
+
+- 在同一 `dsh-omni-mode` 包和 `omni` 预设中增加按需加载的 `omni-method` 技能，不新增另一套预设或第三方运行依赖；简单查询、机械改动、完整指定步骤的任务不必加载。
+- 将研究机制落实为成果契约、按任务发现能力、限定写入范围的证据交接、基于错误的纠正及断点恢复说明；新增双语用法与六组固定来源的采用/拒绝对应关系。
+- 推理选档、自适应保留与 grilling 原文保持字节不变；原生测试新增双技能完整路径/正文核验与模型请求触发说明检查，安装包分别移除两种技能并用外部同名诱饵验证不能补救缺失。
+- 开发版本标记不改变预设身份，不切换本机 profile。接线/回归测试不是行为提升证明，旧人设评测不得归给新方法；稳定发行与本机迁移仍待原定改善验收。
+
 ### 未发布 — 来源研究完成与评测账目更正
 
 - 来源研究达到静态门槛：**100 套**经审阅、结构唯一的预设配置（来自 **63 个**项目；单仓多配置不重复计项目），**106 个**经审阅的独立原生插件项目，证据含固定版本/commit、归档与每文件 SHA-256、可核验的原生集成片段。共 505 个包被静态检查、175 个进入公开证据，全部 **未安装、未 import、未运行**。
@@ -62,6 +69,13 @@
 - 引入跨项目规划、能力发现、执行、验证和交付规则。
 
 ## English
+
+### 1.6.0-dev.1 — Omni execution method (not a stable release)
+
+- Adds the on-demand `omni-method` skill inside the same `dsh-omni-mode` package and `omni` preset, without another preset or third-party runtime dependency. Simple queries, mechanical edits and fully prescribed steps need not load it.
+- Adapts reviewed mechanisms into outcome contracts, task-specific capability discovery, write-scoped evidence handoffs, evidence-led correction and recovery guidance. Adds bilingual usage and adoption/rejection mappings to six pinned source groups.
+- Reasoning selection, adaptive retention and the original grilling text remain byte-for-byte unchanged. Native tests add exact paths/bodies for both skills and verify the trigger reaches model requests; package negatives remove each skill in turn and ensure external same-name decoys cannot repair the omission.
+- A development version does not change preset identity or switch the local profile. Wiring/regression checks do not establish behavioral gains; old-persona results cannot be attributed to this method. Stable release and local migration remain gated by the original improvement acceptance.
 
 ### Unreleased — source research completed and evaluation accounting corrected
 

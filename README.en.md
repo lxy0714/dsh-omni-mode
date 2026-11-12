@@ -4,6 +4,12 @@
 
 A cross-project, quality-first native agent preset: understand the goal, plan when useful, combine available capabilities, verify, and deliver. It is a configurable bundle, not a new model or a permission bypass. Preset ID: `omni`; display name: `全能模式`.
 
+## Current update status
+
+Development branch `1.6.0-dev.1` updates **the same Omni preset**, adding the on-demand `omni-method` skill for outcome contracts, capability selection, evidence handoffs and recovery. It is not another preset and adds no third-party plugin dependency. See [the method and its sources](docs/omni-method.md#english). Reasoning selection, adaptive retention and the original grilling text remain unchanged.
+
+The stable release remains `v1.5.0`; the fixed installation command below does not include development-only additions. Wiring/regression tests do not establish gains in three task categories. The local stable preset is not replaced before behavioral acceptance.
+
 ## Install
 
 The current compatibility gate is **DSH 0.2.2-rc.1**.
@@ -57,7 +63,7 @@ npm run verify
 
 The development Harness version is pinned. Tests discover the local runtime dependency, or accept `DSH_TEST_BASE` pointing to an existing installation package.json. No author-machine path is required.
 
-Checks cover manifests/syntax, 31 policy/Cordis tests, full native session persistence across independent processes and extracted TGZ consumption. **Inference uses a deterministic local adapter. These checks do not establish real-provider quality, long-term stability, or universal platform/plugin compatibility.** See [verification](docs/verification.md#english) and the actual [Actions](https://github.com/lxy0714/dsh-omni-mode/actions) results.
+Checks cover manifests/syntax, policy/skill-content/grader unit tests, real Cordis mounting, native session persistence across independent processes, extracted TGZ consumption and same-name decoys for both bundled skills. **Inference uses a deterministic local adapter. These checks do not establish real-provider quality, long-term stability, or universal platform/plugin compatibility.** See [verification](docs/verification.md#english) and the actual [Actions](https://github.com/lxy0714/dsh-omni-mode/actions) results.
 
 For upgrades, back up customizations, remove the previous bundle through the manager, install the fixed version and restart. Uninstall only this bundle, not unrelated settings or sessions. Report sanitized reproduction details through [Issues](https://github.com/lxy0714/dsh-omni-mode/issues).
 

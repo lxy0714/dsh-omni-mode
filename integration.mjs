@@ -22,9 +22,11 @@ if (!phase) {
   // Deliberate same-name/same-suffix contamination: default project roots must
   // not satisfy this package test, even though the old substring check did.
   for (const root of ['.dsh', '.agents']) {
-    const decoy = path.join(dir, root, 'skills', 'grilling');
-    fs.mkdirSync(decoy, {recursive:true});
-    fs.writeFileSync(path.join(decoy, 'SKILL.md'), '---\nname: grilling\ndescription: Test decoy, not package content\n---\nDecoy design tree.\n');
+    for (const name of ['grilling', 'omni-method']) {
+      const decoy = path.join(dir, root, 'skills', name);
+      fs.mkdirSync(decoy, {recursive:true});
+      fs.writeFileSync(path.join(decoy, 'SKILL.md'), `---\nname: ${name}\ndescription: Test decoy, not package content\n---\nDecoy method, not the packaged skill.\n`);
+    }
   }
   linkRuntimePackages(host,dir);
   const packageName=JSON.parse(fs.readFileSync(path.join(source,'package.json'),'utf8')).name;
@@ -45,7 +47,7 @@ if (!phase) {
         console.error((child.stdout??'').slice(-16000));console.error((child.stderr??'').slice(-16000));
       }
       reports.push(processReport(child,step,report=>report.phase===step && report.fullPresetActivated===true &&
-        report.bundledSkillLoaded===true && report.bundledSkillExact===true && Number.isInteger(report.eventCount) && Number.isInteger(report.pid)));
+        report.bundledSkillLoaded===true && report.bundledSkillExact===true && report.methodSkillLoaded===true && report.methodSkillExact===true && Number.isInteger(report.eventCount) && Number.isInteger(report.pid)));
     }
   } finally {
     // Only remove the fresh directory we created, never an env-supplied path.
@@ -90,7 +92,7 @@ if (!phase) {
       {id:'agent-preset-registry',name:'@deepseek-ai/dsh-agent-preset-registry',config:{default:'omni'}},
     ]},
   ];
-  let calls=0;
+  let calls=0,methodTriggerInRequest=false;
   class FixtureAdapter extends LlmAdapter {
     async resolveModel(provider,model) {
       return {provider,id:model,name:model,context:{contextWindow:model==='small'?65536:1048576},defaultMaxTokens:4096,
@@ -98,6 +100,13 @@ if (!phase) {
     }
     async *stream(options) {
       calls++;
+      if(options.purpose!=='compaction'){
+        // The official prompt may be serialized as system/developer history, not
+        // GenerateOptions.system. Inspect both representations without throwing inside
+        // the adapter (adapter failures are deliberately normalized by the real Host).
+        const prompt=[options.system,...options.messages.filter(m=>['system','developer'].includes(m.role)).flatMap(m=>m.content.filter(b=>b.type==='text').map(b=>b.text))];
+        methodTriggerInRequest ||= prompt.some(text=>typeof text==='string'&&text.includes('omni-method'));
+      }
       const last=options.messages.at(-1);
       if(last?.role==='user'&&last.content.some(block=>block.type==='text'&&block.text.includes('LARGE_TOOL_FIXTURE'))){
         const id=`fixture-call-${calls}`;
@@ -148,6 +157,14 @@ if (!phase) {
     assert.equal(loaded.path,grilling.path,'loaded path must match the registry selection');
     assert.equal(fs.realpathSync(loaded.path),expectedSkill,'loaded skill must be the exact test package file');
     assert.equal(loaded.content,skillBody(fs.readFileSync(expectedSkill,'utf8')),'native body must equal the package file minus frontmatter and native trim');
+    const method=catalog.find(entry=>entry.name==='omni-method');
+    assert(method,'bundled omni-method skill must be discoverable from the installed package');
+    const expectedMethod=fs.realpathSync(path.join(source,'skills/omni-method/SKILL.md'));
+    assert.equal(fs.realpathSync(method.path),expectedMethod,'method registry selection must be the exact package file');
+    const loadedMethod=await skills.get('omni-method',lookup);
+    assert(loadedMethod,'method skill must load through the native registry');
+    assert.equal(fs.realpathSync(loadedMethod.path),expectedMethod,'loaded method must be the exact package file');
+    assert.equal(loadedMethod.content,skillBody(fs.readFileSync(expectedMethod,'utf8')),'native method body must match the full package body');
     if(phase==='create')assert.equal(agent.model.current().reasoningEffort,'effort-high');
     else assert.equal(agent.model.current().reasoningEffort,'effort-medium','resume must retain manual selection');
     const composition=ctx.agentPresets.inspectCompositions(agent.ctx);
@@ -155,6 +172,7 @@ if (!phase) {
     agent.followup(createUserMessage({content:[{type:'text',text:'Only reply OMNI_OK. Do not use tools.'}],source:{kind:'user'}}));
     await agent.whenIdle();
     assert(calls>0,'real Agent loop must dispatch inference through fixture adapter');
+    assert(methodTriggerInRequest,'the actual model request must expose the deferred method trigger');
     assert.equal(agent.session.requestHeader().config.reasoningEffort,phase==='create'?'effort-high':'effort-medium');
     assert(agent.session.deriveMessages().some(message=>message.role==='assistant'&&message.content.some(block=>block.type==='text'&&block.text==='OMNI_OK')));
     let adaptiveSwitchVerified=false,manualCompactionVerified=false;
@@ -192,7 +210,7 @@ if (!phase) {
     assert(events.some(event=>event.type==='assistant/message'));
     assert(events.some(event=>event.type==='turn/end'&&event.data.reason.kind==='completed'));
     for(let i=0;i<events.length;i++)assert.equal(events[i].seq,i);
-    const report={phase,pid:process.pid,fullPresetActivated:true,bundledSkill:'grilling',bundledSkillLoaded:true,bundledSkillExact:true,bundledSkillPath:expectedSkill,modelCalls:calls,eventCount,selectedEffort:agent.model.current().reasoningEffort,serviceLeaks:0,adaptiveSwitchVerified,manualCompactionVerified,realProvider:false};
+    const report={phase,pid:process.pid,fullPresetActivated:true,bundledSkill:'grilling',bundledSkillLoaded:true,bundledSkillExact:true,bundledSkillPath:expectedSkill,methodSkillLoaded:true,methodSkillExact:true,methodSkillPath:expectedMethod,modelCalls:calls,eventCount,selectedEffort:agent.model.current().reasoningEffort,serviceLeaks:0,adaptiveSwitchVerified,manualCompactionVerified,realProvider:false};
     fs.writeFileSync(path.join(artifacts,`${phase}.json`),JSON.stringify(report,null,2)+'\n');
     console.log(JSON.stringify(report));
   } finally {
