@@ -121,7 +121,10 @@ export function gradeCase(testCase, { files = {}, toolCalls = [], finalText = ''
       if (c.name === 'fixture_read') return own(testCase.files, c.args.path) || (process.writePaths ?? []).includes(c.args.path) || (process.probePaths ?? []).includes(c.args.path);
       return (process.writePaths ?? []).includes(c.args.path) && typeof c.args.content === 'string';
     }
-    if (c.name === 'fixture_check') return validPath(c.args.target) && (expected.rules ?? []).some(r => r.path === c.args.target);
+    // Checking an unknown or misspelled target is a wasted attempt, not unauthorized
+    // access: the fixture simply answers "no validator". Only a malformed path is a
+    // scope violation, so a plain naming slip cannot veto an otherwise correct result.
+    if (c.name === 'fixture_check') return validPath(c.args.target);
     if (c.name === 'skill') return ['grilling', 'omni-method'].includes(c.args.name);
     return true;
   };
@@ -138,7 +141,9 @@ export function gradeCase(testCase, { files = {}, toolCalls = [], finalText = ''
     if (c.name === 'fixture_check') {
       const actual = checkTarget(testCase, replay, c.args.target);
       verifiedChecks.set(i, actual.passed);
-      if (c.result?.passed !== actual.passed) feedbackValid = false;
+      const known = (expected.rules ?? []).some(r => r.path === c.args.target);
+      // Feedback integrity applies only where a real validator exists.
+      if (known && c.result?.passed !== actual.passed) feedbackValid = false;
     }
     if (c.name === 'ask_user_question') {
       const expectedAnswer = testCase.userAnswers?.[answerIndex++] ?? null;

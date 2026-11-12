@@ -100,7 +100,7 @@ export function apply(ctx){
   name:'omni_benchmark',
   description:'在当前已配置模型上运行一个合成任务的v1.5基线/候选对照，或读取评测状态；只给模型受控虚拟工具，不切换用户预设。 / Run one same-route synthetic baseline/candidate pair or read evaluator status; no real user files or external fixture actions.',
   parameters:{mode:{type:'string',required:true,description:'status读取状态；pilot验证接线不计分；pair运行一个冻结任务；sweep按offset/limit批量运行。 / One of status, pilot, pair or sweep.'},caseId:{type:'string',description:'pair时使用冻结cases.json中的精确ID。 / Exact frozen case ID for pair.'},offset:{type:'number',description:'sweep起始下标，默认0。 / Sweep start index, default 0.'},limit:{type:'number',description:'sweep本次题数，默认5，最多8。 / Sweep size, default 5, max 8.'}},
-  timeoutMs:600000,
+  timeoutMs:3600000,
   output:{schema:{type:'object',additionalProperties:true},render:(_args,value)=>[{type:'text',text:JSON.stringify(value)}]},
   async execute(args,exec){
    if(!['status','pilot','pair','sweep'].includes(args.mode))throw Error('mode must be status, pilot, pair or sweep');
@@ -118,7 +118,8 @@ export function apply(ctx){
    const start=Math.max(0,Number(args.offset)||0);
    const selectedCases=args.mode==='pilot'?[pilot]:args.mode==='pair'?cases.filter(test=>test.id===args.caseId):cases.slice(start,start+Math.min(8,Math.max(1,Number(args.limit)||5)));
    if(!selectedCases.length)throw Error('No matching frozen case');
-   const signal=AbortSignal.any([exec.signal,AbortSignal.timeout(570000)]);
+   // Budget the whole sweep, not one case: a slow-but-correct arm must not be cut off mid-run.
+   const signal=AbortSignal.any([exec.signal,AbortSignal.timeout(args.mode==='sweep'?3300000:900000)]);
    const selected=exec.agent.model.current();
    const route=await ctx.llm.resolveCallConfig({...selected},signal);
    const routeFingerprint=sha(JSON.stringify(route));
