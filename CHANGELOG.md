@@ -4,12 +4,21 @@
 
 ## 中文
 
-### 未发布 — 证据优先与验证加固
+### 未发布 — 来源研究完成与评测账目更正
+
+- 来源研究达到静态门槛：**100 套**经审阅、结构唯一的预设配置（来自 **63 个**项目；单仓多配置不重复计项目），**106 个**经审阅的独立原生插件项目，证据含固定版本/commit、归档与每文件 SHA-256、可核验的原生集成片段。共 505 个包被静态检查、175 个进入公开证据，全部 **未安装、未 import、未运行**。
+- 如实公布两组交集：所选两批 100 项子集内互不重叠，但有 **50 个**所选预设仓库同时提供原生插件集成，故不宣称"两组完全无交集"。
+- 更正审阅合并顺序：文件名按轮次而非字典序合并，后轮可更正前轮决定；此前 `reviews.presets-round7.json` 会被字典序更靠后的旧笔记覆盖。
+- 更正评测统计：撤回混用实验队列与实验臂的 `69/74` 对 `71/74`，改为按同题集、同人设、同路由哈希分别统计两臂，保留首轮失败、中断与步数耗尽，重复运行不替换。新增离线汇总器与单元测试。
+- 修正评测驱动的错误处理：提供方失败、取消、缺失终止事件现在保留已完成工具轨迹与部分产物并标记为未完成，不再整条丢弃；收据新增评分器、驱动、题面、技能、基线与路由身份哈希，供后续确认性复跑核对。
+- 结论仍为**未证明改善**：原 40 题逐题差异仅 1 胜 1 负，且存在候选关键退步；判据修订发生在观察结果之后，只能作为探索性诊断。评测文档同步更正此前"仅天花板效应"的说法。
+
+### 未发布（较早）— 证据优先与验证加固
 
 - 人设新增三条原则：缺证据必须如实报告而非臆测补全；真正歧义先问并等回答；不以反复写—查代替达成目标。
 - 测试从 31 项增至 48 项：技能来源改为真实路径与完整正文严格比对，并加入外部同名诱饵负例；补齐容量阈值、缓存 TTL、取消与主机共存边界。
 - 修正包元数据：Node 受支持下限对齐官方 `>=24.9.0`；修正 lock 版本号错位；CI 增加 24.9 与 24 双矩阵。
-- 新增 100+100 来源静态研究与双语报告（状态 partial，插件缺口如实标注）。
+- 新增 100+100 来源静态研究与双语报告（当时状态 partial，插件缺口如实标注）。
 - 新增同路由真实模型对照评测框架与 40 题冻结任务集；实测未证明改进，结论与局限记录于评测文档，不对外宣称提升。
 
 ### 1.5.0 — 默认启用 grilling
@@ -54,7 +63,16 @@
 
 ## English
 
-### Unreleased — evidence-first principles and verification hardening
+### Unreleased — source research completed and evaluation accounting corrected
+
+- Source research reaches the static threshold: **100** reviewed, structurally unique preset configurations from **63** projects (several presets in one repository count as configurations, never as extra projects), plus **106** reviewed independent native plugin projects. Evidence pins versions/commits, archive and per-file SHA-256, and verifiable native integration fragments. 505 packages were statically inspected and 175 enter public evidence; none was **installed, imported or executed**.
+- Both overlap figures are published: the two chosen 100-item subsets do not intersect, yet **50** selected preset repositories also ship native plugin integration, so the groups are not claimed to be disjoint.
+- Review merge order fixed: notes are merged by round rather than lexical filename order, so a later round can correct an earlier decision. Previously `reviews.presets-round7.json` was silently overridden by an older note that sorts later.
+- Evaluation accounting corrected: the mixed `69/74` versus `71/74` totals are withdrawn. Arms are now counted separately within a matching case-set/persona/route cohort, keeping first-attempt failures, interruptions and step limits, never replacing them with retries. An offline summarizer and unit tests were added.
+- Driver error handling fixed: provider failures, cancellation and a missing terminal event now retain completed tool calls and partial artifacts and are labelled incomplete instead of discarding the whole arm. Receipts now carry grader, driver, case, skill, baseline and route identity hashes for later confirmatory reruns.
+- The result remains **improvement not established**: the original 40 cases show one paired win and one paired loss with a candidate critical regression, and the rubric revisions followed observed outcomes, so they are diagnostic only. The evaluation document also withdraws the earlier "ceiling effect only" explanation.
+
+### Unreleased (earlier) — evidence-first principles and verification hardening
 
 - Persona gains three principles: report missing evidence truthfully instead of guessing; ask on genuine ambiguity and wait; do not substitute write-check loops for completion.
 - Tests grow from 31 to 48: skill provenance now compares the real path and full body, with an external same-name decoy negative case; capacity thresholds, cache TTL, cancellation and host-coexistence boundaries are covered.
