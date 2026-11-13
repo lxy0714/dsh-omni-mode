@@ -1,0 +1,137 @@
+# 增强证据与未证事项 / Enhancement evidence and unproven claims
+
+[中文](#中文) · [English](#english)
+
+## 中文
+
+### 本文回答什么
+
+`1.7.0-dev.1` 声称加强的是**同一个**全能模式。这里逐条列出：哪些增强是真实执行过的、哪些只是方法或尚未验证，以及"关键无退步"具体覆盖到哪一层。
+
+所有记录均可在本仓库复现，命令附在每节。没有使用付费模型调用完成的项目会明确标注。
+
+### 三类真实增强（均已实际执行）
+
+**一、结构化数据操作真实可用。** 不是"写了函数"，而是真的启动包内 CLI，用合成输入跑通并核对输出。
+
+- 23 个工程案例全部通过，含正向结果、错误拒绝（未闭合引号、循环依赖、非法控制字符）与边界值。
+- 运行器会记录**实际执行的源码哈希**；本次运行期间源码未变化（`sourceStable: true`），说明结果对应的是同一份代码。
+- 复现：`node scripts/benchmark/accept-domains.mjs`
+
+**二、代码视觉链路真实出片。** 不调用任何图像或视频生成模型。
+
+- 22 项测试在真实 resvg 2.6.2 + FFmpeg 6.1.1 下通过，**0 跳过**，覆盖真实中文渲染、GIF/MP4 编码、完整解码、超时、取消、目录碰撞、不安全 SVG 拒绝、缺依赖明确阻塞。
+- 从**解包后的安装包**独立跑通端到端：中文 SVG/PNG/GIF/MP4 产出，MP4 为 h264/yuv420p、24 帧、2.000 秒，GIF 24 帧，PNG 签名与 480×350 尺寸正确，`.complete.json` 提交标记存在。
+- 画面已用读图工具实际查看：中文正常显示；字体证明图曾把 `values` 截成 `v`，经像素测量确认右边距 132px、并非裁切，而是取样卡在固定字符数，已改为用 `…` 明确标注截断并加入尺寸断言。
+- 复现：设置 `OMNI_MEDIA_TOOL_ENV` / `OMNI_MEDIA_FFMPEG` / `OMNI_MEDIA_FFPROBE` / `OMNI_MEDIA_TEST_FONT` 后运行 `node --test media/render.test.mjs media/safety.test.mjs`
+
+**三、领域方法与能力索引在真实 Harness 中可发现、可加载。**
+
+- 真实 DSH 服务、独立进程创建与恢复两种场景下，11 个专业技能、能力索引 `capabilities/catalog.json` 与两个运行器都从**安装包**解析到确切文件并加载。
+- 对每个技能做的是**路径与正文严格比对**，且项目内放置同名诱饵，确保不是被外部同名文件冒充。
+- 能力索引含 100 套来源配置引用与 23 个能力条目，用四种成熟度区分真实状态。
+- 复现：`node integration.mjs`
+
+### "关键无退步"覆盖到哪一层
+
+已确认：
+
+- `quality.js`、`adaptive.js`、`pool.js` 与上游 grilling 原文**自 v1.5.0 起字节未变**（SHA-256 见下）。
+- 仓库测试 257 项全过；能力契约 63 项全过；真实渲染 22 项全过。
+- 原生集成仍验证推理选档、自适应保留、压缩事务、会话持久化、服务隔离，无泄漏。
+- 安装包消费、同名技能诱饵拒绝仍通过；CI 在 `7863c55` 与 `2a8ad02` 两次提交上双 Node 矩阵均通过。
+
+核心文件 SHA-256（与 v1.5.0 一致）：
+
+```
+quality.js              f0bb863148310169fd93e71974e003e34135be1eac8aaebad19950302cabb200
+adaptive.js             05a44856c3d11240d1fd590d64f56f71796597439f8d46d08a5a6d3f47f3d66a
+pool.js                 451c9591174fc0fc25381f040fc6ddff93930ea0fcc9fe1ef1364df5498a9d49
+skills/grilling/SKILL.md a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2
+```
+
+**未确认**：真实模型行为层面的无退步。旧 40 题的历史成绩保持不变，此前记录的候选关键退步（如 research-02）不被本次工程验收推翻。
+
+### 明确未证明的事
+
+- **12 个领域/跨域真实模型任务仍未执行**（`not-run`）。因此不能声称模型会自动选用这些技能、专业水平提升，或旧 40 题涨分。
+- 领域工程验收是 **CLI 契约验收**，不是专业能力认证。引用结构通过不等于来源真实；提取 IP 不等于扫描或归因；游戏数值初筛不等于实机平衡；序列统计不是临床/功能结论；Markdown 不是 PPTX；ICS 草案不等于已预约成功。
+- 来源研究是**静态审阅**：被研究对象全部未安装、未 import、未运行。
+- 依赖外部工具/账户/项目环境的能力标为 `needs-dependency`，只有方法说明的标为 `method-only`，未覆盖的标为 `uncovered`——这些都不是已实现。
+- 渲染支持范围是 Linux arm64 实测；其他平台与三维未验证。
+
+### 复现入口
+
+```sh
+npm ci --ignore-scripts
+npm run verify                # 文档、257 项测试、原生集成、打包消费
+node capabilities/runner.mjs doctor --test
+node scripts/benchmark/accept-domains.mjs
+```
+
+## English
+
+### What this document answers
+
+`1.7.0-dev.1` claims to strengthen **the same** Omni preset. This page lists, item by item, which enhancements were genuinely executed, which are method-only or still unverified, and exactly how far "no critical regression" reaches.
+
+Every record is reproducible from this repository; commands follow each section. Anything not completed with paid model calls is marked as such.
+
+### Three genuine enhancements (all actually executed)
+
+**1. Structured data operations really work.** Not "functions were written" — the packaged CLI was launched against synthetic inputs and its output checked.
+
+- All 23 engineering cases pass, including positive results, correct rejections (unterminated quote, dependency cycle, forbidden control characters) and boundary values.
+- The runner records **hashes of the source it actually executed**; source did not change during the run (`sourceStable: true`), so the results correspond to one code version.
+- Reproduce: `node scripts/benchmark/accept-domains.mjs`
+
+**2. The code-media pipeline really produces artifacts.** No image or video generation model is used.
+
+- 22 tests pass under real resvg 2.6.2 + FFmpeg 6.1.1 with **0 skipped**, covering real Chinese rendering, GIF/MP4 encoding, full decode, timeout, cancellation, output collisions, unsafe-SVG rejection and explicit blocking on missing dependencies.
+- The **extracted package** was run end to end independently: Chinese SVG/PNG/GIF/MP4 produced, MP4 h264/yuv420p with 24 frames over 2.000 s, GIF 24 frames, PNG signature and 480×350 dimensions correct, `.complete.json` commit marker present.
+- Frames were actually viewed with an image-reading tool: Chinese text renders correctly. The font proof sheet once appeared to clip `values` to `v`; pixel measurement showed a 132 px right margin, so it was a fixed-character slice rather than a renderer failure, and it now marks truncation with `…` plus a dimension assertion.
+- Reproduce: set `OMNI_MEDIA_TOOL_ENV` / `OMNI_MEDIA_FFMPEG` / `OMNI_MEDIA_FFPROBE` / `OMNI_MEDIA_TEST_FONT`, then run `node --test media/render.test.mjs media/safety.test.mjs`
+
+**3. Domain methods and the capability index are discoverable and loadable in a real Harness.**
+
+- Under real DSH services, across independent create and resume processes, all 11 specialist skills, the capability index `capabilities/catalog.json` and both runners resolve to exact files in the **installed package** and load.
+- Each skill is checked by **strict path and body comparison**, with same-name decoys planted in the project, so an external file cannot masquerade as the packaged skill.
+- The index carries references to 100 source configurations and 23 capability entries with four maturity states.
+- Reproduce: `node integration.mjs`
+
+### How far "no critical regression" reaches
+
+Confirmed:
+
+- `quality.js`, `adaptive.js`, `pool.js` and the upstream grilling text are **byte-for-byte unchanged since v1.5.0** (SHA-256 below).
+- 257 repository tests, 63 capability contract tests and 22 real render tests all pass.
+- Native integration still verifies reasoning selection, adaptive retention, compaction transactions, session persistence and service isolation with no leaks.
+- Packaged-consumer checks and same-name skill decoy rejection still pass; CI passed on both Node versions for commits `7863c55` and `2a8ad02`.
+
+Core file SHA-256 (identical to v1.5.0):
+
+```
+quality.js              f0bb863148310169fd93e71974e003e34135be1eac8aaebad19950302cabb200
+adaptive.js             05a44856c3d11240d1fd590d64f56f71796597439f8d46d08a5a6d3f47f3d66a
+pool.js                 451c9591174fc0fc25381f040fc6ddff93930ea0fcc9fe1ef1364df5498a9d49
+skills/grilling/SKILL.md a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2
+```
+
+**Not confirmed**: behavioral non-regression on a real model. The historical 40-case results are unchanged, and previously recorded candidate regressions (for example research-02) are not overturned by this engineering acceptance.
+
+### Explicitly unproven
+
+- **The 12 real-model domain/cross-domain tasks remain unexecuted** (`not-run`). No claim is made that the model selects these skills automatically, that professional quality improved, or that old 40-case scores rose.
+- Domain engineering acceptance is **CLI contract acceptance**, not professional certification. Passing citation structure is not source truth; an extracted IP is not a scan or attribution; preliminary game arithmetic is not playtesting; sequence statistics are not clinical/functional conclusions; Markdown is not PPTX; an ICS draft is not a successful booking.
+- Source research was **static review**: every researched subject stayed uninstalled, unimported and unexecuted.
+- Capabilities needing external tools, accounts or project environments are `needs-dependency`; method-only entries are `method-only`; uncovered ones are `uncovered`. None of those is implemented capability.
+- Rendering is validated on Linux arm64 only; other platforms and 3D remain unverified.
+
+### Reproduction entry points
+
+```sh
+npm ci --ignore-scripts
+npm run verify                # docs, 257 tests, native integration, packaged consumer
+node capabilities/runner.mjs doctor --test
+node scripts/benchmark/accept-domains.mjs
+```

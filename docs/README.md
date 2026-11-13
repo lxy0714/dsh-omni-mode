@@ -15,6 +15,7 @@
 - [领域专长与代码视觉](domain-capabilities.md#中文)：十个领域技能、四种成熟度、能力索引与本地图片/视频运行器。
 - [100套预设分类](preset-classification.md#中文)：来源配置的任务方向、融合判断与样本缺口（仅仓库）。
 - [领域与跨域验收](domain-acceptance.md#中文)：本地契约验收与尚未执行的模型任务如何分开记录。
+- [增强证据与未证事项](enhancement-evidence.md#中文)：三类真实增强的实际执行记录、核心未变哈希与仍未证明的部分。
 - [对照评测结果](benchmark-results.md#中文)：真实模型同路由对照的实际数据与未证明项。
 - [来源研究](https://github.com/lxy0714/dsh-omni-mode/blob/main/research/README.md)：100+100 学习来源的核验口径、进度与局限（仅仓库，不随安装包分发）。
 - [发行说明](release-notes.md#中文)：当前技能集成版本的变化与安装方式。
@@ -33,6 +34,7 @@
 - [Domain specialties and code media](domain-capabilities.md#english): ten domain skills, four maturity states, the capability index and the local image/video runner.
 - [Classifying 100 presets](preset-classification.md#english): task orientation of the source configurations, adoption reasoning and sample gaps (repository only).
 - [Domain and cross-domain acceptance](domain-acceptance.md#english): how local contract acceptance stays separate from unexecuted model tasks.
+- [Enhancement evidence and unproven claims](enhancement-evidence.md#english): what the three genuine enhancements actually executed, unchanged core hashes, and what remains unproven.
 - [Paired evaluation results](benchmark-results.md#english): measured same-route real-model data and what it does not prove.
 - [Source research](https://github.com/lxy0714/dsh-omni-mode/blob/main/research/README.md): counting method, progress and limits for the 100+100 learning sources (repository only, not shipped).
 - [Release notes](release-notes.md#english): the current skill-integration release and installation.

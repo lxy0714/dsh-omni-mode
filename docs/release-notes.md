@@ -1,43 +1,73 @@
-# 全能模式 / Omni mode v1.5.0
+# 全能模式 / Omni mode v1.7.0（待发布 / pending release）
 
 [中文](#中文) · [English](#english)
 
 ## 中文
 
-本次改变**何时**使用内置的 grilling 技能：从「你点名才用」变为「默认启用」。技能原文、许可证和归属不变。
+同一个「全能模式」、同一个 `omni` 预设 ID。本次加入领域专长与**用代码**制作图片视频的能力，不调用生图或视频模型。
+
+> **状态：尚未发布。** 当前最新正式发行仍是 `v1.5.0`，开发分支版本为 `1.7.0-dev.1`。本页是待发布的说明稿：工程验收已完成，但 12 个真实模型领域任务仍未执行，发布与本机迁移要等该层验收，因此下面这条固定标签命令在发布前不可用。
 
 ```sh
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.5.0
+# 发布后才可用 / Available only after the release
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0
 ```
 
-也可下载本 Release 的 TGZ 后在 DSH 插件管理器添加。安装后重启引擎、新建对话，选择「全能模式」；使用实际 profile。旧本地包与本包同为 `omni` ID，不能同时启用。
+也可下载本 Release 的 TGZ 后在插件管理器添加。安装后重启引擎、新建对话，选择「全能模式」；使用你实际的 profile。旧本地包与本包同为 `omni` ID，不能同时启用。
 
-**默认启用范围**：任务含有需要你拍板的设计取舍时，先走 grilling——方案/架构选型、技术栈或依赖替换、数据模型、权限与安全边界、破坏性或不可逆操作、交付范围与验收标准、成本与时间权衡，或需求仍有会改变实现方向的关键歧义。它会按设计树分轮提问，只问当前能决定的问题，每题附推荐答案，达成共识后再实施。
+### 新增内容
 
-**不会触发**：需求已明确、步骤既定、机械改动、查证事实、修复已定位缺陷、纯执行或纯读取；也不会因为你只是要求集成或安装技能而启动访谈。你随时可以说跳过访谈。
+- **十个领域技能**：工程、游戏、安全网络与逆向、文档演示、小说叙事、研究学习、陪伴个性化、助理、分子生物数据、业务语义。按需加载，不常驻。
+- **能力索引**：100 套来源配置引用与 23 个能力条目，用 verified / needs-dependency / method-only / uncovered 四种状态如实标注。
+- **11 个本地操作**：数据校验与转换、游戏数值初筛、小说连续性、FASTA 统计、实体关系一致性、引用覆盖、本地指标提取、Markdown 大纲、待办依赖、统一格式日历草稿。只用 Node 内置模块，不新增生产依赖。
+- **代码视觉**：场景源码 → SVG → 明确版本的 resvg → FFmpeg 出 PNG/GIF/MP4。有授权素材优先用素材，否则从零绘制；视频音频需求未明确会先询问。依赖需显式准备，不会在激活或渲染时静默安装。
 
-**验证**：真实隔离 Harness 中从本包发现并逐字加载 grilling（创建与恢复两进程均通过）；31 项策略测试；TGZ 解包后重复同一断言；技能正文 Git blob 仍为上游 `d2f09a18`。推理为本地确定性模拟，不代表真实模型行为；云端 CI 以 Actions 实际结果为准。
+### 验证到什么程度
 
-兼容门禁仍为 DSH 0.2.2-rc.1；未改选档、保留策略、权限或外发边界。本次是人设策略变更，属于行为变化，故按次版本发布。附件提供 TGZ 与 SHA256；未发布 npm，不覆盖历史标签。
+已实际执行：
 
-> 说明：人设只描述触发条件，模型是否严格遵循取决于模型自身。若发现该问的没问、或不该问的追问了，请带最小复现到 Issues 反馈。
+- 257 项仓库测试、63 项能力契约测试、22 项真实渲染测试（真实 resvg + FFmpeg，0 跳过）。
+- 从解包后的安装包独立完成中文 SVG/PNG/GIF/MP4 端到端产出，并完整解码。
+- 真实 Harness 中确认 11 个技能、能力索引与两个运行器可从安装包加载，且同名外部诱饵不能冒充。
+- 用读图工具查看实际画面并修复了字体证明图的截断显示问题。
+
+**未证明**：12 个真实模型领域任务尚未执行，因此不能声称模型会自动选用这些能力、专业水平提升或旧 40 题涨分。来源研究为静态审阅，未安装或运行任何被研究对象。
+
+`quality.js`、`adaptive.js`、`pool.js` 与上游 grilling 原文自 v1.5.0 起字节未变；推理选档、自适应保留、权限与审批边界均无改动。详细证据与未证事项见[增强证据](enhancement-evidence.md#中文)。
+
+兼容门禁仍为 DSH 0.2.2-rc.1（已对官方 latest 复核）。渲染支持范围为 Linux arm64 实测，其他平台与三维未验证。附件提供 TGZ 与 SHA256；未发布 npm，不覆盖历史标签。
 
 ## English
 
-This release changes **when** the bundled grilling skill is used: from "only when you ask" to "enabled by default". The skill text, its license and provenance are unchanged.
+The same Omni preset and the same `omni` preset ID. This release will add domain specialties and the ability to make images and video **with code**, using no image or video generation models.
+
+> **Status: not released yet.** The latest stable release remains `v1.5.0`; the development branch is `1.7.0-dev.1`. This page is a prepared announcement: engineering acceptance is complete, but the 12 real-model domain tasks have not run, so publishing and local migration wait on that layer. The fixed-tag command below does not work until the release exists.
 
 ```sh
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.5.0
+# Available only after the release
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0
 ```
 
-Or add the release TGZ through the Harness plugin manager. Restart, create a new conversation and select `全能模式`; use your actual profile. The legacy local bundle declares the same `omni` ID and cannot be enabled simultaneously.
+Or add the release TGZ through the plugin manager. Restart, create a new conversation and select `全能模式`; use your actual profile. The legacy local bundle declares the same `omni` ID and cannot be enabled simultaneously.
 
-**When it applies by default**: whenever a task contains a design trade-off you own — architecture or stack selection, dependency replacement, data model, permission/security boundaries, destructive or irreversible actions, delivery scope and acceptance criteria, cost or schedule trade-offs — or remaining ambiguity that would change the implementation direction. It interviews in rounds over a design tree, asks only what you can decide now with a recommended answer, and implements after shared agreement.
+### What is new
 
-**What does not trigger it**: fully specified requirements, established steps, mechanical edits, fact lookups, fixes of an identified defect, plain execution or reads — and merely asking to integrate or install the skill. You can say to skip the interview at any time.
+- **Ten domain skills**: engineering, game, security/network/RE, documents, fiction, research, personalization, assistant, molecular-biology data and business semantics. Loaded on demand, not resident.
+- **Capability index**: references to 100 source configurations and 23 capability entries, honestly labelled verified / needs-dependency / method-only / uncovered.
+- **11 local operations**: data validation and transformation, preliminary game arithmetic, fiction continuity, FASTA statistics, entity-relation consistency, citation coverage, local indicator extraction, Markdown outlines, todo dependencies and a calendar draft in a fixed format. Node built-ins only; no new production dependency.
+- **Code media**: scene source → SVG → pinned resvg → FFmpeg for PNG/GIF/MP4. Authorized assets are reused when available, otherwise drawn from scratch; audio for video is asked first. Dependencies are prepared explicitly and never installed silently at activation or render time.
 
-**Verification**: in a real isolated Harness, grilling is discovered from this package and loads verbatim in both create and resume processes; 31 policy tests; the same assertions repeat against the extracted TGZ; the body's Git blob still matches upstream `d2f09a18`. Inference is a deterministic local mock, not proof of real-model behavior. Check actual Actions results for cloud CI.
+### How far this is verified
 
-The compatibility gate remains DSH 0.2.2-rc.1 with no change to reasoning, retention, authorization or external-sending boundaries. This is a persona policy change, so it ships as a minor version. The release includes TGZ and SHA256 checksums; no npm publication and no historical tag rewriting.
+Actually executed:
 
-> Note: the persona states the trigger conditions; strict adherence depends on the model. If it interrogates when it should not, or skips a decision it should raise, please file a minimal reproduction in Issues.
+- 257 repository tests, 63 capability contract tests and 22 real render tests (real resvg + FFmpeg, 0 skipped).
+- Independent end-to-end Chinese SVG/PNG/GIF/MP4 production from the extracted package, with full decoding.
+- In a real Harness, 11 skills, the capability index and both runners load from the installed package, and same-name external decoys cannot substitute for them.
+- Actual frames viewed with an image-reading tool, which caught and fixed a truncation display issue in the font proof sheet.
+
+**Not proven**: the 12 real-model domain tasks have not run, so no claim is made that the model selects these capabilities automatically, that professional quality improved, or that old 40-case scores rose. Source research was static review; no researched subject was installed or executed.
+
+`quality.js`, `adaptive.js`, `pool.js` and the upstream grilling text are byte-for-byte unchanged since v1.5.0; reasoning selection, adaptive retention and permission/approval boundaries are untouched. See [enhancement evidence](enhancement-evidence.md#english) for details and unproven items.
+
+The compatibility gate remains DSH 0.2.2-rc.1 (rechecked against the official latest). Rendering is validated on Linux arm64 only; other platforms and 3D remain unverified. The release attaches a TGZ and SHA256; nothing is published to npm and no historical tag is overwritten.
