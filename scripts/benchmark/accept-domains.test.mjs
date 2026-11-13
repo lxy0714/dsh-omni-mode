@@ -1,6 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+const HERE=path.dirname(fileURLToPath(import.meta.url));
 import {validateCases,checkOutput,evaluateResult} from './accept-domains.mjs';
 const cases=JSON.parse(fs.readFileSync(new URL('../../benchmark/domain-acceptance.json',import.meta.url),'utf8'));
 test('all-domain scenarios stay unexecuted and engineering cases explicitly are not held-out',()=>{
@@ -26,4 +30,19 @@ test('ordinary cases reject bad output, process faults and wrong check results',
  assert.equal(evaluateResult(c,{status:0,stdout:'not json',stderr:''}).status,'failed');
  assert.equal(evaluateResult(c,{status:1,stdout:'',stderr:'dependency failure'}).status,'failed');
  assert.equal(evaluateResult(c,{signal:'SIGTERM'}).status,'failed');
+});
+
+test('every scenario ships a runnable fixture and the engineering one is solvable',()=>{
+ for(const task of cases.scenarioTasks){
+  const dir=path.join(HERE,'../../',task.fixture);
+  assert.ok(fs.existsSync(path.join(dir,'README.md')),task.id+' needs a README');
+ }
+ // The engineering fixture must currently fail: a passing baseline would make
+ // the case pointless, so the defect has to be real.
+ const eng=path.join(HERE,'../../benchmark/domain-fixtures/model-engineering');
+  // A nested node --test inherits NODE_TEST_CONTEXT and would exit 0 silently,
+ // which once made this assertion pass against a genuinely failing fixture.
+ const env={...process.env};delete env.NODE_TEST_CONTEXT;
+ const baseline=spawnSync(process.execPath,['--test','sum.test.mjs'],{cwd:eng,encoding:'utf8',timeout:60000,env});
+ assert.notEqual(baseline.status,0,'engineering fixture must fail before the fix');
 });

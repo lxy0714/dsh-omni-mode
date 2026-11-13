@@ -57,7 +57,12 @@ async function doctor(test) {
   const evidence = { command: 'node --test capabilities/operations.test.mjs capabilities/runner.test.mjs capabilities/catalog.test.mjs', hashes, node: process.version, executed: false, supported: missingTests.length === 0, missingTests, exitCode: null };
   if (test && !missingTests.length) {
     const result = await new Promise(resolve => {
-      const child = spawn(process.execPath, ['--test', path.join(HERE, 'operations.test.mjs'), path.join(HERE, 'runner.test.mjs'), path.join(HERE, 'catalog.test.mjs')], { cwd: path.dirname(HERE), env: { ...process.env, NODE_OPTIONS: '' }, stdio: ['ignore', 'pipe', 'pipe'] });
+      // Inherited NODE_TEST_CONTEXT makes a nested `node --test` exit 0 without
+      // running anything. That once let this self-check report accepted=true
+      // from inside another test run, so the variable is stripped explicitly.
+      const childEnv = { ...process.env, NODE_OPTIONS: '' };
+      delete childEnv.NODE_TEST_CONTEXT;
+      const child = spawn(process.execPath, ['--test', path.join(HERE, 'operations.test.mjs'), path.join(HERE, 'runner.test.mjs'), path.join(HERE, 'catalog.test.mjs')], { cwd: path.dirname(HERE), env: childEnv, stdio: ['ignore', 'pipe', 'pipe'] });
       let output = '', timedOut = false; const collect = data => { output = (output + data).slice(-24000); }; child.stdout.on('data', collect); child.stderr.on('data', collect);
       const timer = setTimeout(() => { timedOut = true; child.kill('SIGKILL'); }, 30000);
       child.once('error', e => { clearTimeout(timer); resolve({ exitCode: null, error: e.message }); });

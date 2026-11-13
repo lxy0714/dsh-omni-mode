@@ -13,7 +13,17 @@ export function validateCases(cases){
  assert(cases.purpose.zh&&cases.purpose.en);assert(cases.operationCases.length>=20);assert(cases.scenarioTasks.length>=12);
  const ids=new Set();for(const c of [...cases.operationCases,...cases.scenarioTasks]){assert(typeof c.id==='string'&&!ids.has(c.id),'duplicate/missing case id');ids.add(c.id);}
  for(const c of cases.operationCases){assert(typeof c.operation==='string'&&c.input&&typeof c.input==='object');assert(Boolean(c.errorCode)!==Boolean(c.checks),'exactly one expected error or checks');if(c.checks)assert(c.checks.length>0);}
- for(const c of cases.scenarioTasks){assert.equal(c.status,'not-run');assert(c.prompt.zh&&c.prompt.en&&c.acceptance.length>0);}
+ for(const c of cases.scenarioTasks){
+  assert.equal(c.status,'not-run');assert(c.prompt.zh&&c.prompt.en&&c.acceptance.length>0);
+  // Every scenario must ship its own runnable, self-contained fixture; a task
+  // that cannot be executed later is not a testable case.
+  assert.equal(typeof c.fixture,'string','scenario needs a fixture path: '+c.id);
+  assert.equal(c.fixture,'benchmark/domain-fixtures/'+c.id,'fixture path must match the case id');
+  const dir=path.join(ROOT,c.fixture);assert(fs.existsSync(dir)&&fs.statSync(dir).isDirectory(),'missing fixture dir: '+c.id);
+  const files=fs.readdirSync(dir,{recursive:true}).filter(f=>fs.statSync(path.join(dir,f)).isFile());
+  assert(files.length>0,'empty fixture: '+c.id);
+  assert(files.includes('README.md'),'fixture needs a README: '+c.id);
+ }
  assert.equal(new Set(cases.scenarioTasks.flatMap(c=>c.domains)).size,10,'scenario tasks must span all ten primary categories');
  return cases;
 }

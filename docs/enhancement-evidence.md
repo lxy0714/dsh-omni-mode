@@ -32,6 +32,22 @@
 - 能力索引含 100 套来源配置引用与 23 个能力条目，用四种成熟度区分真实状态。
 - 复现：`node integration.mjs`
 
+### 一个被修掉的假通过缺陷
+
+排查领域夹具时发现：嵌套运行 `node --test` 会继承 `NODE_TEST_CONTEXT`，导致子进程**不执行任何测试就返回 0**。这曾让 `doctor --test` 在仓库测试内部报出 `accepted: true`，实际什么都没跑——直接威胁"已验证"的诚信。
+
+已修复：自检子进程显式移除该变量；领域夹具测试同样处理。并加了回归测试**直接证明这个陷阱存在**（继承上下文时故意失败的测试返回 0，移除后返回非 0），避免以后再次静默失效。修复后 `doctor --test` 在两种上下文下都产出约 4900 字节的真实测试日志。
+
+### 领域夹具可执行性
+
+12 个领域/跨域案例过去只有题面、没有可运行输入，无法真正执行。现已补齐 34 个自包含合成夹具（无第三方代码），并验证：
+
+- 工程案例的初始状态**确实失败**，且一个最小修复能让它通过——证明案例可解、判据有效。
+- 游戏、小说、分子生物（DNA/RNA 两种字母表）、日历、数据转换与校验等夹具都能被真实操作消费，数值正确。
+- 案例校验强制每个任务必须有夹具目录和 README，防止以后出现"无法执行的空壳案例"。
+
+仍**未执行**的是模型侧任务本身；夹具就绪不等于已通过。
+
 ### "关键无退步"覆盖到哪一层
 
 已确认：
@@ -98,6 +114,22 @@ Every record is reproducible from this repository; commands follow each section.
 - Each skill is checked by **strict path and body comparison**, with same-name decoys planted in the project, so an external file cannot masquerade as the packaged skill.
 - The index carries references to 100 source configurations and 23 capability entries with four maturity states.
 - Reproduce: `node integration.mjs`
+
+### A false-pass defect that was fixed
+
+While validating the domain fixtures we found that a nested `node --test` inherits `NODE_TEST_CONTEXT`, which makes the child **exit 0 without running any test**. That once let `doctor --test` report `accepted: true` from inside the repository suite while nothing ran — a direct threat to the integrity of the "verified" claims.
+
+Fixed: the self-check child now strips that variable, and the fixture test does the same. A regression test **proves the trap exists** (an intentionally failing test returns 0 with the context and non-zero without it) so it cannot silently return. After the fix, `doctor --test` emits roughly 4900 bytes of real test output in both contexts.
+
+### Domain fixture runnability
+
+The 12 domain/cross-domain cases previously had prompts but no runnable inputs. All now ship 34 self-contained synthetic fixtures (no third-party code), verified as follows:
+
+- The engineering case **genuinely fails** at baseline, and a minimal fix makes it pass — proving the case is solvable and its rubric meaningful.
+- Game, fiction, molecular-biology (both DNA and RNA alphabets), calendar, data transformation and validation fixtures are all consumed by real operations with correct values.
+- Case validation now requires a fixture directory and README per task, preventing "unexecutable shell" cases.
+
+What remains **unexecuted** is the model-side task itself; ready fixtures are not a pass.
 
 ### How far "no critical regression" reaches
 

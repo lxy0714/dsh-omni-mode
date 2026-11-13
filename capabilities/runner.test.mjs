@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { writeNewOutput } from './runner.mjs';
@@ -70,3 +71,24 @@ test('package-contained operation/catalog tests need no research/cache/third-par
   await fs.cp(path.join(HERE, '..', 'skills'), path.join(root, 'skills'), { recursive: true, filter: src => { const rel = path.relative(path.join(HERE, '..', 'skills'), src); return !rel || ['omni-engineering', 'omni-game', 'omni-cyber', 'omni-documents', 'omni-fiction', 'omni-research', 'omni-personalization', 'omni-assistant', 'omni-molbio', 'omni-business'].includes(rel.split(path.sep)[0]); } });
   const r = spawnSync(process.execPath, ['--test', path.join(cap, 'operations.test.mjs'), path.join(cap, 'catalog.test.mjs')], { cwd: root, encoding: 'utf8', timeout: 15000, env: { PATH: process.env.PATH, NODE_OPTIONS: '' } }); assert.equal(r.status, 0, r.stdout + r.stderr);
 }));
+test('a nested test child is isolated from an inherited test context', async () => {
+  // Regression: NODE_TEST_CONTEXT makes a nested `node --test` exit 0 while
+  // running nothing, which previously let doctor --test report accepted=true
+  // from inside the repository test run. Assert the mechanism directly on a
+  // tiny self-contained file so this check cannot recurse into the full suite.
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'omni-ctx-'));
+  try {
+    await fs.writeFile(path.join(dir, 'tiny.test.mjs'), "import test from 'node:test';import assert from 'node:assert/strict';test('fails on purpose',()=>{assert.equal(1,2);});\n");
+    const inherited = { ...process.env, NODE_OPTIONS: '' };
+    const ignoring = spawnSync(process.execPath, ['--test', 'tiny.test.mjs'], { cwd: dir, encoding: 'utf8', timeout: 60000, env: { ...inherited, NODE_TEST_CONTEXT: 'child-v8' } });
+    assert.equal(ignoring.status, 0, 'context makes the child exit 0 without running: this is the trap');
+    assert.equal((ignoring.stdout ?? '').trim(), '', 'and it produces no output');
+    const stripped = { ...inherited };
+    delete stripped.NODE_TEST_CONTEXT;
+    const real = spawnSync(process.execPath, ['--test', 'tiny.test.mjs'], { cwd: dir, encoding: 'utf8', timeout: 60000, env: stripped });
+    assert.notEqual(real.status, 0, 'without the context the failing test must fail');
+    assert.ok(/fails on purpose/.test(real.stdout ?? ''), 'and it must report the assertion');
+  } finally {
+    await fs.rm(dir, { recursive: true, force: true });
+  }
+});

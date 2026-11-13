@@ -1,0 +1,4 @@
+id,hp,damage,interval,cost
+scout,10,6,2.0,3
+knight,22,14,2.4,5
+mage,8,18,3.0,6

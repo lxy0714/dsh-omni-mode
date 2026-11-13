@@ -1,0 +1,8 @@
+{
+  "units": [
+    {"id": "scout",  "hp": 10, "damage": 6,  "interval": 2.0, "cost": 3},
+    {"id": "knight", "hp": 22, "damage": 14, "interval": 2.4, "cost": 5},
+    {"id": "mage",   "hp": 8,  "damage": 18, "interval": 3.0, "cost": 6}
+  ],
+  "maxEfficiencyRatio": 2.0
+}

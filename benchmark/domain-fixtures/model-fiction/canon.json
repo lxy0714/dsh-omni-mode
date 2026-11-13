@@ -1,0 +1,8 @@
+{
+  "entities": ["林", "舟"],
+  "facts": [
+    {"entity": "林", "key": "钥匙颜色", "value": "蓝", "from": 0, "to": 10},
+    {"entity": "林", "key": "所在地", "value": "北港", "from": 0, "to": 6},
+    {"entity": "林", "key": "所在地", "value": "南屿", "from": 7, "to": 10}
+  ]
+}
