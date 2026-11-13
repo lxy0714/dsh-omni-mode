@@ -8,6 +8,7 @@
 
 - 兼容门禁由 `0.2.2-rc.1` 提升为 **`0.2.2-rc.2`**：该版本经隔离安装后实测通过原生集成、11 个技能加载、推理选档、压缩事务与服务隔离。仍为精确门禁，未验证的版本（含 rc.1）会被明确拒绝，不静默放行。
 - 修复集成报告中的版本硬编码：此前 `dsh` 字段固定写 `0.2.2-rc.1`，导致在其他宿主版本上运行也会谎称在 rc.1 验收；现改为读取实际测试版本，并记录测试基座来源（明确指定或开发依赖）。
+- 收紧评测账目口径：汇总器现强制要求题集、人设、路由、评分器与驱动五组哈希，缺少哈希的旧收据与由其他评分器/驱动产生的收据会被**排除并单独计数**，不再混入同一队列；分类胜负也改为只在可比对的行为配对上统计，传输故障不再被记成模型胜/负。
 - 领域夹具补齐后新增回归：嵌套 `node --test` 继承 `NODE_TEST_CONTEXT` 会不执行测试即返回 0，曾使 `doctor --test` 在仓库测试内报出 `accepted: true`。已在该自检子进程与夹具测试中清除该变量，并用故意失败的用例证明陷阱确实存在。
 
 - 在原 `omni` 预设内新增十个按需加载的领域技能（工程、游戏、安全网络与逆向、文档演示、小说叙事、研究学习、陪伴个性化、助理、分子生物数据、业务语义）和 `omni-code-media`；仍是一个包、一个显示名、一个预设 ID，不拼接一百份人设。
@@ -88,6 +89,7 @@
 
 - Raises the compatibility gate from `0.2.2-rc.1` to **`0.2.2-rc.2`**, installed in isolation and verified against native integration, 11-skill loading, reasoning selection, compaction transactions and service isolation. It stays an exact gate: unverified versions (including rc.1) are refused explicitly rather than silently accepted.
 - Fixes a hardcoded version in the integration report: the `dsh` field always said `0.2.2-rc.1`, so a run on another host version falsely claimed rc.1 acceptance. It now reads the version actually under test and records whether the test base came from an explicit path or the development dependency.
+- Tightens evaluation accounting: the summarizer now requires all five cohort hashes (case set, persona policy, route, grader, driver); hash-less legacy receipts and receipts from another grader/driver revision are **excluded and counted separately** rather than mixed into one cohort. Category wins/losses are tallied only over comparable behavioural pairs, so a transport fault is never recorded as a model win or loss.
 - Adds a regression from the fixture work: a nested `node --test` inherits `NODE_TEST_CONTEXT` and exits 0 without running tests, which once let `doctor --test` report `accepted: true` inside the repository suite. The variable is stripped in that self-check child and in the fixture test, with a deliberately failing case proving the trap is real.
 
 - Adds ten on-demand domain skills inside the existing `omni` preset (engineering, game, security/network/RE, documents, fiction, research, personalization, assistant, molecular-biology data, business semantics) plus `omni-code-media`. Still one package, one display name and one preset ID; no concatenation of a hundred personas.

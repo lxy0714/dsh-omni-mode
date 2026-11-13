@@ -13,9 +13,25 @@ const passed = arm => finished(arm) && arm.grade?.passed === true;
 const critical = arm => finished(arm) && arm.grade?.criticalPassed === true;
 const variants = ['baseline', 'candidate'];
 
-export function summarizeReceipts(entries, {caseSetHash, candidatePolicyHash, routeFingerprint, cases}) {
+export function summarizeReceipts(entries, {caseSetHash, candidatePolicyHash, routeFingerprint, cases, graderHash, driverHash}) {
   if (![caseSetHash, candidatePolicyHash, routeFingerprint].every(v => typeof v === 'string' && /^[a-f0-9]{64}$/.test(v))) throw Error('Exact cohort hashes required');
-  const admitted = entries.filter(({receipt:r}) => r.scored === true && r.caseSetHash === caseSetHash && r.candidatePolicyHash === candidatePolicyHash && r.routeFingerprint === routeFingerprint);
+  // A cohort is only coherent when every receipt was graded and driven by the same
+  // code. Mixing grader or driver revisions would silently compare different
+  // rubrics, so each must be pinned explicitly.
+  for (const [name, value] of [['graderHash', graderHash], ['driverHash', driverHash]]) {
+    if (typeof value !== 'string' || !/^[a-f0-9]{64}$/.test(value)) throw Error(`Exact ${name} required to keep cohorts coherent`);
+  }
+  const sameRevision = (r, name, expected) => r[name] === expected;
+  const mismatch = {grader:0, driver:0}, hashless = {grader:0, driver:0};
+  const admitted = entries.filter(({receipt:r}) => {
+    if (r.scored !== true || r.caseSetHash !== caseSetHash || r.candidatePolicyHash !== candidatePolicyHash || r.routeFingerprint !== routeFingerprint) return false;
+    // Receipts that recorded no hash at all cannot be shown to belong here.
+    if (!r.graderHash) { hashless.grader++; return false; }
+    if (!r.driverHash) { hashless.driver++; return false; }
+    if (!sameRevision(r, 'graderHash', graderHash)) { mismatch.grader++; return false; }
+    if (!sameRevision(r, 'driverHash', driverHash)) { mismatch.driver++; return false; }
+    return true;
+  });
   // Earliest attempt, including interruptions, is primary. Repeats are retained,
   // never silently substituted for a failure. Timestamp ties use the receipt ID.
   admitted.sort((a,b) => String(a.receipt.started).localeCompare(String(b.receipt.started)) || a.id.localeCompare(b.id));
@@ -55,17 +71,24 @@ export function summarizeReceipts(entries, {caseSetHash, candidatePolicyHash, ro
   const discordant = paired.filter(r => r.arms.baseline.passed !== r.arms.candidate.passed);
   const categories = [...new Set(cases.map(c => c.category))].map(category => {
     const rows = primary.filter(r => r.category === category);
+    // Wins/losses must describe comparable behaviour, so an arm lost to a transport
+    // fault never counts as a model outcome either way.
+    const comparable = rows.filter(r => !r.arms.baseline?.infrastructure && !r.arms.candidate?.infrastructure);
     return {category, expected:cases.filter(c => c.category === category).length, attempted:rows.length,
-      ...count(rows), wins:rows.filter(r => r.arms.candidate?.passed && r.arms.baseline && !r.arms.baseline.passed).length,
-      losses:rows.filter(r => r.arms.baseline?.passed && r.arms.candidate && !r.arms.candidate.passed).length};
+      ...count(rows), comparablePairs:comparable.length,
+      wins:comparable.filter(r => r.arms.candidate?.passed && r.arms.baseline && !r.arms.baseline.passed).length,
+      losses:comparable.filter(r => r.arms.baseline?.passed && r.arms.candidate && !r.arms.candidate.passed).length};
   });
   const criticalRegressions = ran.filter(r => r.arms.baseline.criticalPassed && !r.arms.candidate.criticalPassed).map(r => r.caseId);
+  // Admitted receipts always carry hashes now; keep the explicit field so a reader can see the guarantee.
   const hashesComplete = admitted.every(({receipt:r}) => r.graderHash && r.driverHash);
   return {schemaVersion:1, kind:'exploratory-original-receipt-accounting',
-    cohort:{caseSetHash,candidatePolicyHash,routeFingerprint}, selection:'first-attempt-including-errors; all repeats retained',
+    cohort:{caseSetHash,candidatePolicyHash,routeFingerprint,graderHash,driverHash},
+    excludedReceipts:{otherGrader:mismatch.grader,otherDriver:mismatch.driver,missingGraderHash:hashless.grader,missingDriverHash:hashless.driver},
+    selection:'first-attempt-including-errors; all repeats retained',
     expectedCases:cases.length, attemptedCases:primary.length, missingCases:cases.filter(c => !seen.has(c.id)).map(c => c.id),
     recordedAttempts:attempts.length, pairedPrimaryCases:paired.length, counts:count(primary), categories,
-    discordantCases:discordant.map(r => ({caseId:r.caseId, baseline:r.arms.baseline.passed, candidate:r.arms.candidate.passed})),
+    discordantCases:discordant.map(r => ({caseId:r.caseId, baseline:r.arms.baseline.passed, candidate:r.arms.candidate.passed})), pairedCompletedCases:paired.length, comparableBehavioralPairs:ran.length,
     criticalRegressions, hashesComplete, acceptanceEstablished:false,
     limitations:{zh:['按收据原记录计分，不用当前评分器事后改分。','缺失、截断、步数耗尽与基础设施错误不视为成功；重复运行不替换首轮失败。','未预注册重复次数；部分历史收据缺少评分器/驱动哈希，不能作为确认性无退步或因果提升证明。','新增12题与判据修改发生在观察结果之后，只能作为探索性诊断；不能补足原40题的三类改善验收。'],en:['Uses the grades originally recorded in receipts, not post-hoc regrading.','Missing arms, truncation, step limits and infrastructure errors are not successes; repeats never replace primary failures.','Repeat counts were not preregistered; historical receipts lack some grader/driver hashes and cannot establish confirmatory non-regression or causal gains.','The 12 added cases and rubric changes followed observed outcomes; they are exploratory and cannot satisfy the original 40-case three-category acceptance.']}, primary, attempts};
 }
@@ -80,7 +103,9 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     const text=await fs.readFile(path.join(dir,id),'utf8');
     entries.push({id,sha256:hash(text),receipt:JSON.parse(text)});
   }
-  const summary=summarizeReceipts(entries,{caseSetHash:arg('cases-hash',hash(raw)),candidatePolicyHash:arg('policy-hash'),routeFingerprint:arg('route-hash'),cases:suite.cases});
+  const missing=['cases-hash','policy-hash','route-hash','grader-hash','driver-hash'].filter(k=>!arg(k));
+  if(missing.length)throw Error(`Missing cohort hash flags: ${missing.map(k=>'--'+k).join(' ')}. Every admitted receipt must share case set, persona policy, route, grader and driver revisions.`);
+  const summary=summarizeReceipts(entries,{caseSetHash:arg('cases-hash',hash(raw)),candidatePolicyHash:arg('policy-hash'),routeFingerprint:arg('route-hash'),graderHash:arg('grader-hash'),driverHash:arg('driver-hash'),cases:suite.cases});
   const output=arg('output');
   if(output)await fs.writeFile(output,JSON.stringify(summary,null,2)+'\n');
   console.log(JSON.stringify({...summary,primary:undefined,attempts:undefined},null,2));

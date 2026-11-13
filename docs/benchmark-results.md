@@ -17,7 +17,8 @@
 - 只纳入同一题集、候选人设和模型路由哈希的收据；分别统计 `baseline` 与 `candidate`。
 - 每题首个尝试为主结果，包含空收据、基础设施中断与未完成的单臂；后续重试全部保留，不能替换首轮失败。
 - 只有 `complete` 或正确等待用户的 `needs-user` 且原收据判通过才记成功；24步耗尽不是完成。
-- 不完整覆盖、未预注册重复次数、评分器/驱动哈希缺失，使这些数据**仅能诊断，不能确认因果提升**。
+- 不完整覆盖与未预注册重复次数，使这些数据**仅能诊断，不能确认因果提升**。
+- 汇总器现在强制要求题集、人设、路由、评分器与驱动五组哈希：缺少任一哈希的旧收据、或由其他评分器/驱动产生的收据，都会被**排除并单独计数**，不再进入同一声明队列。这比此前"进入队列但标记 hashesComplete=false"更严格，也正是此前无法确认无退步的原因之一。
 
 本摘要对应候选人设 SHA-256 `e8ed9418be0e305bba430318a60704b2e41db41825439f3e1d9afc0c481903c4`，题集 SHA-256 `e5d37afb6a7a5354cafe602b4211a8c8663b85c04f8597585125468dcf0c6904`，路由指纹 `4357d0baee9e739cf5f33b624ed58653af6960f992a968a68374a32c30d96913`。路由指纹不是模型身份或跨供应商结论。
 
@@ -61,7 +62,8 @@ The repository's [receipt ledger](https://github.com/lxy0714/dsh-omni-mode/blob/
 - Admit only matching case-set, candidate-policy and route hashes; compare baseline and candidate as separate arms inside each receipt.
 - Retain the first attempt including empty receipts, partial pairs and infrastructure errors; retain every later retry without replacing primary failures.
 - Count success only for a recorded passing grade with `complete` or legitimate `needs-user` status. A step limit is not completion.
-- Incomplete coverage, unregistered repetitions and missing historical grader/driver hashes make these records **diagnostic, not confirmatory causal evidence**.
+- Incomplete coverage and unregistered repetitions make these records **diagnostic, not confirmatory causal evidence**.
+- The summarizer now requires all five cohort hashes (case set, persona policy, route, grader, driver). Receipts missing a hash, or produced by another grader/driver revision, are **excluded and counted separately** instead of entering the same claim cohort. This is stricter than the earlier "admitted but flagged hashesComplete=false" behaviour and is one reason the earlier records could not establish non-regression.
 
 Hashes: candidate `e8ed9418be0e305bba430318a60704b2e41db41825439f3e1d9afc0c481903c4`; case set `e5d37afb6a7a5354cafe602b4211a8c8663b85c04f8597585125468dcf0c6904`; route `4357d0baee9e739cf5f33b624ed58653af6960f992a968a68374a32c30d96913`. A route fingerprint is not model identification or evidence across providers.
 
