@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "scene": "scene.mjs",
+  "width": 640,
+  "height": 360,
+  "background": "#0f1b2b",
+  "fps": {
+    "num": 15,
+    "den": 1
+  },
+  "frameCount": 30,
+  "seed": 7,
+  "formats": [
+    "svg",
+    "png",
+    "gif",
+    "mp4"
+  ],
+  "audio": {
+    "decision": "asked",
+    "choice": "silent"
+  },
+  "fonts": [
+    {
+      "path": "fonts/authorized-cjk.ttc",
+      "family": "Noto Sans CJK SC"
+    }
+  ],
+  "assets": []
+}

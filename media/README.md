@@ -91,6 +91,7 @@ Verification checks complete inventory/hashes, SVG subset and actual text covera
 
 - `examples/chinese/`: original Chinese infographic animation. Font path is a placeholder, not a distributed font. Make an authorized working copy, set `fonts[0].path` to an actual authorized font and its real family. Engineering fixture audio choice is only test input; ask real users when not specified. / 原创中文信息图动画；字体路径为占位符，不附字体。复制到授权项目并填入真实授权字体路径与字体族，测试的音频选择不能代替用户真实选择。
 - `examples/user-assets/`: composition of `supplied.png`; intentionally no invented copyrighted asset. Provide the authorized raster and document its license. / 用户素材合成示例；有意不附虚构版权素材，须提供授权图片并注明许可。
+- `examples/data-chart/`: cross-domain example whose numbers come from `capabilities/runner.mjs run game.balance`; the scene embeds the computed results and draws them entirely in code. Shows that a local computation can drive a real chart/video without any generation model. Font path is likewise a placeholder. / 跨领域示例：数值由能力 CLI 的 `game.balance` 算出并写入场景，再由代码绘制成图表与视频，全程不经过生成模型；字体路径同为占位符。
 
 ```sh
 OMNI_MEDIA_TOOL_ENV="$ENV" \

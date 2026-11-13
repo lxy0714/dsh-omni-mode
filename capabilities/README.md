@@ -100,7 +100,7 @@ node --test capabilities/operations.test.mjs \
 
 [操作测试 / Operation tests](operations.test.mjs)使用独立手算/负例，含500事实124,750冲突的有界报告、复合主键、ICS控制字、坏URL/IPv4。 [CLI测试 / CLI tests](runner.test.mjs)验证真实读写/不覆盖/删除temp后读回/解包式原生消费；ENOSPC与异常link语义是**明确模拟的错误回归**，不是实盘磁盘故障或所有文件系统认证。[目录测试 / Catalog tests](catalog.test.mjs)只读随包目录、片段和十个技能，不依赖研究目录/缓存。 / Tests use independent calculations and negatives, real filesystem CLI consumption, and explicitly simulated ENOSPC/abnormal-link regressions, not real disk-fault/all-filesystem certification. Metadata tests need only shipped files.
 
-维护者可显式重建静态来源目录；这不是运行或安装研究对象： / Maintainers may explicitly regenerate static provenance, never executing/installing research subjects:
+以下**仅供源码仓库内的维护者**（`build-catalog.mjs`、测试文件与 `test-evidence.json` 都不随安装包发布，安装用户无需也无法运行）；这不是运行或安装研究对象： / The block below is **only for maintainers inside the source repository** — `build-catalog.mjs`, the test files and `test-evidence.json` are not shipped, so installed users neither need nor can run them. This never executes or installs research subjects:
 ```sh
 node capabilities/build-catalog.mjs \
   --sources <approved-sources.json> \
