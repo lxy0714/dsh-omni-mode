@@ -37,6 +37,15 @@ jobs:
           mkdir -p artifacts
           npm pack --ignore-scripts --pack-destination artifacts
           node --input-type=module -e 'import fs from "node:fs";import crypto from "node:crypto";const files=fs.readdirSync("artifacts").filter(x=>x.endsWith(".tgz"));fs.writeFileSync("artifacts/SHA256SUMS.txt",files.map(x=>crypto.createHash("sha256").update(fs.readFileSync("artifacts/"+x)).digest("hex")+"  "+x).join("\n")+"\n");'
+      - name: 拒绝待发布稿 / Refuse unreleased draft notes
+        run: |
+          # The notes file is published verbatim. A draft that still says
+          # "not released"/"尚未发布" would put that statement into the
+          # public release body, so fail before tagging anything.
+          if grep -qE '尚未发布|not released yet|待发布 / pending release' docs/release-notes.md; then
+            echo "docs/release-notes.md still carries a not-released marker; finalize it first." >&2
+            exit 1
+          fi
       - name: 创建双语版本说明 / Create bilingual release
         env:
           GH_TOKEN: ${{ github.token }}
