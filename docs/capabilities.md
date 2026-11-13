@@ -35,6 +35,14 @@
 - 沙箱、审批策略、权限档位（属宿主策略）
 - 定时任务调度器、终端形态（TUI/桌面）本身的安装
 
+### 新增能力的依赖清单
+
+本轮新增内容不是"全部开箱即用"，按实际依赖分三档：
+
+- **无需额外依赖**：11 个本地领域操作（纯 Node 内置模块）、能力目录查询、Markdown 大纲、待办与日历草稿。
+- **需要用户显式准备**：代码视觉需要 Node ≥ 24、一个授权工具环境目录中的 `@resvg/resvg-js`，以及系统 FFmpeg/ffprobe。缺任一即明确报阻塞，不会静默降级或改用其他格式冒充。
+- **需要真实外部条件**：Office/PDF 导出、数据库、真实网络扫描、游戏引擎、日历写入与提醒、语义业务后端、长期记忆等，能力目录中标为 `needs-dependency` 或 `uncovered`，没有本地伪造实现。
+
 ### 关键结论
 
 1. **工具必须实际安装、启用并可见**，纯 UI 插件不会自动变成模型可调用的工具。
@@ -57,7 +65,9 @@ Omni mode changes **behavior and tool subsets**: when to ask, how to plan, how t
 | Tool subset | Choose which official tools this preset mounts (files, shell, search, subagents, plan mode) |
 | Reasoning level | New sessions take the highest recognizable effort label; provider and model unchanged |
 | Retention | Choose official pruning policy from three isolated pools by declared model capacity |
-| Skills | Ships `grilling`; you may add other skill directories |
+| Skills | Ships `grilling`, `omni-method`, 11 domain skills and `omni-code-media`; you may add other skill directories |
+| Local domain operations | 11 operations using only Node built-ins (data validation/transform, preliminary game arithmetic, fiction continuity, FASTA statistics, entity relations, citation coverage, indicator extraction, document outline, todo dependencies, calendar draft), runnable from the package |
+| Code media | Scene source → SVG → optional resvg → FFmpeg for PNG/GIF/MP4; the user prepares dependencies explicitly, and a missing one is an explicit block |
 | Persona rules | Evidence first, report missing evidence, ask on ambiguity, never fake completion |
 
 ### B. Requires a separate plugin
@@ -77,6 +87,14 @@ No preset wording can conjure these; each needs its plugin installed and enabled
 - Database connection strings, webhooks, bot credentials, tunnels
 - Sandbox, approval policy and permission tiers (host policy)
 - The scheduler for timed tasks, and the terminal form (TUI/desktop) itself
+
+### Dependencies of the new capabilities
+
+The additions are not "all ready out of the box"; they fall into three tiers by real dependency:
+
+- **No extra dependency**: the 11 local domain operations (Node built-ins only), capability catalog queries, Markdown outlines, todos and calendar drafts.
+- **User must prepare explicitly**: code media needs Node ≥ 24, `@resvg/resvg-js` in an authorized tool-environment directory, and a system FFmpeg/ffprobe. Missing any of them is an explicit block — no silent downgrade or format substitution.
+- **Real external conditions required**: Office/PDF export, databases, real network scanning, game engines, calendar writes and reminders, semantic business backends, long-term memory and similar are `needs-dependency` or `uncovered` in the catalog, with no locally faked implementation.
 
 ### Key conclusions
 

@@ -4,7 +4,7 @@
 
 ## 中文
 
-本地 1.2 基线通过了 31 项策略/Cordis 测试和完整原生 Harness 会话恢复。公开 1.3 保留该运行时行为，增加可移植测试运行时发现、解包消费与公开 GitHub 安装验证；1.3.1 只补齐双语页面，不改运行时行为。
+当前开发分支（`1.7.0-dev.1`）在本机通过 257 项仓库测试、63 项领域能力契约测试与 22 项真实渲染测试。已发布的稳定版仍为 `v1.5.0`。新增工程验收不等于真实模型行为验收，详见[增强证据](enhancement-evidence.md#中文)。
 
 ```sh
 npm ci --ignore-scripts
@@ -14,19 +14,21 @@ npm run verify
 完整检查包括：
 
 1. 运行时语法、包元数据、组合 ID 唯一性、模块/配置解析、locale/icon 导出和精确宿主版本。
-2. 31 项测试：推理选档、未知能力、用户手选、失败/取消、保留档位、模型切换、空闲生命周期保护、官方裁剪器及隔离/清理。
-3. 真实隔离 Host 中的完整预设激活、工具执行、压力裁剪、切小窗口、手动压缩、JSONL 校验与两个独立进程的正常退出/恢复；手动推理选择必须保留；并从本包内 `skills/grilling/SKILL.md` 发现 `grilling` 且逐字加载正文。
-4. npm 打包、白名单校验、TGZ 解包，并对解包后的实际安装内容重复 Host/恢复场景与技能发现断言；技能正文 Git blob 须与上游 `d2f09a18` 一致。
+2. 仓库测试共 257 项：原有推理选档、未知能力、用户手选、失败/取消、保留档位、模型切换、空闲生命周期保护、官方裁剪器及隔离/清理，加上执行方法、评分器/汇总器、预设分类、领域验收与领域能力契约。
+3. 领域能力契约 63 项：11 个本地操作的正常/边界/拒绝路径，CLI 读写与不覆盖、父目录软链接拒绝、ENOSPC 与异常 link 的显式模拟回归，以及只读随包文件的目录校验。
+4. 真实渲染 22 项：真实 resvg 与 FFmpeg 下的中文出片、GIF/MP4 编码与完整解码、超时/取消清理、目录碰撞、不安全 SVG 与缺依赖阻塞；无依赖时明确标记 BLOCKED，不用 mock 冒充通过。
+5. 真实隔离 Host 中的完整预设激活、工具执行、压力裁剪、切小窗口、手动压缩、JSONL 校验与两个独立进程的正常退出/恢复；手动推理选择必须保留；并从本包内发现 `grilling`、`omni-method` 与 11 个领域技能，逐字加载正文、确认路径来自安装包，且同名外部诱饵不能冒充；能力索引与两个运行器也必须随包可解析。
+6. npm 打包、白名单校验、TGZ 解包，并对解包后的实际安装内容重复 Host/恢复场景与技能发现断言；技能正文 Git blob 须与上游 `d2f09a18` 一致。
 
 模型适配器为本地确定性模拟。这证明受控条件下的执行/生命周期行为，不证明真实供应商效果或普遍兼容。测试不重启用户引擎，不改其 profile、不复制凭据、不创建 Web 服务器。
 
 原始 fixture Session 与日志保留在被忽略的 `.verification/` 目录，不发布作者机器路径或进程 ID。
 
-本机证据为 Android/Ubuntu、Node 24.22.1、DSH 0.2.2-rc.1。1.3.0 的 GitHub Ubuntu/Node24 CI 已通过；新提交的状态仍以 Actions 实际结果为准，不能从工作流文件推断。其他系统、付费供应商、长期负载、突然断电和所有第三方组合未验证。
+本机证据为 Android/Ubuntu、Node 24.22.1、DSH 0.2.2-rc.1；渲染仅在 Linux arm64 实测。最新提交在 GitHub 的 Node 24 与 24.9.0 双矩阵 CI 已通过；新提交仍以 Actions 实际结果为准，不能从工作流文件推断。其他系统、付费供应商、长期负载、突然断电和所有第三方组合未验证。
 
 ## English
 
-The local 1.2 baseline passed 31 strategy/Cordis tests and full native Harness session recovery. Public 1.3 retains that runtime behavior and adds portable test-runtime discovery, extracted-package consumption and public GitHub installation checks. Version 1.3.1 completes bilingual pages without changing runtime behavior.
+The current development branch (`1.7.0-dev.1`) passes 257 repository tests, 63 domain capability contract tests and 22 real render tests locally. The published stable release is still `v1.5.0`. Engineering acceptance is not real-model behavioral acceptance; see [enhancement evidence](enhancement-evidence.md#english).
 
 Commands:
 
@@ -38,12 +40,14 @@ npm run verify
 The full check includes:
 
 1. Runtime JavaScript syntax, package metadata, unique composition IDs, module/schema resolution, locale/icon exports and exact Harness version.
-2. 31 tests covering reasoning selection, unknown capabilities, manual choices, errors/cancellation, retention tiers, model switches, idle lifecycle protection, official pruner behavior and service isolation/cleanup.
-3. Full preset activation in a real isolated Harness Host, real tool execution, pressure pruning, switching to a smaller declared model, manual compaction, JSONL validation, and normal shutdown/resume in two independent processes; manual reasoning choices must survive resume; `grilling` must be discovered from this package's `skills/grilling/SKILL.md` and load verbatim.
-4. `npm pack`, release-file allowlist checks, TGZ extraction and repeating the full Host/recovery and skill-discovery scenarios against the extracted package; the vendored body's Git blob must match upstream `d2f09a18`.
+2. 257 repository tests: the original reasoning selection, unknown capabilities, manual choices, errors/cancellation, retention tiers, model switches, idle lifecycle protection, official pruner behavior and service isolation/cleanup, plus the execution method, grader/summarizer, preset classification, domain acceptance and domain capability contracts.
+3. 63 domain capability contract tests: positive, boundary and rejection paths for all 11 local operations, CLI read/write without overwrite, parent-symlink refusal, explicitly simulated ENOSPC and abnormal-link regressions, and catalog validation that reads only shipped files.
+4. 22 real render tests under real resvg and FFmpeg: Chinese output, GIF/MP4 encoding with full decoding, timeout/cancellation cleanup, output collisions, unsafe SVG and missing-dependency blocking. Without dependencies they report explicit BLOCKED rather than a mocked pass.
+5. Full preset activation in a real isolated Harness Host, real tool execution, pressure pruning, switching to a smaller declared model, manual compaction, JSONL validation, and normal shutdown/resume in two independent processes; manual reasoning choices must survive resume; `grilling`, `omni-method` and all 11 domain skills must be discovered from the installed package and load verbatim, with exact paths and same-name external decoys unable to substitute; the capability index and both runners must also resolve.
+6. `npm pack`, release-file allowlist checks, TGZ extraction and repeating the full Host/recovery and skill-discovery scenarios against the extracted package; the vendored body's Git blob must match upstream `d2f09a18`.
 
 The model adapter is local and deterministic. This proves execution/lifecycle behavior under fixtures, not real-provider quality or universal compatibility. The test does not restart the user's engine, touch their profile, copy credentials or create a Web server.
 
 Raw fixture sessions and logs stay in ignored `.verification/` directories. No author-machine artifact paths or process IDs are published.
 
-Local platform evidence: Android/Ubuntu, Node 24.22.1, DSH 0.2.2-rc.1. The 1.3.0 Ubuntu/Node24 GitHub CI passed; each newer commit must still be checked on GitHub Actions rather than inferred from the workflow file. Other systems, paid suppliers, long-running load, abrupt power loss and all third-party plugin combinations are unverified.
+Local platform evidence: Android/Ubuntu, Node 24.22.1, DSH 0.2.2-rc.1; rendering is validated on Linux arm64 only. The latest commits passed GitHub CI on both Node 24 and 24.9.0; each newer commit must still be checked on Actions rather than inferred from the workflow file. Other systems, paid suppliers, long-running load, abrupt power loss and all third-party plugin combinations are unverified.
