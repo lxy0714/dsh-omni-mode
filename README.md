@@ -16,7 +16,7 @@
 
 ## 安装
 
-当前兼容门限定为 **DSH 0.2.2-rc.1**。先检查你的宿主版本，不要用豁免强装不兼容版本。
+当前兼容门限定为 **DSH 0.2.2-rc.2**。先检查你的宿主版本，不要用豁免强装不兼容版本。
 
 ```sh
 dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.5.0

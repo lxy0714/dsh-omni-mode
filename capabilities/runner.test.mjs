@@ -69,7 +69,11 @@ test('package-contained operation/catalog tests need no research/cache/third-par
   const cap = path.join(root, 'capabilities'); await fs.mkdir(cap);
   for (const file of ['runner.mjs', 'schema.mjs', 'operations.mjs', 'catalog.json', 'source-excerpts.json', 'operations.test.mjs', 'catalog.test.mjs']) await fs.copyFile(path.join(HERE, file), path.join(cap, file));
   await fs.cp(path.join(HERE, '..', 'skills'), path.join(root, 'skills'), { recursive: true, filter: src => { const rel = path.relative(path.join(HERE, '..', 'skills'), src); return !rel || ['omni-engineering', 'omni-game', 'omni-cyber', 'omni-documents', 'omni-fiction', 'omni-research', 'omni-personalization', 'omni-assistant', 'omni-molbio', 'omni-business'].includes(rel.split(path.sep)[0]); } });
-  const r = spawnSync(process.execPath, ['--test', path.join(cap, 'operations.test.mjs'), path.join(cap, 'catalog.test.mjs')], { cwd: root, encoding: 'utf8', timeout: 15000, env: { PATH: process.env.PATH, NODE_OPTIONS: '' } }); assert.equal(r.status, 0, r.stdout + r.stderr);
+  const r = spawnSync(process.execPath, ['--test', path.join(cap, 'operations.test.mjs'), path.join(cap, 'catalog.test.mjs')], { cwd: root, encoding: 'utf8', timeout: 15000, env: { PATH: process.env.PATH, NODE_OPTIONS: '' } });
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  // A status of 0 is only meaningful if the child actually ran the suites;
+  // an inherited NODE_TEST_CONTEXT would return 0 with no output at all.
+  assert.ok(/pass\s+\d+/.test(r.stdout ?? ''), 'child must report executed assertions, not just exit 0');
 }));
 test('a nested test child is isolated from an inherited test context', async () => {
   // Regression: NODE_TEST_CONTEXT makes a nested `node --test` exit 0 while

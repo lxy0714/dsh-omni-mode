@@ -37,7 +37,7 @@ dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0
 
 `quality.js`、`adaptive.js`、`pool.js` 与上游 grilling 原文自 v1.5.0 起字节未变；推理选档、自适应保留、权限与审批边界均无改动。详细证据与未证事项见[增强证据](enhancement-evidence.md#中文)。
 
-兼容门禁仍为 DSH 0.2.2-rc.1（已对官方 latest 复核）。渲染支持范围为 Linux arm64 实测，其他平台与三维未验证。附件提供 TGZ 与 SHA256；未发布 npm，不覆盖历史标签。
+兼容门禁已提升为 DSH 0.2.2-rc.2：该版本已隔离安装并实测通过原生集成、11 技能加载、选档、压缩事务与服务隔离；rc.1 用户需先升级宿主。渲染支持范围为 Linux arm64 实测，其他平台与三维未验证。附件提供 TGZ 与 SHA256；未发布 npm，不覆盖历史标签。
 
 ## English
 
@@ -74,4 +74,4 @@ Actually executed:
 
 `quality.js`, `adaptive.js`, `pool.js` and the upstream grilling text are byte-for-byte unchanged since v1.5.0; reasoning selection, adaptive retention and permission/approval boundaries are untouched. See [enhancement evidence](enhancement-evidence.md#english) for details and unproven items.
 
-The compatibility gate remains DSH 0.2.2-rc.1 (rechecked against the official latest). Rendering is validated on Linux arm64 only; other platforms and 3D remain unverified. The release attaches a TGZ and SHA256; nothing is published to npm and no historical tag is overwritten.
+The gate is now DSH 0.2.2-rc.2, which was installed in isolation and passed native integration, 11-skill loading, reasoning selection, compaction transactions and service isolation; rc.1 users must upgrade the host first. Rendering is validated on Linux arm64 only; other platforms and 3D remain unverified. The release attaches a TGZ and SHA256; nothing is published to npm and no historical tag is overwritten.

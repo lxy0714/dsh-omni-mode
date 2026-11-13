@@ -6,6 +6,10 @@
 
 ### 1.7.0-dev.1 — 领域专长与代码视觉（未正式发布）
 
+- 兼容门禁由 `0.2.2-rc.1` 提升为 **`0.2.2-rc.2`**：该版本经隔离安装后实测通过原生集成、11 个技能加载、推理选档、压缩事务与服务隔离。仍为精确门禁，未验证的版本（含 rc.1）会被明确拒绝，不静默放行。
+- 修复集成报告中的版本硬编码：此前 `dsh` 字段固定写 `0.2.2-rc.1`，导致在其他宿主版本上运行也会谎称在 rc.1 验收；现改为读取实际测试版本，并记录测试基座来源（明确指定或开发依赖）。
+- 领域夹具补齐后新增回归：嵌套 `node --test` 继承 `NODE_TEST_CONTEXT` 会不执行测试即返回 0，曾使 `doctor --test` 在仓库测试内报出 `accepted: true`。已在该自检子进程与夹具测试中清除该变量，并用故意失败的用例证明陷阱确实存在。
+
 - 在原 `omni` 预设内新增十个按需加载的领域技能（工程、游戏、安全网络与逆向、文档演示、小说叙事、研究学习、陪伴个性化、助理、分子生物数据、业务语义）和 `omni-code-media`；仍是一个包、一个显示名、一个预设 ID，不拼接一百份人设。
 - 新增能力索引 `capabilities/catalog.json`：100 套来源配置引用、23 个能力条目，并用 verified / needs-dependency / method-only / uncovered 区分"本地契约有测试"、"仍需外部依赖"、"只有方法"和"未覆盖"。`doctor` 明确区分已安装与已验收，`doctor --test` 才实际运行本包契约测试。
 - 新增 11 个原生本地操作（CSV/JSON 校验转换、游戏数值初筛、小说显式事实连续性、FASTA 基础统计、实体关系一致性、引用覆盖、本地指标提取、Markdown 大纲、待办依赖、UTC ICS 草稿），全部只用 Node 内置能力，不新增生产依赖；写入需显式 `--allow-write` 且不覆盖已有文件。
@@ -81,6 +85,10 @@
 ## English
 
 ### 1.7.0-dev.1 — Domain specialties and code media (not a stable release)
+
+- Raises the compatibility gate from `0.2.2-rc.1` to **`0.2.2-rc.2`**, installed in isolation and verified against native integration, 11-skill loading, reasoning selection, compaction transactions and service isolation. It stays an exact gate: unverified versions (including rc.1) are refused explicitly rather than silently accepted.
+- Fixes a hardcoded version in the integration report: the `dsh` field always said `0.2.2-rc.1`, so a run on another host version falsely claimed rc.1 acceptance. It now reads the version actually under test and records whether the test base came from an explicit path or the development dependency.
+- Adds a regression from the fixture work: a nested `node --test` inherits `NODE_TEST_CONTEXT` and exits 0 without running tests, which once let `doctor --test` report `accepted: true` inside the repository suite. The variable is stripped in that self-check child and in the fixture test, with a deliberately failing case proving the trap is real.
 
 - Adds ten on-demand domain skills inside the existing `omni` preset (engineering, game, security/network/RE, documents, fiction, research, personalization, assistant, molecular-biology data, business semantics) plus `omni-code-media`. Still one package, one display name and one preset ID; no concatenation of a hundred personas.
 - Adds the capability index `capabilities/catalog.json`: references to the 100 source configurations and 23 capability entries, distinguishing verified / needs-dependency / method-only / uncovered. `doctor` separates installed from accepted; only `doctor --test` runs the package contract tests.

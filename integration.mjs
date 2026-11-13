@@ -57,7 +57,10 @@ if (!phase) {
   }
   assert.notEqual(reports[0].pid,reports[1].pid);
   assert(reports[1].eventCount>reports[0].eventCount);
-  const result={layer:'real-dsh-full-preset-mock-inference',result:'PASS',dsh:'0.2.2-rc.1',differentProcesses:true,realProvider:'NOT TESTED: no isolated credential/route supplied',reports,artifacts};
+  // Read the version actually under test. Hardcoding it once made every run
+  // claim rc.1 acceptance even when a different Harness was supplied.
+  const testedDsh=JSON.parse(fs.readFileSync(host.resolve('@deepseek-ai/dsh/package.json'),'utf8')).version;
+  const result={layer:'real-dsh-full-preset-mock-inference',result:'PASS',dsh:testedDsh,dshTestBase:process.env.DSH_TEST_BASE?'explicit':'development-dependency',differentProcesses:true,realProvider:'NOT TESTED: no isolated credential/route supplied',reports,artifacts};
   fs.writeFileSync(path.join(artifacts,'report.json'),JSON.stringify(result,null,2)+'\n');
   console.log(JSON.stringify(result,null,2));
 } else {
