@@ -72,12 +72,28 @@ export async function render(o){
  const runId=crypto.randomUUID(),stage=path.join(root,`.omni-stage-${runId}`),abort=linkedAbort(timeout),commands=[];let published=false,publishCleanup;
  try{
  await fs.mkdir(stage);await save(path.join(stage,'.owner.json'),{runId});const source=path.join(stage,'source'),frames=path.join(stage,'.frames'),proof=path.join(stage,'proof');await fs.mkdir(source);await fs.mkdir(frames);await fs.mkdir(proof);await fs.mkdir(path.join(source,'assets'));
- const snapshot=structuredClone(p);snapshot.scene='scene.mjs';snapshot.fonts=job.fonts.map(f=>({path:f.file,family:f.family}));
+ // Carry the authorization flag through the snapshot: the worker re-validates the
+ // project, and a dropped flag would look like an unauthorized outside font.
+ // Only a genuinely external font becomes absolute; an in-project font keeps its
+ // project-relative path, otherwise validation would mistake it for an outside file.
+ // The worker runs with the staged source as its cwd, so an in-project font is
+ // copied beside the scene and referenced relatively; an external font stays
+ // absolute and keeps its explicit authorization.
+ const staged=[];
+ for(let i=0;i<job.fonts.length;i++){
+  const f=job.fonts[i],rel=path.relative(job.root,f.file),inside=rel&&!rel.startsWith('..')&&!path.isAbsolute(rel);
+  if(!inside){staged.push({path:f.file,family:f.family,externalAuthorization:true});continue;}
+  const target=path.join(source,'fonts',`font-${i}${path.extname(f.file)}`);
+  await fs.mkdir(path.dirname(target),{recursive:true});
+  await fs.copyFile(f.file,target,fs.constants.COPYFILE_EXCL);
+  staged.push({path:path.relative(source,target),family:f.family});
+ }
+ const snapshot=structuredClone(p);snapshot.scene='scene.mjs';snapshot.fonts=staged;
  await fs.copyFile(job.scene,path.join(source,'scene.mjs'),fs.constants.COPYFILE_EXCL);const embedded=[];
  for(let i=0;i<job.assets.length;i++){const a=job.assets[i],ext={"image/png":'.png',"image/jpeg":'.jpg',"image/gif":'.gif'}[a.info.mime],relative=`assets/${a.id}${ext}`;await fs.writeFile(path.join(source,relative),a.bytes,{flag:'wx'});snapshot.assets[i].path=relative;embedded.push({id:a.id,uri:`data:${a.info.mime};base64,${a.bytes.toString('base64')}`});}
  if(job.audio){snapshot.audio.path='assets/audio'+path.extname(job.audio);await fs.copyFile(job.audio,path.join(source,snapshot.audio.path),fs.constants.COPYFILE_EXCL);const a=await probe(path.join(source,snapshot.audio.path),o,abort.signal,commands),stream=a.streams?.find(s=>s.codec_type==='audio'),duration=Number(stream?.duration??a.format?.duration),expected=p.frameCount*p.fps.den/p.fps.num;if(!stream||!Number.isFinite(duration)||duration<expected-.02)fail('audio shorter than timeline or invalid / 音频无效或短于时间线');await decode(path.join(source,snapshot.audio.path),o,abort.signal,commands);}
  await save(path.join(source,'project.json'),snapshot);
- await save(path.join(stage,'.worker.json'),{project:snapshot,scene:path.join(source,'scene.mjs'),toolEnv:await fs.realpath(o['tool-env']),frames,assets:embedded,fonts:job.fonts.map(f=>({path:f.file,family:f.family}))});
+ await save(path.join(stage,'.worker.json'),{project:snapshot,scene:path.join(source,'scene.mjs'),toolEnv:await fs.realpath(o['tool-env']),frames,assets:embedded,fonts:staged});
  await runProcess(process.execPath,[path.join(HERE,'worker.mjs'),path.join(stage,'.worker.json')],{cwd:source,signal:abort.signal,timeoutMs:timeout,onCommand:c=>commands.push(c)});
  const expectedNames=new Set(Array.from({length:p.frameCount},(_,i)=>String(i).padStart(6,'0')).flatMap(s=>[s+'.svg',s+'.png']));expectedNames.add('font-proof.png');for(const name of await fs.readdir(frames))if(!expectedNames.has(name))fail('unexpected producer resource / 生成器资源未知');
  for(let i=0;i<p.frameCount;i++){const file=path.join(frames,String(i).padStart(6,'0')+'.png');const resolved=await localFile(stage,path.relative(stage,file),33554432),info=rasterInfo(await fs.readFile(resolved));if(info.width!==p.width||info.height!==p.height)fail('producer PNG dimensions mismatch / 生成PNG尺寸不符');}

@@ -72,3 +72,16 @@ test('cancellation kills owned child / 取消清理本作业进程',async()=>{
 test('collision rejects before rendering, no overwrite / 碰撞拒绝且不覆盖',async t=>{
  const dir=await tmp(t);await fs.writeFile(path.join(dir,'scene.mjs'),'export function renderFrame(){}');await fs.writeFile(path.join(dir,'project.json'),JSON.stringify(base()));await fs.mkdir(path.join(dir,'exists'));await fs.writeFile(path.join(dir,'exists/keep'),'keep');await assert.rejects(render({project:path.join(dir,'project.json'),'output-root':dir,name:'exists','tool-env':dir}),/COLLISION/);assert.equal(await fs.readFile(path.join(dir,'exists/keep'),'utf8'),'keep');
 });
+
+test('a font outside the project needs an explicit authorization flag', async (t) => {
+  const dir = await tmp(t);
+  await fs.writeFile(path.join(dir, 'scene.mjs'), "export function renderFrame(){return '<svg xmlns=\"http://www.w3.org/2000/svg\"/>';}\n");
+  const mk = fonts => fs.writeFile(path.join(dir, 'project.json'), JSON.stringify({ version: 1, scene: 'scene.mjs', width: 64, height: 48, background: '#112233', fps: { num: 12, den: 1 }, frameCount: 6, seed: 1, formats: ['png'], assets: [], fonts }));
+  const load = () => loadProject(path.join(dir, 'project.json'));
+  await mk([{ path: '../../../etc/hostname', family: 'X' }]);
+  await assert.rejects(load, /escapes/);
+  await mk([{ path: '/etc/hostname', family: 'X' }]);
+  await assert.rejects(load, /externalAuthorization/);
+  await mk([{ path: '/etc/hostname', family: 'X', externalAuthorization: true }]);
+  assert.ok((await load()).fonts.length === 1);
+});

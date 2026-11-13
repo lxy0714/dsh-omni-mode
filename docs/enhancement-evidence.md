@@ -32,6 +32,12 @@
 - 能力索引含 100 套来源配置引用与 23 个能力条目，用四种成熟度区分真实状态。
 - 复现：`node integration.mjs`
 
+### 字体路径越界被收紧
+
+审核素材授权时发现不一致：素材路径会拒绝 `../../etc/passwd`，但**字体路径可以直接指向项目外任意可读文件**（实测 `/etc/hostname` 被接受）。修复为：项目内字体与素材同样做包含性检查；项目外字体必须用绝对路径并显式声明 `externalAuthorization: true`。
+
+修复过程还暴露出第二个问题：运行器把字体快照传给 worker 时丢掉了授权字段，导致合法授权也会失效。两处已一并修正，并新增回归测试覆盖"相对路径逃逸被拒 / 绝对路径未授权被拒 / 显式授权通过"三种情况。
+
 ### 一个被修掉的假通过缺陷
 
 排查领域夹具时发现：嵌套运行 `node --test` 会继承 `NODE_TEST_CONTEXT`，导致子进程**不执行任何测试就返回 0**。这曾让 `doctor --test` 在仓库测试内部报出 `accepted: true`，实际什么都没跑——直接威胁"已验证"的诚信。
@@ -114,6 +120,12 @@ Every record is reproducible from this repository; commands follow each section.
 - Each skill is checked by **strict path and body comparison**, with same-name decoys planted in the project, so an external file cannot masquerade as the packaged skill.
 - The index carries references to 100 source configurations and 23 capability entries with four maturity states.
 - Reproduce: `node integration.mjs`
+
+### Font paths outside the project are now gated
+
+While auditing asset authorization we found an inconsistency: asset paths rejected `../../etc/passwd`, but a **font path could point at any readable file outside the project** (a probe accepted `/etc/hostname`). Fonts inside the project now get the same containment check as assets; a font outside it must be an absolute path carrying an explicit `externalAuthorization: true`.
+
+The fix exposed a second defect: the runner rebuilt the font snapshot for the worker and dropped the authorization field, so even a legitimate authorization failed. Both are fixed, with a regression covering relative escape, absolute-without-authorization and explicitly authorized.
 
 ### A false-pass defect that was fixed
 

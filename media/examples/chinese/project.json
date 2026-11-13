@@ -4,11 +4,28 @@
   "width": 480,
   "height": 350,
   "background": "#13223a",
-  "fps": { "num": 12, "den": 1 },
+  "fps": {
+    "num": 12,
+    "den": 1
+  },
   "frameCount": 24,
   "seed": 2026,
-  "formats": ["svg", "png", "gif", "mp4"],
-  "audio": { "decision": "asked", "choice": "silent" },
-  "fonts": [{ "path": "fonts/authorized-cjk.ttc", "family": "Noto Sans CJK SC" }],
+  "formats": [
+    "svg",
+    "png",
+    "gif",
+    "mp4"
+  ],
+  "audio": {
+    "decision": "asked",
+    "choice": "silent"
+  },
+  "fonts": [
+    {
+      "path": "fonts/authorized-cjk.ttc",
+      "family": "Noto Sans CJK SC",
+      "externalAuthorization": false
+    }
+  ],
   "assets": []
 }

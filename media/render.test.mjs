@@ -34,7 +34,7 @@ test('authorized raster asset is embedded, actual composite renders / 授权位�
 });
 test('actual explicit CJK font render and family mismatch / 显式中文字体实渲染与族校验',async t=>{
  if(!await ready(t))return;const font=process.env.OMNI_MEDIA_TEST_FONT;if(!font){t.skip('BLOCKED no explicit CJK font / 未指定中文字体');return;}
- const p=base();p.width=480;p.height=350;p.fonts=[{path:font,family:'Noto Sans CJK SC'}];const {options,root}=await setup(t,p,await fs.readFile(path.join(here,'examples/chinese/scene.mjs'),'utf8'));const result=await render(options);const proof=await fs.readFile(path.join(result.proof,'font-proof.png'));assert.ok(proof.length>1000);assert.ok(proof.readUInt32BE(20)>=200,'proof height must fit drawn lines');assert.ok(proof.readUInt32BE(16)===640,'proof width fixed');
+ const p=base();p.width=480;p.height=350;p.fonts=[{path:font,family:'Noto Sans CJK SC',externalAuthorization:true}];const {options,root}=await setup(t,p,await fs.readFile(path.join(here,'examples/chinese/scene.mjs'),'utf8'));const result=await render(options);const proof=await fs.readFile(path.join(result.proof,'font-proof.png'));assert.ok(proof.length>1000);assert.ok(proof.readUInt32BE(20)>=200,'proof height must fit drawn lines');assert.ok(proof.readUInt32BE(16)===640,'proof width fixed');
  p.fonts[0].family='Wrong Family';await fs.writeFile(path.join(root,'project.json'),JSON.stringify(p));await assert.rejects(render({...options,name:'badfont'}),/family does not match/);await noStage(root);
 });
 test('actual audio composition validates duration and stream / 真实音频合成与时长',async t=>{

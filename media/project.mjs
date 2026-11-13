@@ -22,7 +22,13 @@ export function validateProject(p){
  if(p.audio.choice==='provided'&&(typeof p.audio.path!=='string'||!p.formats.includes('mp4')))fail('provided audio needs local path and mp4 / 提供音频需要路径与MP4');
  if(p.audio.choice==='silent'&&p.audio.path!==undefined)fail('silent audio must not carry path / 静音不能带音频路径');}
  if(!Array.isArray(p.fonts)||p.fonts.length>LIMITS.maxFonts)fail('fonts: explicit array required / 需要显式字体数组');
- for(const f of p.fonts){strict(f,['path','family'],'font');if(typeof f.path!=='string'||typeof f.family!=='string'||!f.family||!/^[-\w\s\u3400-\u9fff]+$/u.test(f.family))fail('invalid explicit font / 显式字体无效');}
+ // A font may live outside the project (users bring their own licensed font), but
+ // that must be an explicit, acknowledged choice: an escaping relative path is a
+ // mistake, and an outside path requires externalAuthorization so nothing is
+ // silently read from the filesystem just because it happens to be readable.
+ for(const f of p.fonts){strict(f,['path','family','externalAuthorization'],'font');if(typeof f.path!=='string'||typeof f.family!=='string'||!f.family||!/^[-\w\s\u3400-\u9fff]+$/u.test(f.family))fail('invalid explicit font / 显式字体无效');
+  if(!path.isAbsolute(f.path)&&/^\.\.(\/|$)/.test(path.normalize(f.path)))fail('font path escapes the project; use an absolute path with externalAuthorization / 字体路径逃逸项目；项目外字体请用绝对路径并声明授权');
+  if(path.isAbsolute(f.path)&&f.externalAuthorization!==true)fail('font outside the project requires externalAuthorization:true / 项目外字体需显式声明 externalAuthorization:true');}
  if(!Array.isArray(p.assets)||p.assets.length>LIMITS.maxAssets)fail('assets limit / 素材超限');
  const ids=new Set();for(const a of p.assets){strict(a,['id','path','license'],'asset');if(!/^[a-z][a-z0-9_-]{0,39}$/i.test(a.id)||ids.has(a.id)||typeof a.path!=='string'||typeof a.license!=='string'||!a.license.trim())fail('asset needs unique id, path and license / 素材需要唯一ID、路径和授权');ids.add(a.id);}
  return p;
@@ -44,7 +50,11 @@ export async function loadProject(filename){
  const scene=await localFile(root,p.scene,262144),assets=[];
  for(const a of p.assets){const file=await localFile(root,a.path,LIMITS.maxAssetBytes),bytes=await fs.readFile(file),info=rasterInfo(bytes);if(!info.width||!info.height||info.width*info.height>LIMITS.maxPixels)fail('asset pixel limit / 素材像素超限');assets.push({...a,file,bytes,info});}
  if(assets.reduce((n,a)=>n+a.bytes.length,0)>33554432)fail('total asset byte limit / 素材总字节超限');
- const fonts=[];for(const f of p.fonts){const file=await fs.realpath(path.resolve(root,f.path)),st=await fs.stat(file);if(!st.isFile()||st.size>LIMITS.maxFontBytes)fail('font limit / 字体超限');fonts.push({...f,file});}
+ const fonts=[];for(const f of p.fonts){
+  // Inside the project, reuse the same containment helper as assets; outside it,
+  // the explicit externalAuthorization above is the acknowledgement.
+  const file=f.externalAuthorization===true&&path.isAbsolute(f.path)?await fs.realpath(f.path):await localFile(root,f.path,LIMITS.maxFontBytes);
+  const st=await fs.stat(file);if(!st.isFile()||st.size>LIMITS.maxFontBytes)fail('font limit / 字体超限');fonts.push({...f,file});}
  const audio=p.audio?.choice==='provided'?await localFile(root,p.audio.path,LIMITS.maxAudioBytes):null;
  return {p,file,root,scene,assets,fonts,audio};
 }
