@@ -72,7 +72,7 @@ node <包根>/media/runner.mjs validate --artifact <成品目录> --tool-env <�
 
 ### 验证到了哪一层
 
-- 能力目录：63 项本地契约测试通过。
+- 能力目录：64 项本地契约测试通过。
 - 代码视觉：22 项测试在真实 resvg 与 FFmpeg 下通过，0 跳过，含真实中文渲染、GIF/MP4 编码解码、超时、取消、碰撞与不安全 SVG 拒绝。
 - 原生集成：11 个专业技能、能力索引与两个运行器都能从安装包被发现并加载。
 - 领域工程验收：23 个案例全部通过，但这是 **CLI 契约验收**。
@@ -147,7 +147,7 @@ Scene source runs in an owned child process. That is **not a sandbox**, and it i
 
 ### Verification level reached
 
-- Capability directory: 63 local contract tests pass.
+- Capability directory: 64 local contract tests pass.
 - Code media: 22 tests pass under real resvg and FFmpeg with 0 skipped, covering real Chinese rendering, GIF/MP4 encode/decode, timeouts, cancellation, collisions and unsafe-SVG rejection.
 - Native integration: all 11 specialist skills, the capability index and both runners are discoverable and loadable from the installed package.
 - Domain engineering acceptance: 23 cases pass — but this is **CLI contract acceptance**.

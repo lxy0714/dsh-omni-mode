@@ -81,7 +81,7 @@
   "scripts": {
     "test": "node --test quality.test.js adaptive.test.js omni-method.test.mjs scripts/benchmark/grader.test.mjs scripts/benchmark/summarize.test.mjs scripts/benchmark/accept-domains.test.mjs scripts/research/classify.test.mjs tools/benchmark-host/index.test.mjs capabilities/operations.test.mjs capabilities/runner.test.mjs capabilities/catalog.test.mjs",
     "test:host": "node integration.mjs",
-    "check": "node scripts/check-docs.mjs && node scripts/verify-package.mjs",
+    "check": "node scripts/check-docs.mjs && node scripts/verify-package.mjs && node scripts/check-claims.mjs",
     "pack:check": "node scripts/verify-package.mjs --pack",
     "verify": "npm run check && npm test && npm run test:host && npm run pack:check"
   },

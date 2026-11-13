@@ -17,7 +17,7 @@
 - 新增代码视觉链路：场景源码 → 静态 SVG → 明确版本的 resvg 栅格化 → FFmpeg 编码 GIF/MP4。不调用图像或视频生成模型；有授权素材优先用素材，否则从零代码制作；视频音频需求未明确时先询问。依赖显式准备，不在激活或渲染时静默安装；缺依赖明确阻塞而非换格式冒充。
 - 新增 100 套预设分类证据与双语报告：主分类唯一、总数 100，并如实标注工程占 60、游戏 10 套来自同一项目，以及样本缺少临床/法律/会计量化金融/CAD 等领域。
 - 新增领域工程验收与 12 个领域/跨域任务题集；后者保持 `not-run`，不宣称模型已自动化使用这些能力。
-- 验证：257 项仓库测试、63 项能力契约测试、22 项真实渲染测试（真实 resvg+FFmpeg，0 跳过）、原生集成确认 11 技能与两个运行器可从安装包加载。原 40 题成绩与"未证明模型提升"的结论不变。
+- 验证：263 项仓库测试、64 项能力契约测试、22 项真实渲染测试（真实 resvg+FFmpeg，0 跳过）、原生集成确认 11 技能与两个运行器可从安装包加载。原 40 题成绩与"未证明模型提升"的结论不变。
 
 ### 1.6.0-dev.1 — 全能模式执行方法（未正式发布）
 
@@ -98,7 +98,7 @@
 - Adds the code-media pipeline: scene source → static SVG → pinned resvg rasterization → FFmpeg GIF/MP4. No image or video generation models; authorized assets are reused when available, otherwise drawn from scratch in code; audio for video is asked first. Dependencies are prepared explicitly, never installed silently at activation or render time; a missing dependency is an explicit block rather than a format substitution.
 - Adds traceable classification evidence and a bilingual report for the 100 presets: one primary category each, 100 total, honestly noting 60 engineering configurations, all 10 game configurations from one project, and gaps such as clinical, legal, accounting/quantitative finance and CAD.
 - Adds domain engineering acceptance plus 12 domain/cross-domain tasks; the latter stay `not-run`, with no claim that the model already uses these capabilities automatically.
-- Verification: 257 repository tests, 63 capability contract tests, 22 real render tests (real resvg + FFmpeg, 0 skipped), and native integration confirming 11 skills and both runners load from the installed package. The original 40-case results and the "no proven model improvement" conclusion are unchanged.
+- Verification: 263 repository tests, 64 capability contract tests, 22 real render tests (real resvg + FFmpeg, 0 skipped), and native integration confirming 11 skills and both runners load from the installed package. The original 40-case results and the "no proven model improvement" conclusion are unchanged.
 
 ### 1.6.0-dev.1 — Omni execution method (not a stable release)
 

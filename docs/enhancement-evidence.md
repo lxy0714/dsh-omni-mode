@@ -53,7 +53,7 @@
 已确认：
 
 - `quality.js`、`adaptive.js`、`pool.js` 与上游 grilling 原文**自 v1.5.0 起字节未变**（SHA-256 见下）。
-- 仓库测试 257 项全过；能力契约 63 项全过；真实渲染 22 项全过。
+- 仓库测试 263 项全过；能力契约 64 项全过；真实渲染 22 项全过。
 - 原生集成仍验证推理选档、自适应保留、压缩事务、会话持久化、服务隔离，无泄漏。
 - 安装包消费、同名技能诱饵拒绝仍通过；CI 在 `7863c55` 与 `2a8ad02` 两次提交上双 Node 矩阵均通过。
 
@@ -80,7 +80,7 @@ skills/grilling/SKILL.md a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b
 
 ```sh
 npm ci --ignore-scripts
-npm run verify                # 文档、257 项测试、原生集成、打包消费
+npm run verify                # 文档、263 项测试、原生集成、打包消费
 node capabilities/runner.mjs doctor --test
 node scripts/benchmark/accept-domains.mjs
 ```
@@ -136,7 +136,7 @@ What remains **unexecuted** is the model-side task itself; ready fixtures are no
 Confirmed:
 
 - `quality.js`, `adaptive.js`, `pool.js` and the upstream grilling text are **byte-for-byte unchanged since v1.5.0** (SHA-256 below).
-- 257 repository tests, 63 capability contract tests and 22 real render tests all pass.
+- 263 repository tests, 64 capability contract tests and 22 real render tests all pass.
 - Native integration still verifies reasoning selection, adaptive retention, compaction transactions, session persistence and service isolation with no leaks.
 - Packaged-consumer checks and same-name skill decoy rejection still pass; CI passed on both Node versions for commits `7863c55` and `2a8ad02`.
 
@@ -163,7 +163,7 @@ skills/grilling/SKILL.md a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b
 
 ```sh
 npm ci --ignore-scripts
-npm run verify                # docs, 257 tests, native integration, packaged consumer
+npm run verify                # docs, 263 tests, native integration, packaged consumer
 node capabilities/runner.mjs doctor --test
 node scripts/benchmark/accept-domains.mjs
 ```

@@ -28,7 +28,7 @@ dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0
 
 已实际执行：
 
-- 257 项仓库测试、63 项能力契约测试、22 项真实渲染测试（真实 resvg + FFmpeg，0 跳过）。
+- 263 项仓库测试、64 项能力契约测试、22 项真实渲染测试（真实 resvg + FFmpeg，0 跳过）。
 - 从解包后的安装包独立完成中文 SVG/PNG/GIF/MP4 端到端产出，并完整解码。
 - 真实 Harness 中确认 11 个技能、能力索引与两个运行器可从安装包加载，且同名外部诱饵不能冒充。
 - 用读图工具查看实际画面并修复了字体证明图的截断显示问题。
@@ -65,7 +65,7 @@ Or add the release TGZ through the plugin manager. Restart, create a new convers
 
 Actually executed:
 
-- 257 repository tests, 63 capability contract tests and 22 real render tests (real resvg + FFmpeg, 0 skipped).
+- 263 repository tests, 64 capability contract tests and 22 real render tests (real resvg + FFmpeg, 0 skipped).
 - Independent end-to-end Chinese SVG/PNG/GIF/MP4 production from the extracted package, with full decoding.
 - In a real Harness, 11 skills, the capability index and both runners load from the installed package, and same-name external decoys cannot substitute for them.
 - Actual frames viewed with an image-reading tool, which caught and fixed a truncation display issue in the font proof sheet.
