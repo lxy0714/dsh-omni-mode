@@ -4,6 +4,16 @@
 
 ## 中文
 
+### 1.7.0-dev.1 — 领域专长与代码视觉（未正式发布）
+
+- 在原 `omni` 预设内新增十个按需加载的领域技能（工程、游戏、安全网络与逆向、文档演示、小说叙事、研究学习、陪伴个性化、助理、分子生物数据、业务语义）和 `omni-code-media`；仍是一个包、一个显示名、一个预设 ID，不拼接一百份人设。
+- 新增能力索引 `capabilities/catalog.json`：100 套来源配置引用、23 个能力条目，并用 verified / needs-dependency / method-only / uncovered 区分"本地契约有测试"、"仍需外部依赖"、"只有方法"和"未覆盖"。`doctor` 明确区分已安装与已验收，`doctor --test` 才实际运行本包契约测试。
+- 新增 11 个原生本地操作（CSV/JSON 校验转换、游戏数值初筛、小说显式事实连续性、FASTA 基础统计、实体关系一致性、引用覆盖、本地指标提取、Markdown 大纲、待办依赖、UTC ICS 草稿），全部只用 Node 内置能力，不新增生产依赖；写入需显式 `--allow-write` 且不覆盖已有文件。
+- 新增代码视觉链路：场景源码 → 静态 SVG → 明确版本的 resvg 栅格化 → FFmpeg 编码 GIF/MP4。不调用图像或视频生成模型；有授权素材优先用素材，否则从零代码制作；视频音频需求未明确时先询问。依赖显式准备，不在激活或渲染时静默安装；缺依赖明确阻塞而非换格式冒充。
+- 新增 100 套预设分类证据与双语报告：主分类唯一、总数 100，并如实标注工程占 60、游戏 10 套来自同一项目，以及样本缺少临床/法律/会计量化金融/CAD 等领域。
+- 新增领域工程验收与 12 个领域/跨域任务题集；后者保持 `not-run`，不宣称模型已自动化使用这些能力。
+- 验证：257 项仓库测试、63 项能力契约测试、22 项真实渲染测试（真实 resvg+FFmpeg，0 跳过）、原生集成确认 11 技能与两个运行器可从安装包加载。原 40 题成绩与"未证明模型提升"的结论不变。
+
 ### 1.6.0-dev.1 — 全能模式执行方法（未正式发布）
 
 - 在同一 `dsh-omni-mode` 包和 `omni` 预设中增加按需加载的 `omni-method` 技能，不新增另一套预设或第三方运行依赖；简单查询、机械改动、完整指定步骤的任务不必加载。
@@ -69,6 +79,16 @@
 - 引入跨项目规划、能力发现、执行、验证和交付规则。
 
 ## English
+
+### 1.7.0-dev.1 — Domain specialties and code media (not a stable release)
+
+- Adds ten on-demand domain skills inside the existing `omni` preset (engineering, game, security/network/RE, documents, fiction, research, personalization, assistant, molecular-biology data, business semantics) plus `omni-code-media`. Still one package, one display name and one preset ID; no concatenation of a hundred personas.
+- Adds the capability index `capabilities/catalog.json`: references to the 100 source configurations and 23 capability entries, distinguishing verified / needs-dependency / method-only / uncovered. `doctor` separates installed from accepted; only `doctor --test` runs the package contract tests.
+- Adds 11 native local operations (CSV/JSON validation and transformation, preliminary game arithmetic, explicit fictional canon continuity, FASTA statistics, entity-relation consistency, citation coverage, local indicator extraction, Markdown outlines, todo dependencies, UTC ICS drafts) using Node built-ins only, with no new production dependency. Writing needs an explicit `--allow-write` and never overwrites an existing file.
+- Adds the code-media pipeline: scene source → static SVG → pinned resvg rasterization → FFmpeg GIF/MP4. No image or video generation models; authorized assets are reused when available, otherwise drawn from scratch in code; audio for video is asked first. Dependencies are prepared explicitly, never installed silently at activation or render time; a missing dependency is an explicit block rather than a format substitution.
+- Adds traceable classification evidence and a bilingual report for the 100 presets: one primary category each, 100 total, honestly noting 60 engineering configurations, all 10 game configurations from one project, and gaps such as clinical, legal, accounting/quantitative finance and CAD.
+- Adds domain engineering acceptance plus 12 domain/cross-domain tasks; the latter stay `not-run`, with no claim that the model already uses these capabilities automatically.
+- Verification: 257 repository tests, 63 capability contract tests, 22 real render tests (real resvg + FFmpeg, 0 skipped), and native integration confirming 11 skills and both runners load from the installed package. The original 40-case results and the "no proven model improvement" conclusion are unchanged.
 
 ### 1.6.0-dev.1 — Omni execution method (not a stable release)
 

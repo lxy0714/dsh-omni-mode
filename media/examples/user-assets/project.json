@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "scene": "scene.mjs",
+  "width": 320,
+  "height": 240,
+  "background": "#eaf1f8",
+  "fps": { "num": 10, "den": 1 },
+  "frameCount": 10,
+  "seed": 7,
+  "formats": ["png", "gif", "mp4"],
+  "audio": { "decision": "asked", "choice": "silent" },
+  "fonts": [],
+  "assets": [{ "id": "hero", "path": "supplied.png", "license": "user-supplied; confirm authorization / 用户提供，确认授权" }]
+}

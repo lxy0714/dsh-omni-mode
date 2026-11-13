@@ -10,6 +10,8 @@
 
 内置的 `grilling` 技能来自 [Matt Pocock 的 skills 仓库](https://github.com/mattpocock/skills/tree/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/skills/productivity/grilling)，固定在提交 `4ae2317d`，正文逐字未修改（Git blob `d2f09a18` 已验证一致），许可见本包 `skills/grilling/LICENSE`。再分发时须同时保留该版权与许可声明。
 
+代码视觉运行器使用可选的 [@resvg/resvg-js](https://github.com/thx/resvg-js) 2.6.2（MPL-2.0）栅格化 SVG，并调用用户自行提供的 FFmpeg/ffprobe。二者都**不随本包分发**：resvg 通过独立的可选工具环境清单安装，FFmpeg 由用户的系统提供，其许可依具体构建而定（可能含 LGPL/GPL 组件与编解码专利事项）。本包不包含第三方字体、图片或音频；字体必须由用户显式提供并自行确认再分发权利。生成的成品不因使用本预设而自动获得额外许可，其内嵌素材与字体权利仍归各自权利人。
+
 [许可证双语说明](docs/license.md)提供中文参考；英文原始许可证为准，不以译文取代法律文本。
 
 ## English
@@ -19,6 +21,9 @@ The agent-preset composition is adapted from the Standard/Creator preset layout 
 The custom quality, retention and bridge modules are distributed under this project's MIT license. Official Harness runtime packages are supplied by the user's Harness installation and are not bundled into this plugin. Their own licenses continue to apply. The SVG icon was created for this project; no third-party fonts, images or model credentials are included.
 
 The bundled `grilling` skill comes from [Matt Pocock's skills repository](https://github.com/mattpocock/skills/tree/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/skills/productivity/grilling) at commit `4ae2317d`, redistributed verbatim (verified blob `d2f09a18`); its license is in this package at `skills/grilling/LICENSE`. Redistribution must retain that copyright and permission notice.
+
+The code-media runner uses an optional [@resvg/resvg-js](https://github.com/thx/resvg-js) 2.6.2 (MPL-2.0) to rasterize SVG and invokes an FFmpeg/ffprobe the user supplies. Neither is bundled here: resvg is installed through a separate optional tool-environment manifest, and FFmpeg comes from the user's system under the license of that particular build (which may include LGPL/GPL components and codec patent considerations). This package ships no third-party fonts, images or audio; users supply fonts explicitly and confirm their own redistribution rights. Generated artifacts gain no extra license from this preset, and rights in embedded assets or fonts remain with their owners.
+
 
 ## DeepSeek Harness — MIT License
 

@@ -47,7 +47,7 @@ if (!phase) {
         console.error((child.stdout??'').slice(-16000));console.error((child.stderr??'').slice(-16000));
       }
       reports.push(processReport(child,step,report=>report.phase===step && report.fullPresetActivated===true &&
-        report.bundledSkillLoaded===true && report.bundledSkillExact===true && report.methodSkillLoaded===true && report.methodSkillExact===true && Number.isInteger(report.eventCount) && Number.isInteger(report.pid)));
+        report.bundledSkillLoaded===true && report.bundledSkillExact===true && report.methodSkillLoaded===true && report.methodSkillExact===true && report.specialistSkills?.length===11 && report.capabilityIndex===true && report.localRunnersShipped===true && Number.isInteger(report.eventCount) && Number.isInteger(report.pid)));
     }
   } finally {
     // Only remove the fresh directory we created, never an env-supplied path.
@@ -93,6 +93,7 @@ if (!phase) {
     ]},
   ];
   let calls=0,methodTriggerInRequest=false;
+  const specialistSkills=[];
   class FixtureAdapter extends LlmAdapter {
     async resolveModel(provider,model) {
       return {provider,id:model,name:model,context:{contextWindow:model==='small'?65536:1048576},defaultMaxTokens:4096,
@@ -165,6 +166,26 @@ if (!phase) {
     assert(loadedMethod,'method skill must load through the native registry');
     assert.equal(fs.realpathSync(loadedMethod.path),expectedMethod,'loaded method must be the exact package file');
     assert.equal(loadedMethod.content,skillBody(fs.readFileSync(expectedMethod,'utf8')),'native method body must match the full package body');
+    // Every specialist skill must resolve to its own exact packaged file, so a
+    // same-name decoy or a lost directory cannot silently satisfy the lookup.
+    const specialists=['omni-engineering','omni-game','omni-cyber','omni-documents','omni-fiction','omni-research','omni-personalization','omni-assistant','omni-molbio','omni-business','omni-code-media'].map(name=>({name,file:path.join(source,'skills',name,'SKILL.md')}));
+    assert.equal(new Set(specialists.map(s=>s.name)).size,specialists.length);
+    for(const {name,file} of specialists){
+      const entry=catalog.find(item=>item.name===name);
+      assert(entry,`bundled ${name} skill must be discoverable from the installed package`);
+      const expected=fs.realpathSync(file);
+      assert.equal(fs.realpathSync(entry.path),expected,`${name} registry selection must be the exact package file`);
+      const value=await skills.get(name,lookup);
+      assert(value,`${name} must load through the native registry`);
+      assert.equal(value.content,skillBody(fs.readFileSync(expected,'utf8')),`${name} body must equal its package file`);
+      specialistSkills.push(name);
+    }
+    const capabilityCatalog=path.join(source,'capabilities/catalog.json');
+    assert(fs.existsSync(capabilityCatalog),'capability index must ship inside the installed package');
+    const parsedCatalog=JSON.parse(fs.readFileSync(capabilityCatalog,'utf8'));
+    assert.equal(parsedCatalog.presetId,'omni');
+    assert(parsedCatalog.categories.length===10&&parsedCatalog.operations.length>=20);
+    assert(fs.existsSync(path.join(source,'capabilities/runner.mjs'))&&fs.existsSync(path.join(source,'media/runner.mjs')),'both local runners must ship');
     if(phase==='create')assert.equal(agent.model.current().reasoningEffort,'effort-high');
     else assert.equal(agent.model.current().reasoningEffort,'effort-medium','resume must retain manual selection');
     const composition=ctx.agentPresets.inspectCompositions(agent.ctx);
@@ -210,7 +231,7 @@ if (!phase) {
     assert(events.some(event=>event.type==='assistant/message'));
     assert(events.some(event=>event.type==='turn/end'&&event.data.reason.kind==='completed'));
     for(let i=0;i<events.length;i++)assert.equal(events[i].seq,i);
-    const report={phase,pid:process.pid,fullPresetActivated:true,bundledSkill:'grilling',bundledSkillLoaded:true,bundledSkillExact:true,bundledSkillPath:expectedSkill,methodSkillLoaded:true,methodSkillExact:true,methodSkillPath:expectedMethod,modelCalls:calls,eventCount,selectedEffort:agent.model.current().reasoningEffort,serviceLeaks:0,adaptiveSwitchVerified,manualCompactionVerified,realProvider:false};
+    const report={phase,pid:process.pid,fullPresetActivated:true,bundledSkill:'grilling',bundledSkillLoaded:true,bundledSkillExact:true,bundledSkillPath:expectedSkill,methodSkillLoaded:true,methodSkillExact:true,methodSkillPath:expectedMethod,specialistSkills:[...specialistSkills],capabilityIndex:true,localRunnersShipped:true,modelCalls:calls,eventCount,selectedEffort:agent.model.current().reasoningEffort,serviceLeaks:0,adaptiveSwitchVerified,manualCompactionVerified,realProvider:false};
     fs.writeFileSync(path.join(artifacts,`${phase}.json`),JSON.stringify(report,null,2)+'\n');
     console.log(JSON.stringify(report));
   } finally {

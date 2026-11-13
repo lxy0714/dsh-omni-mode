@@ -1,0 +1,8 @@
+{
+  "name": "omni-code-media-toolchain",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Explicit optional tool environment / 显式可选工具环境",
+  "engines": { "node": ">=24" },
+  "dependencies": { "@resvg/resvg-js": "2.6.2" }
+}

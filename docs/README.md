@@ -12,6 +12,9 @@
 - [许可证说明](license.md#中文)：MIT 权利、义务和英文原文的地位。
 - [grilling 使用说明](grilling.md#中文)：内置技能的触发方式、设计树访谈、边界和来源。
 - [全能模式执行方法](omni-method.md#中文)：同一预设内按需加载的执行流程、研究来源、回归范围与未验证项。
+- [领域专长与代码视觉](domain-capabilities.md#中文)：十个领域技能、四种成熟度、能力索引与本地图片/视频运行器。
+- [100套预设分类](preset-classification.md#中文)：来源配置的任务方向、融合判断与样本缺口（仅仓库）。
+- [领域与跨域验收](domain-acceptance.md#中文)：本地契约验收与尚未执行的模型任务如何分开记录。
 - [对照评测结果](benchmark-results.md#中文)：真实模型同路由对照的实际数据与未证明项。
 - [来源研究](https://github.com/lxy0714/dsh-omni-mode/blob/main/research/README.md)：100+100 学习来源的核验口径、进度与局限（仅仓库，不随安装包分发）。
 - [发行说明](release-notes.md#中文)：当前技能集成版本的变化与安装方式。
@@ -27,6 +30,9 @@
 - [License explanation](license.md#english): MIT rights, duties and the canonical original.
 - [Using grilling](grilling.md#english): invoking the bundled skill, design-tree interviews, boundaries and provenance.
 - [Omni execution method](omni-method.md#english): an on-demand method inside the same preset, its research provenance, regression scope and unverified claims.
+- [Domain specialties and code media](domain-capabilities.md#english): ten domain skills, four maturity states, the capability index and the local image/video runner.
+- [Classifying 100 presets](preset-classification.md#english): task orientation of the source configurations, adoption reasoning and sample gaps (repository only).
+- [Domain and cross-domain acceptance](domain-acceptance.md#english): how local contract acceptance stays separate from unexecuted model tasks.
 - [Paired evaluation results](benchmark-results.md#english): measured same-route real-model data and what it does not prove.
 - [Source research](https://github.com/lxy0714/dsh-omni-mode/blob/main/research/README.md): counting method, progress and limits for the 100+100 learning sources (repository only, not shipped).
 - [Release notes](release-notes.md#english): the current skill-integration release and installation.

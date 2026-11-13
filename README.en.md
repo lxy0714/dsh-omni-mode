@@ -6,9 +6,11 @@ A cross-project, quality-first native agent preset: understand the goal, plan wh
 
 ## Current update status
 
-Development branch `1.6.0-dev.1` updates **the same Omni preset**, adding the on-demand `omni-method` skill for outcome contracts, capability selection, evidence handoffs and recovery. It is not another preset and adds no third-party plugin dependency. See [the method and its sources](docs/omni-method.md#english). Reasoning selection, adaptive retention and the original grilling text remain unchanged.
+Development branch `1.7.0-dev.1` updates **the same Omni preset**. It adds ten on-demand domain skills, a capability index with four maturity states, 11 genuinely runnable local domain operations, and a **code-driven** 2D SVG/PNG/GIF/MP4 pipeline that uses no image or video generation models. Same package, same display name, same `omni` ID.
 
-The stable release remains `v1.5.0`; the fixed installation command below does not include development-only additions. Wiring/regression tests do not establish gains in three task categories. The local stable preset is not replaced before behavioral acceptance.
+See [domain specialties and code media](docs/domain-capabilities.md#english), [the execution method](docs/omni-method.md#english) and [the 100-preset classification](docs/preset-classification.md#english). Reasoning selection, adaptive retention, the upstream grilling text and authorization boundaries are unchanged.
+
+The stable release remains `v1.5.0`; the fixed installation command below does not include development-only additions. Local operations and rendering are genuinely accepted, but the real-model domain tasks have not been run, so **no professional-quality or old-case score gain is claimed**. The local stable preset is not replaced before behavioral acceptance.
 
 ## Install
 

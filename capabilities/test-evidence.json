@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 1,
+  "package": "dsh-omni-mode",
+  "presetId": "omni",
+  "displayName": "全能模式",
+  "runtime": "standalone-node-cli",
+  "installed": true,
+  "hostMounted": "not-checked",
+  "accepted": true,
+  "evidence": {
+    "command": "node --test capabilities/operations.test.mjs capabilities/runner.test.mjs capabilities/catalog.test.mjs",
+    "hashes": {
+      "schema.mjs": "1eaa082faf1802b711a9bf203c6e25c8c6ca03c123b79a7308675a8b8b4f653c",
+      "operations.mjs": "8aae5d2ef6d42d33233752bd2988aa032028dcabae3c73d3dd4754c7eab90590",
+      "runner.mjs": "db8bce6f569d16a90449f366ac79595139cca38e145e10ed6a79d39797cbf2f5",
+      "catalog.json": "5fe73af212915e37317ba1c64df451cb51bc1ca509d6b71a2557a83714c75ffa",
+      "operations.test.mjs": "9f0bc2a74384a8ad7dc0bbbd9ab0433f8ac74c77f320bfc25d3259ee92d8061b",
+      "runner.test.mjs": "734764e012281c69c77697bca2699db2555225652eb638bb64eb6eae94e47b7b",
+      "catalog.test.mjs": "3ac1b8385a80b1284ef9330a1bb198eb669a30730386ff31c8998fc95e93aa05"
+    },
+    "node": "v24.22.1",
+    "executed": true,
+    "supported": true,
+    "missingTests": [],
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "output": "✔ catalog identity, four maturity states and exact approved ten-domain partition (1.941718ms)\n✔ every source preserves exact package/config keys, pins, learning points and hashed file references (2.097292ms)\n✔ all eleven implemented operation schemas equal catalog schemas; maturity is bounded to contracts (0.825104ms)\n✔ all catalog operations disclose inputs/outputs/checks/tools/risk/scope/sources/skills bilingually (0.546875ms)\n✔ ten skill files are distinct bilingual specialist instructions with matching frontmatter (13.175417ms)\n✔ native runtime imports only authored local modules and Node builtins (8.947135ms)\n✔ schema rejects unknown fields, wrong types, unsafe keys and nonfinite numbers (2.311771ms)\n✔ schema rejects bounds and missing values (0.249532ms)\n✔ CSV handles CRLF, escaped quotes, quoted commas/newlines and trailing empty cells (1.966823ms)\n✔ CSV rejects malformed \"a,a\\n1,2\" (0.185313ms)\n✔ CSV rejects malformed \"a,b\\n1\" (0.147448ms)\n✔ CSV rejects malformed \"a\\n\\\"unterminated\" (0.107344ms)\n✔ CSV rejects malformed \"a\\n\\\"x\\\"z\" (0.117188ms)\n✔ CSV rejects malformed \"a\\nx\\\"z\" (0.093906ms)\n✔ CSV rejects malformed \"\\n\" (0.122136ms)\n✔ CSV rejects malformed \"__proto__\\nx\" (0.208281ms)\n✔ data.validate independently checks required, type and duplicate values (0.882135ms)\n✔ JSON validation does not coerce strings into numbers (0.266719ms)\n✔ table input source pairing, widths and duplicate headers are explicit errors (0.236459ms)\n✔ transform projects, renames and filters while preserving types and order (0.310521ms)\n✔ CSV transform roundtrip and formula safeguards (0.358333ms)\n✔ transform unknown and duplicate output columns fail (0.215729ms)\n✔ game balance computes real DPS, efficiency and explicit threshold violations (0.324896ms)\n✔ game rejects zero denominator and duplicate identities (0.244895ms)\n✔ canon accepts grounded assertion and identifies mismatches and unknown mentions (0.394479ms)\n✔ canon closed interval overlap conflicts and reversed ranges (0.212656ms)\n✔ FASTA multi-record DNA IUPAC stats have explicit GC denominators (0.518229ms)\n✔ FASTA rejects \"ACGT\" (0.10526ms)\n✔ FASTA rejects \">a\\n\" (0.07802ms)\n✔ FASTA rejects \">\\nAC\" (0.074271ms)\n✔ FASTA rejects \">a\\nAU\" (0.093646ms)\n✔ FASTA rejects \">a\\nA-C\" (0.090105ms)\n✔ FASTA rejects \">a\\nAC\\n>a\\nTT\" (0.087239ms)\n✔ business model validates real endpoints, PK and relation type (0.514167ms)\n✔ business many-to-many and missing PK remain issues, not database execution (0.192031ms)\n✔ research citation coverage catches dangling and unsupported claims (0.306719ms)\n✔ cyber extracts local deduplicated valid IPv4 and SHA256 without fetching (0.312812ms)\n✔ documents produces actual markdown and rejects unsafe/missing citations (0.5575ms)\n✔ todo emits real task list and catches incomplete dependencies (1.13026ms)\n✔ todo rejects cycles, dangling links and invalid calendar dates (0.344479ms)\n✔ ICS escapes content and uses deterministic UTC timestamps and CRLF (0.613177ms)\n✔ ICS folds by UTF8 octets, preserving Chinese and line unfolding (0.33276ms)\n✔ ICS rejects timezone ambiguity, impossible dates and reversed range (0.283437ms)\n✔ canon bounds issue samples while scanning every conflict with exact totals (43.915677ms)\n✔ composite key endpoint is not independently unique unless explicitly declared (0.288594ms)\n✔ coverage rejects malformed host URLs without fetching or claiming truth (0.214427ms)\n✔ ICS rejects C0 controls and permits escaped newline or tab text (0.266615ms)\n✔ IPv4 requires complete canonical decimal tokens, not dotted prefixes or leading zeros (0.09526ms)\n✔ prototype operation names are not executable operations (0.069375ms)\n✔ every implemented operation exposes a closed input schema (0.077969ms)\n✔ CLI list is machine-readable and contains actual closed input schemas (80.482969ms)\n✔ CLI performs actual JSON-input FASTA computation (87.510468ms)\n✔ CLI returns explicit errors for malformed, missing, unknown and oversized arguments (710.514062ms)\n✔ explicit file read, root check, authorization and atomic no-overwrite output (488.643437ms)\n✔ CLI rejects symlink leaf, root escape and non-regular input (169.572187ms)\n✔ CLI rejects file larger than 2MiB before parsing (124.945313ms)\n✔ CLI text output writes actual UTC ICS, not a claim wrapper (223.787291ms)\n✔ owned temp is removed after simulated partial ENOSPC and destination stays absent (9.782291ms)\n✔ hardlink commit verifies regular type, same inode and content after temp unlink (19.353489ms)\n✔ simulated symlink-emulating link fails closed and removes only its owned outputs (11.919583ms)\n✔ normal doctor is honest about installed versus tests/Host/service acceptance (144.052916ms)\n✔ runtime-only copied package status works without optional test files (148.579479ms)\n✔ package-contained operation/catalog tests need no research/cache/third-party modules (293.080313ms)\nℹ tests 63\nℹ suites 0\nℹ pass 63\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 2668.541249\n"
+  },
+  "operations": [
+    {
+      "id": "data.validate",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "data.transform",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "game.balance",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "fiction.continuity",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "molbio.fasta",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "business.model",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "research.evidence",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "cyber.indicators",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "documents.outline",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "assistant.todo",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "assistant.ics",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "engineering.delivery",
+      "installed": false,
+      "maturity": "method-only",
+      "accepted": false,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": null
+    },
+    {
+      "id": "game.production",
+      "installed": false,
+      "maturity": "method-only",
+      "accepted": false,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": null
+    },
+    {
+      "id": "cyber.authorized-assessment",
+      "installed": false,
+      "maturity": "needs-dependency",
+      "accepted": false,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": null
+    },
+    {
+      "id": "documents.office",
+      "installed": false,
+      "maturity": "needs-dependency",
+      "accepted": false,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": null
+    },
+    {
+      "id": "media.code",
+      "installed": false,
+      "maturity": "needs-dependency",
+      "accepted": false,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": null
+    },
+    {
+      "id": "fiction.longform",
+      "installed": false,
+      "maturity": "method-only",
+      "accepted": false,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": null
+    },
+    {
+      "id": "research.grounded",
+      "installed": false,
+      "maturity": "method-only",
+      "accepted": false,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": null
+    },
+    {
+      "id": "personalization.style",
+      "installed": false,
+      "maturity": "method-only",
+      "accepted": false,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": null
+    },
+    {
+      "id": "assistant.real-world",
+      "installed": false,
+      "maturity": "needs-dependency",
+      "accepted": false,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": null
+    },
+    {
+      "id": "molbio.advanced",
+      "installed": false,
+      "maturity": "uncovered",
+      "accepted": false,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": null
+    },
+    {
+      "id": "business.database",
+      "installed": false,
+      "maturity": "needs-dependency",
+      "accepted": false,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": null
+    },
+    {
+      "id": "unknown.grounded-fallback",
+      "installed": false,
+      "maturity": "uncovered",
+      "accepted": false,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": null
+    }
+  ],
+  "note": {
+    "zh": "installed仅指本地CLI，不代表Host挂载/账户/外部工具验收；未运行测试不声称verified。测试只证明明确的本地契约。",
+    "en": "installed means this local CLI, not Host mounting, accounts or external-tool acceptance. No verified claim without tests. Tests establish only the explicit local contracts."
+  }
+}

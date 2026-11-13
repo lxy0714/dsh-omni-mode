@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dsh-omni-mode:preset-classification:v1",
+  "title": "100套预设方向分类 / Orientation of 100 presets",
+  "type": "object",
+  "required": ["schemaVersion", "classificationStatus", "selectionSha256", "execution", "counts", "categories", "entries"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "classificationStatus": {"const": "reviewed-static-orientation-not-runtime-certified"},
+    "selectionSha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "execution": {"type": "object", "required": ["researchObjectsInstalled", "researchObjectsImported", "researchObjectsExecuted"], "additionalProperties": {"const": false}},
+    "counts": {"type": "object", "required": ["configurations", "projects"], "properties": {"configurations": {"const": 100}, "projects": {"const": 63}}},
+    "categories": {"type": "array", "minItems": 10, "maxItems": 10, "items": {"type": "object", "required": ["id", "label", "count", "projectCount", "adoption"], "properties": {"id": {"$ref": "#/$defs/category"}, "label": {"$ref": "#/$defs/bilingual"}, "adoption": {"$ref": "#/$defs/bilingual"}, "count": {"type": "integer", "minimum": 1}, "projectCount": {"type": "integer", "minimum": 1}}}},
+    "entries": {"type": "array", "minItems": 100, "maxItems": 100, "items": {"type": "object", "required": ["key", "package", "version", "presetId", "sourceId", "sourceFile", "rawConfigSha256", "substantiveSha256", "archiveSha256", "category", "orientation", "learning", "adoption", "declaredPlugins", "composition", "mechanisms", "evidence", "runtimeStatus"], "properties": {
+      "key": {"type": "string", "minLength": 1}, "category": {"$ref": "#/$defs/category"}, "orientation": {"$ref": "#/$defs/bilingual"}, "learning": {"$ref": "#/$defs/bilingual"}, "adoption": {"$ref": "#/$defs/bilingual"},
+      "rawConfigSha256": {"$ref": "#/$defs/hash"}, "substantiveSha256": {"$ref": "#/$defs/hash"}, "archiveSha256": {"$ref": "#/$defs/hash"}, "runtimeStatus": {"const": "not-tested"},
+      "declaredPlugins": {"type": "array", "items": {"type": "object", "required": ["plugin", "activation"], "properties": {"activation": {"enum": ["declared", "conditional", "disabled"]}}}},
+      "evidence": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["path", "url", "sha256"], "properties": {"sha256": {"$ref": "#/$defs/hash"}, "url": {"type": "string", "pattern": "^https://"}}}}
+    }}}
+  },
+  "$defs": {
+    "category": {"enum": ["engineering", "game", "cyber", "visual", "fiction", "research", "personalization", "assistant", "molbio", "business"]},
+    "hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "bilingual": {"type": "object", "required": ["zh", "en"], "properties": {"zh": {"type": "string", "minLength": 1}, "en": {"type": "string", "minLength": 1}}}
+  }
+}

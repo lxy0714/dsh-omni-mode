@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:omni:code-media:project:1",
+  "title": "Omni 2D project / 二维项目",
+  "type": "object", "additionalProperties": false,
+  "required": ["version", "scene", "width", "height", "background", "fps", "frameCount", "seed", "formats", "fonts", "assets"],
+  "properties": {
+    "version": {"const": 1},
+    "scene": {"type": "string", "pattern": "\\.mjs$"},
+    "width": {"type": "integer", "minimum": 2, "maximum": 2048},
+    "height": {"type": "integer", "minimum": 2, "maximum": 2048},
+    "background": {"type": "string", "pattern": "^#[0-9a-fA-F]{6}$"},
+    "fps": {"type": "object", "additionalProperties": false, "required": ["num", "den"], "properties": {"num": {"type": "integer", "minimum": 1, "maximum": 60000}, "den": {"type": "integer", "minimum": 1, "maximum": 10000}}},
+    "frameCount": {"type": "integer", "minimum": 1, "maximum": 300},
+    "seed": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+    "formats": {"type": "array", "minItems": 1, "maxItems": 4, "uniqueItems": true, "items": {"enum": ["svg", "png", "gif", "mp4"]}},
+    "audio": {"type": "object", "additionalProperties": false, "required": ["decision", "choice"], "properties": {"decision": {"const": "asked"}, "choice": {"enum": ["silent", "provided"]}, "path": {"type": "string", "minLength": 1}}},
+    "fonts": {"type": "array", "maxItems": 8, "items": {"type": "object", "additionalProperties": false, "required": ["path", "family"], "properties": {"path": {"type": "string", "minLength": 1}, "family": {"type": "string", "minLength": 1}}}},
+    "assets": {"type": "array", "maxItems": 16, "items": {"type": "object", "additionalProperties": false, "required": ["id", "path", "license"], "properties": {"id": {"type": "string", "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,39}$"}, "path": {"type": "string", "minLength": 1}, "license": {"type": "string", "minLength": 1}}}}
+  },
+  "allOf": [{"if": {"properties": {"formats": {"contains": {"enum": ["gif", "mp4"]}}}}, "then": {"required": ["audio"]}}],
+  "$comment": "Runtime also checks rational rate 1..60, <=30s, <=314572800 total pixels, even MP4 dimensions, audio pairing, realpaths, raster bytes/pixels, unique ids and actual font coverage. Runtime validation is authoritative. / 运行时额外检查帧率、工作量、路径、音频配对和字体等约束，以运行时校验为准。"
+}
