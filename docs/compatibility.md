@@ -6,7 +6,7 @@
 
 | 组件 | 当前范围 |
 |---|---|
-| Harness | `0.2.2-rc.2`，精确安装门禁 |
+| Harness | `0.2.2-rc.1`、`0.2.2-rc.2`，两者均实测；集合外版本拒绝 |
 | Node | 完整 DSH 组合的受支持下限 `24.9.0`；本机实测 `24.22.1` |
 | 平台 | 本机 Android/Ubuntu 及 GitHub Ubuntu/Node24 CI；其他平台不作已验证承诺 |
 | 模型 | 推理/容量决策依赖已声明的元数据；未知能力回退，不编造支持 |
@@ -26,7 +26,7 @@
 
 | Component | Current scope |
 |---|---|
-| Harness | `0.2.2-rc.2`, exact install gate |
+| Harness | `0.2.2-rc.1` and `0.2.2-rc.2`, both tested; versions outside the set are refused |
 | Node | Supported minimum for the full Harness composition `24.9.0`; local tests used `24.22.1` |
 | Platform | Local Android/Ubuntu and GitHub Ubuntu/Node24 CI; other platforms not claimed |
 | Model | Advertised metadata required for reasoning/capacity decisions; unknown data falls back, without inventing support |

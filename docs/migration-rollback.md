@@ -18,7 +18,7 @@
 
 1. 真实模型领域/跨域任务完成并保留原始记录（当前 12 项仍是 `not-run`）。
 2. 该层结果至少证明三类实际增强，且关键能力无退步。
-3. 官方最新版本兼容性复核通过（当前为 DSH 0.2.2-rc.2，Node ≥ 24.9.0）。
+3. 官方最新版本兼容性复核通过（接受 DSH 0.2.2-rc.1 与 0.2.2-rc.2，Node ≥ 24.9.0）。
 4. 已经准备好本文的回滚步骤。
 
 任一条不满足就不迁移，也不把"工具能用"说成"预设变强"。
@@ -113,7 +113,7 @@ The stable release is still `v1.5.0`; the development branch is `1.7.0-dev.1`. P
 
 1. Real-model domain/cross-domain tasks completed with raw records retained (all 12 are currently `not-run`).
 2. That layer shows at least three genuine enhancements with no critical regression.
-3. Official-latest compatibility rechecked (currently DSH 0.2.2-rc.2, Node ≥ 24.9.0).
+3. Official-latest compatibility rechecked (accepts DSH 0.2.2-rc.1 and 0.2.2-rc.2, Node ≥ 24.9.0).
 4. The rollback steps below are already prepared.
 
 If any is unmet, do not migrate — and never present "the tools work" as "the preset got better".

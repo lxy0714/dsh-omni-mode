@@ -24,7 +24,7 @@ npm run verify
 
 原始 fixture Session 与日志保留在被忽略的 `.verification/` 目录，不发布作者机器路径或进程 ID。
 
-本机证据为 Android/Ubuntu、Node 24.22.1、DSH 0.2.2-rc.2；渲染仅在 Linux arm64 实测。最新提交在 GitHub 的 Node 24 与 24.9.0 双矩阵 CI 已通过；新提交仍以 Actions 实际结果为准，不能从工作流文件推断。其他系统、付费供应商、长期负载、突然断电和所有第三方组合未验证。
+本机证据为 Android/Ubuntu、Node 24.22.1、DSH 0.2.2-rc.1 与 0.2.2-rc.2 均已实测；渲染仅在 Linux arm64 实测。最新提交在 GitHub 的 Node 24 与 24.9.0 双矩阵 CI 已通过；新提交仍以 Actions 实际结果为准，不能从工作流文件推断。其他系统、付费供应商、长期负载、突然断电和所有第三方组合未验证。
 
 ## English
 
@@ -50,4 +50,4 @@ The model adapter is local and deterministic. This proves execution/lifecycle be
 
 Raw fixture sessions and logs stay in ignored `.verification/` directories. No author-machine artifact paths or process IDs are published.
 
-Local platform evidence: Android/Ubuntu, Node 24.22.1, DSH 0.2.2-rc.2; rendering is validated on Linux arm64 only. The latest commits passed GitHub CI on both Node 24 and 24.9.0; each newer commit must still be checked on Actions rather than inferred from the workflow file. Other systems, paid suppliers, long-running load, abrupt power loss and all third-party plugin combinations are unverified.
+Local platform evidence: Android/Ubuntu, Node 24.22.1, DSH 0.2.2-rc.1 and 0.2.2-rc.2 are both tested; rendering is validated on Linux arm64 only. The latest commits passed GitHub CI on both Node 24 and 24.9.0; each newer commit must still be checked on Actions rather than inferred from the workflow file. Other systems, paid suppliers, long-running load, abrupt power loss and all third-party plugin combinations are unverified.

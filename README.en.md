@@ -14,7 +14,7 @@ The stable release remains `v1.5.0`; the fixed installation command below does n
 
 ## Install
 
-The current compatibility gate is **DSH 0.2.2-rc.2**.
+The gate accepts **DSH 0.2.2-rc.1 and 0.2.2-rc.2**: the former is the official `latest` that the desktop app ships, the latter the `next` pre-release. Both are tested; any version outside that set is refused explicitly.
 
 ```sh
 dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.5.0

@@ -21,7 +21,10 @@
     "omni-mode"
   ],
   "engines": {
-    "dsh": "0.2.2-rc.2",
+    "dsh": [
+      "0.2.2-rc.1",
+      "0.2.2-rc.2"
+    ],
     "node": ">=24.9.0"
   },
   "exports": {
@@ -86,7 +89,7 @@
     "verify": "npm run check && npm test && npm run test:host && npm run pack:check"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh": "0.2.2-rc.2",
+    "@deepseek-ai/dsh": "0.2.2-rc.1",
     "yaml": "2.8.2"
   },
   "dsh": {
