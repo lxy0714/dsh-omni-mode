@@ -58,7 +58,7 @@ node <包根>/capabilities/runner.mjs run data.validate --json '{"format":"csv",
 - 场景源码生成静态 SVG → 由明确版本的可选 `@resvg/resvg-js` 栅格化为 PNG → FFmpeg 编码 GIF/MP4。
 - **有可用且授权的素材就用素材，没有就从零用代码制作**；素材路径做规范化与越界检查。
 - 视频音轨需求未明确时必须先询问；已回答的不重复问。静态图片不触发无关的音频询问。
-- 交付可编辑源码、必要输入/素材、成品和可复跑命令。
+- 交付可编辑源码、必要输入/素材、成品和可复跑命令。字体证明图只用于核对字形可读性，节选有上限并以 `…` 标注截断，不是排版样张。
 
 环境需要显式准备，绝不在预设激活或渲染时静默安装：Node 24+、可选工具环境中的 resvg，以及用户自备的 FFmpeg/ffprobe。设置方式见包内 `media/README.md`。
 
@@ -133,7 +133,7 @@ No image or video generation models; 2D artifacts are produced by code:
 - Scene source renders static SVG frames → an explicitly pinned optional `@resvg/resvg-js` rasterizes PNG → FFmpeg encodes GIF/MP4.
 - **Use available, authorized assets when they exist; otherwise create from scratch in code.** Asset paths are canonicalized and containment-checked.
 - Ask before assuming audio for video; do not re-ask once answered. Still images trigger no unrelated audio question.
-- Deliver editable source, needed inputs/assets, final artifacts and a reproduce command.
+- Deliver editable source, needed inputs/assets, final artifacts and a reproduce command. The font proof only checks glyph readability; its excerpt is capped and marks truncation with `…`, so it is not a layout specimen.
 
 The environment is prepared explicitly and never installed silently at preset activation or render time: Node 24+, resvg in an optional tool environment, and your own FFmpeg/ffprobe. See `media/README.md`.
 

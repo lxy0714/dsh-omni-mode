@@ -18,7 +18,17 @@ async function main(){
  svg=opaqueSvg(svg,p.width,p.height,p.background);const basename=String(index).padStart(6,'0');await fs.writeFile(path.join(config.frames,basename+'.svg'),svg,{flag:'wx'});
  const png=new Resvg(svg,options).render().asPng();await fs.writeFile(path.join(config.frames,basename+'.png'),png,{flag:'wx'});
  }
- if(text){const chars=Array.from(text).slice(0,54),lines=[];for(let i=0;i<chars.length;i+=18){const escaped=chars.slice(i,i+18).join('').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');lines.push(`<text x="16" y="${48+(i/18)*55}" font-family="${config.fonts[0].family}" font-size="30" fill="#101828">${escaped}</text>`);}const smoke=`<svg xmlns="http://www.w3.org/2000/svg" width="640" height="200" viewBox="0 0 640 200"><rect width="640" height="200" fill="#ffffff"/>${lines.join('')}</svg>`;await fs.writeFile(path.join(config.frames,'font-proof.png'),new Resvg(smoke,options).render().asPng(),{flag:'wx'});}
- process.stdout.write(JSON.stringify({frames:p.frameCount,textProof:Boolean(text)}));
+ if(text){
+  // Proof sheet is a readability sample, never a layout specimen: cap the excerpt,
+  // mark truncation explicitly, and size the canvas to the lines actually drawn.
+  const LIMIT=54,PER=18,all=Array.from(text),chars=all.length>LIMIT?[...all.slice(0,LIMIT-1),'…']:all;
+  const lines=[];for(let i=0;i<chars.length;i+=PER){const escaped=chars.slice(i,i+PER).join('').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');lines.push(`<text x="16" y="${48+(i/PER)*55}" font-family="${config.fonts[0].family}" font-size="30" fill="#101828">${escaped}</text>`);}
+  const height=Math.max(200,48+(lines.length-1)*55+24);
+  const smoke=`<svg xmlns="http://www.w3.org/2000/svg" width="640" height="${height}" viewBox="0 0 640 ${height}"><rect width="640" height="${height}" fill="#ffffff"/>${lines.join('')}</svg>`;
+  await fs.writeFile(path.join(config.frames,'font-proof.png'),new Resvg(smoke,options).render().asPng(),{flag:'wx'});
+  process.stdout.write(JSON.stringify({frames:p.frameCount,textProof:Boolean(text),textProofTruncated:all.length>LIMIT}));
+  return;
+ }
+ process.stdout.write(JSON.stringify({frames:p.frameCount,textProof:false}));
 }
 if(process.argv[1]===new URL(import.meta.url).pathname)main().catch(error=>{console.error(error.message);process.exitCode=1;});
