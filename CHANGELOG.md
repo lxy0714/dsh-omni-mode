@@ -6,7 +6,8 @@
 
 ### 1.7.0-dev.1 — 领域专长与代码视觉（未正式发布）
 
-- 兼容门禁改为接受 **`0.2.2-rc.1` 与 `0.2.2-rc.2` 两个精确版本**：rc.1 是官方 `latest`（桌面端实际提供的版本），rc.2 是 `next` 预发布；两者均经隔离安装实测通过原生集成、11 个技能加载、推理选档、压缩事务与服务隔离。集合之外的版本仍被明确拒绝（已用 `0.2.1-rc.5` 验证拒绝路径），不静默放行。
+- 兼容门禁改为 semver 范围 **`>=0.2.2-rc.1 <=0.2.2-rc.2`**：接受 rc.1（官方 `latest`，桌面端实际提供的版本）与 rc.2（`next` 预发布），两者均经隔离安装实测通过原生集成、11 个技能加载、推理选档、压缩事务与服务隔离；范围外的 `0.2.1-rc.5`、`0.2.2-alpha.3` 已被验证会被拒绝。
+- 修正门禁声明格式：Harness 要求 `engines.dsh` 必须是**字符串**（semver 范围）并按 `includePrerelease` 解析。此前写成版本数组会导致安装时报 `Plugin manifest engines.dsh must be a string`；校验脚本也已改为用 semver 语义判断，而不是字符串相等。
 - 修复集成报告中的版本硬编码：此前 `dsh` 字段固定写 `0.2.2-rc.1`，导致在其他宿主版本上运行也会谎称在 rc.1 验收；现改为读取实际测试版本，并记录测试基座来源（明确指定或开发依赖）。
 - 收紧评测账目口径：汇总器现强制要求题集、人设、路由、评分器与驱动五组哈希，缺少哈希的旧收据与由其他评分器/驱动产生的收据会被**排除并单独计数**，不再混入同一队列；分类胜负也改为只在可比对的行为配对上统计，传输故障不再被记成模型胜/负。
 - 领域夹具补齐后新增回归：嵌套 `node --test` 继承 `NODE_TEST_CONTEXT` 会不执行测试即返回 0，曾使 `doctor --test` 在仓库测试内报出 `accepted: true`。已在该自检子进程与夹具测试中清除该变量，并用故意失败的用例证明陷阱确实存在。
@@ -87,7 +88,8 @@
 
 ### 1.7.0-dev.1 — Domain specialties and code media (not a stable release)
 
-- Changes the gate to accept the two exact versions **`0.2.2-rc.1` and `0.2.2-rc.2`**: rc.1 is the official `latest` the desktop app ships, rc.2 the `next` pre-release. Both were installed in isolation and verified against native integration, 11-skill loading, reasoning selection, compaction transactions and service isolation. Versions outside the set are still refused explicitly (checked with `0.2.1-rc.5`), never silently accepted.
+- Changes the gate to the semver range **`>=0.2.2-rc.1 <=0.2.2-rc.2`**, accepting rc.1 (the official `latest` the desktop app ships) and rc.2 (the `next` pre-release). Both were installed in isolation and verified against native integration, 11-skill loading, reasoning selection, compaction transactions and service isolation; `0.2.1-rc.5` and `0.2.2-alpha.3` were verified as refused.
+- Fixes the declared gate format: the Harness requires `engines.dsh` to be a **string** (a semver range) resolved with `includePrerelease`. Declaring a version array made installation fail with `Plugin manifest engines.dsh must be a string`; the verifier now judges by semver semantics instead of string equality.
 - Fixes a hardcoded version in the integration report: the `dsh` field always said `0.2.2-rc.1`, so a run on another host version falsely claimed rc.1 acceptance. It now reads the version actually under test and records whether the test base came from an explicit path or the development dependency.
 - Tightens evaluation accounting: the summarizer now requires all five cohort hashes (case set, persona policy, route, grader, driver); hash-less legacy receipts and receipts from another grader/driver revision are **excluded and counted separately** rather than mixed into one cohort. Category wins/losses are tallied only over comparable behavioural pairs, so a transport fault is never recorded as a model win or loss.
 - Adds a regression from the fixture work: a nested `node --test` inherits `NODE_TEST_CONTEXT` and exits 0 without running tests, which once let `doctor --test` report `accepted: true` inside the repository suite. The variable is stripped in that self-check child and in the fixture test, with a deliberately failing case proving the trap is real.

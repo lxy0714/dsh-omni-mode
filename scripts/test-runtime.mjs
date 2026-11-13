@@ -41,10 +41,7 @@ export function verifyLockMetadata(manifest, lock) {
   if (lock.version !== manifest.version || root?.version !== manifest.version) {
     throw new Error('Lock root versions must match the package manifest');
   }
-  // engines.dsh may be an accepted set, so compare structurally rather than by
-  // reference; a mismatch here means the lockfile and manifest disagree.
-  const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-  if (root.engines?.node !== manifest.engines.node || !same(root.engines?.dsh, manifest.engines.dsh)) {
+  if (root.engines?.node !== manifest.engines.node || root.engines?.dsh !== manifest.engines.dsh) {
     throw new Error('Lock root engines must match the package manifest');
   }
   // Check this known non-aliased dependency only; npm aliases and other

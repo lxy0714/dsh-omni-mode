@@ -14,7 +14,7 @@ The stable release remains `v1.5.0`; the fixed installation command below does n
 
 ## Install
 
-The gate accepts **DSH 0.2.2-rc.1 and 0.2.2-rc.2**: the former is the official `latest` that the desktop app ships, the latter the `next` pre-release. Both are tested; any version outside that set is refused explicitly.
+The gate is `engines.dsh: ">=0.2.2-rc.1 <=0.2.2-rc.2"`, accepting **DSH 0.2.2-rc.1** (the official `latest` the desktop app ships) and **0.2.2-rc.2** (the `next` pre-release); both are tested. The host refuses any version outside that range.
 
 ```sh
 dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.5.0

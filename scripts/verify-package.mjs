@@ -8,7 +8,17 @@ import { testRuntimeRequire, isolatedTestEnv, verifyNodeGate, verifyLockMetadata
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const self=createRequire(path.join(root,'package.json'));
+
 const host=testRuntimeRequire();
+const hostRoot=path.dirname(host.resolve('@deepseek-ai/dsh/package.json'));
+// Reuse the semver the Harness itself resolves, without adding a dependency.
+const semverModule=()=>{
+ for(const base of [path.join(hostRoot,'@deepseek-ai/dsh-app-boot/package.json')]){
+  try{const req=createRequire(base);return req('semver');}catch{}
+ }
+ return host('semver');
+};
+
 let YAML;
 try{YAML=self('yaml');}catch{YAML=host('yaml');}
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
@@ -16,13 +26,15 @@ assert.equal(manifest.name,'dsh-omni-mode');
 assert.equal(manifest.license,'MIT');
 assert.equal(manifest.private,true,'GitHub-only release must not accidentally publish to npm');
 const official=host('@deepseek-ai/dsh/package.json');
-// A single pinned version cannot serve both the published stable channel and
-// the next pre-release, so the gate is an explicit accepted set. Anything
-// outside it stays refused rather than silently tolerated.
-const acceptedDsh=Array.isArray(manifest.engines.dsh)?manifest.engines.dsh:[manifest.engines.dsh];
-assert(acceptedDsh.length>0&&acceptedDsh.every(v=>typeof v==='string'&&/^\d+\.\d+\.\d+(?:-[\w.]+)?$/.test(v)),'engines.dsh must list exact versions');
-assert(new Set(acceptedDsh).size===acceptedDsh.length,'engines.dsh must not repeat a version');
-assert(acceptedDsh.includes(official.version),`tested ${official.version} is not in the declared accepted set: ${acceptedDsh.join(', ')}`);
+// The Harness requires engines.dsh to be a semver *string* range and resolves it
+// with includePrerelease. The declared range must admit the version under test.
+assert.equal(typeof manifest.engines.dsh,'string','engines.dsh must be a string; the Harness rejects an array');
+const semver=semverModule();
+const acceptedDsh=semver.validRange(manifest.engines.dsh);
+assert(acceptedDsh,'engines.dsh must be a valid semver range');
+assert(semver.satisfies(official.version,manifest.engines.dsh,{includePrerelease:true}),`tested ${official.version} is outside the declared range ${manifest.engines.dsh}`);
+// Names the exact versions the range admits, so docs and logs cannot drift from it.
+const testedDsh=['0.2.2-rc.1','0.2.2-rc.2'].filter(v=>semver.satisfies(v,manifest.engines.dsh,{includePrerelease:true}));
 verifyNodeGate(manifest.engines.node,official.engines.node);
 verifyLockMetadata(manifest,JSON.parse(fs.readFileSync(path.join(root,'package-lock.json'),'utf8')));
 assert.equal(manifest.repository.url,'git+https://github.com/lxy0714/dsh-omni-mode.git');
@@ -63,7 +75,7 @@ for(const suffix of ['', '/adaptive','/pool']){
  }
  const icon=self.resolve(`dsh-omni-mode${suffix}/icon`);assert(fs.statSync(icon).size<256*1024);
 }
-console.log(JSON.stringify({check:'PASS',version:manifest.version,presetRows:ids.size,license:manifest.license,compatibleDSH:acceptedDsh,nodeMinimum:manifest.engines.node,currentNode:process.versions.node}));
+console.log(JSON.stringify({check:'PASS',version:manifest.version,presetRows:ids.size,license:manifest.license,compatibleDSH:manifest.engines.dsh,acceptedDsh,nodeMinimum:manifest.engines.node,currentNode:process.versions.node}));
 
 if(process.argv.includes('--pack')){
  const base=path.join(root,'.verification');fs.mkdirSync(base,{recursive:true});
