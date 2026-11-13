@@ -7,6 +7,8 @@
 同一个「全能模式」、同一个 `omni` 预设 ID。本次加入领域专长与**用代码**制作图片视频的能力，不调用生图或视频模型。
 
 > **状态：尚未发布。** 当前最新正式发行仍是 `v1.5.0`，开发分支版本为 `1.7.0-dev.1`。本页是待发布的说明稿：工程验收已完成，但 12 个真实模型领域任务仍未执行，发布与本机迁移要等该层验收，因此下面这条固定标签命令在发布前不可用。
+>
+> **正式发布前必须依次完成**：①跑完真实模型领域任务并保留原始记录；②把 `package.json` 与锁文件版本从 `1.7.0-dev.1` 提升为 `1.7.0`（发布流程强制要求 tag 等于 `v<version>`，否则会失败）；③移除本页所有"尚未发布"标记（发布流程会拒绝待发布稿）；④打标签并手动触发发布工作流。
 
 ```sh
 # 发布后才可用 / Available only after the release
@@ -42,6 +44,8 @@ dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0
 The same Omni preset and the same `omni` preset ID. This release will add domain specialties and the ability to make images and video **with code**, using no image or video generation models.
 
 > **Status: not released yet.** The latest stable release remains `v1.5.0`; the development branch is `1.7.0-dev.1`. This page is a prepared announcement: engineering acceptance is complete, but the 12 real-model domain tasks have not run, so publishing and local migration wait on that layer. The fixed-tag command below does not work until the release exists.
+>
+> **Required order before publishing:** (1) run the real-model domain tasks and keep the raw records; (2) bump `package.json` and the lockfile from `1.7.0-dev.1` to `1.7.0` — the workflow requires the tag to equal `v<version>` and fails otherwise; (3) remove every not-released marker from this page, since the workflow refuses draft notes; (4) create the tag and dispatch the release workflow.
 
 ```sh
 # Available only after the release
