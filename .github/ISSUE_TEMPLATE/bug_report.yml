@@ -15,6 +15,20 @@ body:
       description: 预期、实际行为及共存插件。 / Expected and actual behavior, plus relevant coexistence plugins.
     validations:
       required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 涉及范围 / Area
+      description: 选择最接近的一项，便于定位。 / Pick the closest area to speed up triage.
+      options:
+        - 预设行为与授权 / Preset behavior and authorization
+        - 领域技能与能力目录 / Domain skills and capability index
+        - 本地领域操作（capabilities/runner.mjs） / Local operations
+        - 代码视觉（media/runner.mjs） / Code media
+        - 安装与兼容 / Installation and compatibility
+        - 文档 / Documentation
+    validations:
+      required: true
   - type: textarea
     id: logs
     attributes:

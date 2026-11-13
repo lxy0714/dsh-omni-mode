@@ -6,6 +6,8 @@
 
 「全能模式」内置 Matt Pocock 的 `grilling` 技能，随本包安装，无需复制到你的 `~/.dsh/skills`，也不需要额外插件。它是一套**把方案问扎实**的访谈方法，不是新的模型能力，不改变权限，也不会替你决定方案。
 
+> grilling 只是本包随附的技能之一。另有 `omni-method`（复杂任务执行方法）、10 个领域技能（工程、游戏、安全网络与逆向、文档演示、小说叙事、研究学习、陪伴个性化、助理、分子生物数据、业务语义）和 `omni-code-media`（用代码绘制二维图片与视频）。范围与依赖见[领域专长与代码视觉](domain-capabilities.md#中文)；本页只讲 grilling。
+
 ### 什么时候用
 
 **默认启用**：全能模式的人设要求，在任务含有需要你拍板的设计取舍时先走 grilling，不必你再说「grill 一下」。触发范围是：
@@ -45,6 +47,8 @@
 ## English
 
 Omni mode bundles Matt Pocock's `grilling` skill. It ships with this package — no copy into `~/.dsh/skills` and no extra plugin. It is an **interview method for stress-testing a plan**, not new model capability: it changes no permissions and never decides the plan for you.
+
+> grilling is only one bundled skill. The package also ships `omni-method` (complex-task execution), 10 domain skills (engineering, game, security/network/RE, documents, fiction, research, personalization, assistant, molecular-biology data, business semantics) and `omni-code-media` (2D images and video drawn by code). See [domain specialties and code media](domain-capabilities.md#english); this page covers grilling only.
 
 ### When it applies
 

@@ -46,6 +46,10 @@ npm run verify
 - `quality.js`: reasoning initialization. Preserve unknown-capability, concurrent-manual-selection, cancellation and resume protections.
 - `adaptive.js`: capacity cache and active-turn retention. Do not append replacement tool results to idle sessions.
 - `pool.js`: official pruner bridges. Avoid leaking services into the Host realm.
+- `skills/omni-*/SKILL.md`: on-demand domain methods plus `omni-method` and `omni-code-media`. Editing these changes methods and workflow only, never tools or authority; keep the bilingual text and existing boundaries.
+- `capabilities/`: capability index and local operations. `maturity` in `catalog.json` must match reality — `verified` means an independently tested local contract only. Change an operation and update the catalog and tests together, or `doctor --test` will fail.
+- `media/`: the code-media runner. `toolchain/` is a separate optional dependency manifest; never add resvg and friends to the main package's production dependencies, and FFmpeg/ffprobe always come from the user.
+- `research/`, `benchmark/`, `scripts/`: research evidence, case sets and verification scripts, **not shipped in the package**. Run `npm run verify` after changing them.
 - `locale/` and `icon.svg`: plugin-manager resources; the icon may be modified under MIT.
 
 Install the modified directory's absolute path through the Harness plugin manager, restart and create a new session. Ordinary runtime JavaScript needs no build.
