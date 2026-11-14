@@ -14,7 +14,8 @@
 - [全能模式执行方法](omni-method.md#中文)：同一预设内按需加载的执行流程、研究来源、回归范围与未验证项。
 - [领域专长与代码视觉](domain-capabilities.md#中文)：十个领域技能、四种成熟度、能力索引与本地图片/视频运行器。
 - [100套预设分类](preset-classification.md#中文)：来源配置的任务方向、融合判断与样本缺口（仅仓库）。
-- [领域与跨域验收](domain-acceptance.md#中文)：本地契约验收与尚未执行的模型任务如何分开记录。
+- [领域与跨域验收](domain-acceptance.md#中文)：本地契约验收与真实模型任务如何分开记录。
+- [领域执行复核](domain-run-results.md#中文)：12 项实际尝试、首轮问题、恢复阶段和不公布总通过率的原因。
 - [增强证据与未证事项](enhancement-evidence.md#中文)：三类真实增强的实际执行记录、核心未变哈希与仍未证明的部分。
 - [本机迁移与回滚](migration-rollback.md#中文)：当前 profile 状态、迁移前置条件、备份与可还原步骤。
 - [对照评测结果](benchmark-results.md#中文)：真实模型同路由对照的实际数据与未证明项。
@@ -34,7 +35,8 @@
 - [Omni execution method](omni-method.md#english): an on-demand method inside the same preset, its research provenance, regression scope and unverified claims.
 - [Domain specialties and code media](domain-capabilities.md#english): ten domain skills, four maturity states, the capability index and the local image/video runner.
 - [Classifying 100 presets](preset-classification.md#english): task orientation of the source configurations, adoption reasoning and sample gaps (repository only).
-- [Domain and cross-domain acceptance](domain-acceptance.md#english): how local contract acceptance stays separate from unexecuted model tasks.
+- [Domain and cross-domain acceptance](domain-acceptance.md#english): how local contract acceptance stays separate from real-model execution.
+- [Domain execution review](domain-run-results.md#english): twelve actual attempts, first-attempt defects, separate recovery and why no overall pass rate is reported.
 - [Enhancement evidence and unproven claims](enhancement-evidence.md#english): what the three genuine enhancements actually executed, unchanged core hashes, and what remains unproven.
 - [Local migration and rollback](migration-rollback.md#english): current profile state, prerequisites, backups and reversible steps.
 - [Paired evaluation results](benchmark-results.md#english): measured same-route real-model data and what it does not prove.

@@ -4,7 +4,10 @@
 
 ## 中文
 
-### 1.7.0-dev.1 — 领域专长与代码视觉（未正式发布）
+### 1.7.0-rc.1 — 领域专长与代码视觉（实验性预发布）
+
+- 以实验性预发布提供，**不宣布验收通过**：字节未改动的原 40 题同模型复测为旧版 38 通过、新版 34 通过，4 题由通过变为不通过（`research-02`、`review-02`、`recover-03`、`recover-04`）。复核显示多数差异源于题面未规定的封闭取值/类型，但这不等于已证明质量未下降；该限制保留到契约补全并重新冻结复测为止。
+- 稳定版仍为 `v1.5.0`，本预发布不改变 `omni` ID、模型选档策略、权限边界或生产依赖。
 
 - 兼容门禁改为 semver 范围 **`>=0.2.2-rc.1 <=0.2.2-rc.2`**：接受 rc.1（官方 `latest`，桌面端实际提供的版本）与 rc.2（`next` 预发布），两者均经隔离安装实测通过原生集成、11 个技能加载、推理选档、压缩事务与服务隔离；范围外的 `0.2.1-rc.5`、`0.2.2-alpha.3` 已被验证会被拒绝。
 - 修正门禁声明格式：Harness 要求 `engines.dsh` 必须是**字符串**（semver 范围）并按 `includePrerelease` 解析。此前写成版本数组会导致安装时报 `Plugin manifest engines.dsh must be a string`；校验脚本也已改为用 semver 语义判断，而不是字符串相等。
@@ -17,7 +20,10 @@
 - 新增 11 个原生本地操作（CSV/JSON 校验转换、游戏数值初筛、小说显式事实连续性、FASTA 基础统计、实体关系一致性、引用覆盖、本地指标提取、Markdown 大纲、待办依赖、UTC ICS 草稿），全部只用 Node 内置能力，不新增生产依赖；写入需显式 `--allow-write` 且不覆盖已有文件。
 - 新增代码视觉链路：场景源码 → 静态 SVG → 明确版本的 resvg 栅格化 → FFmpeg 编码 GIF/MP4。不调用图像或视频生成模型；有授权素材优先用素材，否则从零代码制作；视频音频需求未明确时先询问。依赖显式准备，不在激活或渲染时静默安装；缺依赖明确阻塞而非换格式冒充。
 - 新增 100 套预设分类证据与双语报告：主分类唯一、总数 100，并如实标注工程占 60、游戏 10 套来自同一项目，以及样本缺少临床/法律/会计量化金融/CAD 等领域。
-- 新增领域工程验收与 12 个领域/跨域任务题集；后者保持 `not-run`，不宣称模型已自动化使用这些能力。
+- 新增领域工程验收与 12 个领域/跨域任务题集；模板保留 `not-run`，实际已尝试，状态单列于[执行复核](docs/domain-run-results.md#中文)。撤回进行中/事后改判的通过率，不宣称自动选技能或专业提升。
+- 保留首轮中断与失败；恢复阶段另补游戏原型、修复业务 SQLite 主键空值缺陷及图表比值阈值表达。新增仅核验产物事实的脚本与哈希清单，不把恢复结果混入原模型首轮，不据此发布新版。
+- 后续三个无能力提示的原生探针已有产物与方法选择证据；工程取消及交付后用量错误单列。原40题在防护前/后分别运行，修订组另记，不覆盖历史结果。
+- 为已观察到的结构化恢复问题补一条通用防护：保留字段类型/结构，区分文件修复、模拟与真实会话恢复，不盲猜黑盒枚举。目标用例通过，但整体复测仍有4个关键退步信号，继续不发布；详见[执行复核](docs/domain-run-results.md#中文)。
 - 验证：263 项仓库测试、64 项能力契约测试、22 项真实渲染测试（真实 resvg+FFmpeg，0 跳过）、原生集成确认 11 技能与两个运行器可从安装包加载。原 40 题成绩与"未证明模型提升"的结论不变。
 
 ### 1.6.0-dev.1 — 全能模式执行方法（未正式发布）
@@ -86,7 +92,10 @@
 
 ## English
 
-### 1.7.0-dev.1 — Domain specialties and code media (not a stable release)
+### 1.7.0-rc.1 — Domain specialties and code media (experimental pre-release)
+
+- Ships as an experimental pre-release and **does not declare acceptance passed**: re-running the byte-identical original 40 cases on the same model gives 38 baseline passes and 34 candidate passes, with four cases moving from pass to fail (`research-02`, `review-02`, `recover-03`, `recover-04`). Review shows most differences come from closed values/types the prompts never specified, which is not proof that quality did not drop; the limitation stands until contracts are completed and re-frozen.
+- Stable remains `v1.5.0`; this pre-release keeps the `omni` ID, reasoning-selection policy, permission boundaries and production dependency count unchanged.
 
 - Changes the gate to the semver range **`>=0.2.2-rc.1 <=0.2.2-rc.2`**, accepting rc.1 (the official `latest` the desktop app ships) and rc.2 (the `next` pre-release). Both were installed in isolation and verified against native integration, 11-skill loading, reasoning selection, compaction transactions and service isolation; `0.2.1-rc.5` and `0.2.2-alpha.3` were verified as refused.
 - Fixes the declared gate format: the Harness requires `engines.dsh` to be a **string** (a semver range) resolved with `includePrerelease`. Declaring a version array made installation fail with `Plugin manifest engines.dsh must be a string`; the verifier now judges by semver semantics instead of string equality.
@@ -99,7 +108,10 @@
 - Adds 11 native local operations (CSV/JSON validation and transformation, preliminary game arithmetic, explicit fictional canon continuity, FASTA statistics, entity-relation consistency, citation coverage, local indicator extraction, Markdown outlines, todo dependencies, UTC ICS drafts) using Node built-ins only, with no new production dependency. Writing needs an explicit `--allow-write` and never overwrites an existing file.
 - Adds the code-media pipeline: scene source → static SVG → pinned resvg rasterization → FFmpeg GIF/MP4. No image or video generation models; authorized assets are reused when available, otherwise drawn from scratch in code; audio for video is asked first. Dependencies are prepared explicitly, never installed silently at activation or render time; a missing dependency is an explicit block rather than a format substitution.
 - Adds traceable classification evidence and a bilingual report for the 100 presets: one primary category each, 100 total, honestly noting 60 engineering configurations, all 10 game configurations from one project, and gaps such as clinical, legal, accounting/quantitative finance and CAD.
-- Adds domain engineering acceptance plus 12 domain/cross-domain tasks; the latter stay `not-run`, with no claim that the model already uses these capabilities automatically.
+- Adds domain engineering acceptance and twelve domain/cross-domain tasks. Their template retains `not-run`, while actual attempts are separated in the [execution review](docs/domain-run-results.md#english). Withdraws in-progress/post-hoc pass rates; automatic skill routing and professional improvement remain unproven.
+- Preserves original interruptions/failures. Separately recovers the game prototype, fixes SQLite NULL primary keys and corrects the chart's ratio-threshold semantics. Adds artifact-only inspection and hash inventories without mixing recovery into first attempts or publishing a new stable release.
+- Three later native probes without capability hints have artifact/method-selection evidence; engineering cancellation and its post-delivery usage error remain separate. The unchanged original40 ran before/after the guard; the revised cohort and historical results are retained separately.
+- Adds one general guard for observed structured-recovery problems: preserve field types/shapes, distinguish file repair, simulation and real session restoration, and avoid guessing opaque enums. The targeted case passed, but four critical-regression signals remain after the full retest, so no release; see the [execution review](docs/domain-run-results.md#english).
 - Verification: 263 repository tests, 64 capability contract tests, 22 real render tests (real resvg + FFmpeg, 0 skipped), and native integration confirming 11 skills and both runners load from the installed package. The original 40-case results and the "no proven model improvement" conclusion are unchanged.
 
 ### 1.6.0-dev.1 — Omni execution method (not a stable release)

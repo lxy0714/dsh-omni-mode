@@ -6,18 +6,22 @@ A cross-project, quality-first native agent preset: understand the goal, plan wh
 
 ## Current update status
 
-Development branch `1.7.0-dev.1` updates **the same Omni preset**. It adds ten on-demand domain skills, a capability index with four maturity states, 11 genuinely runnable local domain operations, and a **code-driven** 2D SVG/PNG/GIF/MP4 pipeline that uses no image or video generation models. Same package, same display name, same `omni` ID.
+Experimental pre-release `1.7.0-rc.1` updates **the same Omni preset**. It adds ten on-demand domain skills, a capability index with four maturity states, 11 genuinely runnable local domain operations, and a **code-driven** 2D SVG/PNG/GIF/MP4 pipeline that uses no image or video generation models. Same package, same display name, same `omni` ID.
 
 See [domain specialties and code media](docs/domain-capabilities.md#english), [the execution method](docs/omni-method.md#english) and [the 100-preset classification](docs/preset-classification.md#english). Reasoning selection, adaptive retention, the upstream grilling text and authorization boundaries are unchanged.
 
-The stable release remains `v1.5.0`; the fixed installation command below does not include development-only additions. Local operations and rendering are genuinely accepted, but the real-model domain tasks have not been run, so **no professional-quality or old-case score gain is claimed**. The local stable preset is not replaced before behavioral acceptance.
+Stable remains `v1.5.0`; this is a **pre-release**: the features work, but **critical non-regression was not achieved** under the agreed standard — re-running the byte-identical original 40 cases on the same model gives 38 baseline passes versus 34 candidate passes, with four cases moving from pass to fail. No overall pass rate, professional-quality improvement or old-case score gain is claimed; see the [execution review](docs/domain-run-results.md#english). Stay on `v1.5.0` if you do not want churn.
 
 ## Install
 
 The gate is `engines.dsh: ">=0.2.2-rc.1 <=0.2.2-rc.2"`, accepting **DSH 0.2.2-rc.1** (the official `latest` the desktop app ships) and **0.2.2-rc.2** (the `next` pre-release); both are tested. The host refuses any version outside that range.
 
 ```sh
+# stable
 dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.5.0
+
+# experimental pre-release
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0-rc.1
 ```
 
 Or download the fixed-version TGZ from [Releases](https://github.com/lxy0714/dsh-omni-mode/releases) and add it through the Harness plugin manager. Use your actual profile; desktop applications should use their own plugin-management entry point.

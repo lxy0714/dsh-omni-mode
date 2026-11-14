@@ -6,7 +6,7 @@
 
 ### 本文回答什么
 
-`1.7.0-dev.1` 声称加强的是**同一个**全能模式。这里逐条列出：哪些增强是真实执行过的、哪些只是方法或尚未验证，以及"关键无退步"具体覆盖到哪一层。
+`1.7.0-rc.1` 声称加强的是**同一个**全能模式。这里逐条列出：哪些增强是真实执行过的、哪些只是方法或尚未验证，以及"关键无退步"具体覆盖到哪一层。
 
 所有记录均可在本仓库复现，命令附在每节。没有使用付费模型调用完成的项目会明确标注。
 
@@ -52,7 +52,7 @@
 - 游戏、小说、分子生物（DNA/RNA 两种字母表）、日历、数据转换与校验等夹具都能被真实操作消费，数值正确。
 - 案例校验强制每个任务必须有夹具目录和 README，防止以后出现"无法执行的空壳案例"。
 
-仍**未执行**的是模型侧任务本身；夹具就绪不等于已通过。
+模型侧任务现已全部尝试，但存在中断、评分草案冲突及部分交付缺陷；执行不等于通过，详见[执行复核](domain-run-results.md#中文)。
 
 ### "关键无退步"覆盖到哪一层
 
@@ -76,7 +76,7 @@ skills/grilling/SKILL.md a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b
 
 ### 明确未证明的事
 
-- **12 个领域/跨域真实模型任务仍未执行**（`not-run`）。因此不能声称模型会自动选用这些技能、专业水平提升，或旧 40 题涨分。
+- **整体行为验收仍未通过**。12 项受指导任务不公布总通过率；后续三个无能力提示的原生探针有产物复核及自主方法选择证据，取消/交付后错误与恢复分列。未改动原40题的防护前/后对照仍有关键警报，不据此声称专业提升或整体无退步；详见[执行复核](domain-run-results.md#中文)。
 - 领域工程验收是 **CLI 契约验收**，不是专业能力认证。引用结构通过不等于来源真实；提取 IP 不等于扫描或归因；游戏数值初筛不等于实机平衡；序列统计不是临床/功能结论；Markdown 不是 PPTX；ICS 草案不等于已预约成功。
 - 来源研究是**静态审阅**：被研究对象全部未安装、未 import、未运行。
 - 依赖外部工具/账户/项目环境的能力标为 `needs-dependency`，只有方法说明的标为 `method-only`，未覆盖的标为 `uncovered`——这些都不是已实现。
@@ -95,7 +95,7 @@ node scripts/benchmark/accept-domains.mjs
 
 ### What this document answers
 
-`1.7.0-dev.1` claims to strengthen **the same** Omni preset. This page lists, item by item, which enhancements were genuinely executed, which are method-only or still unverified, and exactly how far "no critical regression" reaches.
+`1.7.0-rc.1` claims to strengthen **the same** Omni preset. This page lists, item by item, which enhancements were genuinely executed, which are method-only or still unverified, and exactly how far "no critical regression" reaches.
 
 Every record is reproducible from this repository; commands follow each section. Anything not completed with paid model calls is marked as such.
 
@@ -141,7 +141,7 @@ The 12 domain/cross-domain cases previously had prompts but no runnable inputs. 
 - Game, fiction, molecular-biology (both DNA and RNA alphabets), calendar, data transformation and validation fixtures are all consumed by real operations with correct values.
 - Case validation now requires a fixture directory and README per task, preventing "unexecutable shell" cases.
 
-What remains **unexecuted** is the model-side task itself; ready fixtures are not a pass.
+All model-side tasks have now been attempted, but interruptions, rubric conflicts and delivery defects remain. Execution is not acceptance; see the [execution review](domain-run-results.md#english).
 
 ### How far "no critical regression" reaches
 
@@ -165,7 +165,7 @@ skills/grilling/SKILL.md a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b
 
 ### Explicitly unproven
 
-- **The 12 real-model domain/cross-domain tasks remain unexecuted** (`not-run`). No claim is made that the model selects these skills automatically, that professional quality improved, or that old 40-case scores rose.
+- **Overall behavioral acceptance has not passed.** The twelve guided tasks have no overall pass rate. Three later native probes without capability hints have artifact review and spontaneous method-selection evidence, with cancellation/post-delivery error and recovery separate. Before/after-guard comparisons on the unchanged original40 retain critical warnings, not professional improvement or overall non-regression; see the [execution review](domain-run-results.md#english).
 - Domain engineering acceptance is **CLI contract acceptance**, not professional certification. Passing citation structure is not source truth; an extracted IP is not a scan or attribution; preliminary game arithmetic is not playtesting; sequence statistics are not clinical/functional conclusions; Markdown is not PPTX; an ICS draft is not a successful booking.
 - Source research was **static review**: every researched subject stayed uninstalled, unimported and unexecuted.
 - Capabilities needing external tools, accounts or project environments are `needs-dependency`; method-only entries are `method-only`; uncovered ones are `uncovered`. None of those is implemented capability.

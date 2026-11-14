@@ -10,7 +10,7 @@
 2. **本地操作工程验收**：真实启动包内CLI，用合成输入检查明确的转换、计算、格式和拒绝契约，证明这些具体操作，不证明整个领域专业能力。
 3. **真实模型领域任务**：让同一全能模式识别任务、选择技能、组合真实工具并交付成果，单独记录原始轨迹与产物。只有这一步才能评估自动路由和实际任务交付；不能拿前两项代替。
 
-新任务集含23个本地操作案例和12个待执行的领域/跨域任务，覆盖全部10个分类。案例与标准见[任务集](https://github.com/lxy0714/dsh-omni-mode/blob/main/benchmark/domain-acceptance.json)。这批案例在实现设计过程中编写，已经观察过部分实现与调试结果，**不是未见盲测**，不宣称统计性模型提升。
+任务集含23个本地操作案例和12个领域/跨域任务，覆盖全部10个分类。案例与标准见[任务集](https://github.com/lxy0714/dsh-omni-mode/blob/main/benchmark/domain-acceptance.json)。12 项现已尝试，但不能记为全部通过；原题模板保留 `not-run`，真实状态另见[执行复核](domain-run-results.md#中文)。这批案例在实现设计过程中编写，已经观察过部分实现与调试结果，**不是未见盲测**，不宣称统计性模型提升。
 
 ### 工程案例
 
@@ -43,7 +43,7 @@ node scripts/benchmark/accept-domains.mjs
 2. **Local-operation engineering acceptance:** actually launching the packaged CLI against synthetic inputs checks explicit conversion, computation, format and rejection contracts. It establishes those operations, not whole-domain expertise.
 3. **Real-model domain tasks:** the same Omni preset must identify work, choose skills, combine actual tools and deliver artifacts, retaining raw traces and results. This layer alone evaluates routing and task delivery; the first two cannot substitute for it.
 
-The new set contains 23 local-operation cases and 12 unexecuted domain/cross-domain tasks spanning all 10 categories; see the [case set](https://github.com/lxy0714/dsh-omni-mode/blob/main/benchmark/domain-acceptance.json). Cases were authored during implementation design, after observing some code and debugging outcomes. They are **not held-out confirmation** and establish no statistical model-quality improvement.
+The set contains 23 local-operation cases and 12 domain/cross-domain tasks spanning all 10 categories; see the [case set](https://github.com/lxy0714/dsh-omni-mode/blob/main/benchmark/domain-acceptance.json). All twelve have now been attempted, not all accepted. The template retains `not-run`; actual state is separate in the [execution review](domain-run-results.md#english). Cases were authored after observing some implementation and debugging outcomes: **not held-out confirmation**, with no statistical model-quality improvement established.
 
 ### Engineering cases
 

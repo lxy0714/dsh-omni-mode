@@ -4,7 +4,7 @@
 
 ## 中文
 
-当前开发分支（`1.7.0-dev.1`）在本机通过 263 项仓库测试、64 项领域能力契约测试与 22 项真实渲染测试。已发布的稳定版仍为 `v1.5.0`。新增工程验收不等于真实模型行为验收，详见[增强证据](enhancement-evidence.md#中文)。
+当前预发布（`1.7.0-rc.1`）在本机通过 263 项仓库测试、64 项领域能力契约测试与 22 项真实渲染测试。稳定版仍为 `v1.5.0`。工程验收与真实模型行为验收是两件事，本预发布的前提是行为门槛未通过，详见[增强证据](enhancement-evidence.md#中文)。
 
 ```sh
 npm ci --ignore-scripts
@@ -28,7 +28,7 @@ npm run verify
 
 ## English
 
-The current development branch (`1.7.0-dev.1`) passes 263 repository tests, 64 domain capability contract tests and 22 real render tests locally. The published stable release is still `v1.5.0`. Engineering acceptance is not real-model behavioral acceptance; see [enhancement evidence](enhancement-evidence.md#english).
+The current pre-release (`1.7.0-rc.1`) passes 263 repository tests, 64 domain capability contract tests and 22 real render tests locally. Stable remains `v1.5.0`. Engineering acceptance and real-model behavioral acceptance are different; this pre-release ships with the behavioral gate unmet, as explained in [enhancement evidence](enhancement-evidence.md#english).
 
 Commands:
 

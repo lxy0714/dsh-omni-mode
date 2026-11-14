@@ -1,4 +1,4 @@
-# 全能模式 / Omni mode v1.7.0（待发布 / pending release）
+# 全能模式 / Omni mode v1.7.0-rc.1（实验性预发布 / experimental pre-release）
 
 [中文](#中文) · [English](#english)
 
@@ -6,16 +6,16 @@
 
 同一个「全能模式」、同一个 `omni` 预设 ID。本次加入领域专长与**用代码**制作图片视频的能力，不调用生图或视频模型。
 
-> **状态：尚未发布。** 当前最新正式发行仍是 `v1.5.0`，开发分支版本为 `1.7.0-dev.1`。本页是待发布的说明稿：工程验收已完成，但 12 个真实模型领域任务仍未执行，发布与本机迁移要等该层验收，因此下面这条固定标签命令在发布前不可用。
+> **这是预发布，不是稳定版。** 稳定版仍是 `v1.5.0`；本版为 `v1.7.0-rc.1`。功能可用，但**按既定标准，关键无退步未达成**，因此不宣布验收通过。
 >
-> **正式发布前必须依次完成**：①跑完真实模型领域任务并保留原始记录；②把 `package.json` 与锁文件版本从 `1.7.0-dev.1` 提升为 `1.7.0`（发布流程强制要求 tag 等于 `v<version>`，否则会失败）；③移除本页所有"尚未发布"标记（发布流程会拒绝待发布稿）；④打标签并手动触发发布工作流。
+> **未达成、必须如实告知的部分：** 用字节未改动的原 40 题、同一模型 `gpt-6.1-sol`、同一工具与评分器复测，旧版通过 38 题、新版通过 34 题，有 4 题从通过变为不通过（`research-02`、`review-02`、`recover-03`、`recover-04`）。复核发现其中多数差异来自题面未规定的封闭取值或类型（如状态枚举、字符串数组与对象数组、引用列表是否允许附加项），**但"题面不完整"不等于已经证明质量没有下降**。这条限制在修复并重新冻结复测前一直有效，详见[执行复核](domain-run-results.md#中文)。
 
 ```sh
-# 发布后才可用 / Available only after the release
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0
+# 预发布安装 / Pre-release install
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0-rc.1
 ```
 
-也可下载本 Release 的 TGZ 后在插件管理器添加。安装后重启引擎、新建对话，选择「全能模式」；使用你实际的 profile。旧本地包与本包同为 `omni` ID，不能同时启用。
+也可下载本 Release 的 TGZ 后在插件管理器添加。安装后重启引擎、新建对话，选择「全能模式」；使用你实际的 profile。旧本地包与本包同为 `omni` ID，不能同时启用。预发布可能继续改动，不希望承担变动风险时请继续使用稳定版 `v1.5.0`。
 
 ### 新增内容
 
@@ -33,7 +33,7 @@ dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0
 - 真实 Harness 中确认 11 个技能、能力索引与两个运行器可从安装包加载，且同名外部诱饵不能冒充。
 - 用读图工具查看实际画面并修复了字体证明图的截断显示问题。
 
-**未证明**：12 个真实模型领域任务尚未执行，因此不能声称模型会自动选用这些能力、专业水平提升或旧 40 题涨分。来源研究为静态审阅，未安装或运行任何被研究对象。
+**未通过整体门槛（本预发布即在此前提下提供）**：12 项指导式任务不公布总通过率。三个无能力提示的原生探针已有实际产物与自主方法选择证据，但首轮/恢复分列。原 40 题在加入通用恢复防护前后各跑一轮，防护后仍有上述 4 题关键警报，目标用例通过不等于整体无退步。仍不宣称专业水平提升或统计性涨分，详见[执行复核](domain-run-results.md#中文)。来源研究为静态审阅，未安装或运行任何被研究对象。
 
 `quality.js`、`adaptive.js`、`pool.js` 与上游 grilling 原文自 v1.5.0 起字节未变；推理选档、自适应保留、权限与审批边界均无改动。详细证据与未证事项见[增强证据](enhancement-evidence.md#中文)。
 
@@ -41,15 +41,15 @@ dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0
 
 ## English
 
-The same Omni preset and the same `omni` preset ID. This release will add domain specialties and the ability to make images and video **with code**, using no image or video generation models.
+The same Omni preset and the same `omni` preset ID. This release adds domain specialties and the ability to make images and video **with code**, using no image or video generation models.
 
-> **Status: not released yet.** The latest stable release remains `v1.5.0`; the development branch is `1.7.0-dev.1`. This page is a prepared announcement: engineering acceptance is complete, but the 12 real-model domain tasks have not run, so publishing and local migration wait on that layer. The fixed-tag command below does not work until the release exists.
+> **This is a pre-release, not a stable version.** Stable remains `v1.5.0`; this release is `v1.7.0-rc.1`. The features work, but **critical non-regression was not achieved** under the agreed standard, so acceptance is not declared as passed.
 >
-> **Required order before publishing:** (1) run the real-model domain tasks and keep the raw records; (2) bump `package.json` and the lockfile from `1.7.0-dev.1` to `1.7.0` — the workflow requires the tag to equal `v<version>` and fails otherwise; (3) remove every not-released marker from this page, since the workflow refuses draft notes; (4) create the tag and dispatch the release workflow.
+> **What was not achieved and must be stated plainly:** re-running the byte-identical original 40 cases on the same `gpt-6.1-sol` model, tools and grader gives 38 baseline passes versus 34 candidate passes, with four cases moving from pass to fail (`research-02`, `review-02`, `recover-03`, `recover-04`). Review found most of those differences stem from closed values or types the prompts never specified (status enums, string versus object arrays, whether a citation list may carry extra items), **but an under-specified prompt is not proof that quality did not drop**. That limitation stands until the contracts are fixed, re-frozen and re-measured; see the [execution review](domain-run-results.md#english).
 
 ```sh
-# Available only after the release
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0
+# Pre-release install
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0-rc.1
 ```
 
 Or add the release TGZ through the plugin manager. Restart, create a new conversation and select `全能模式`; use your actual profile. The legacy local bundle declares the same `omni` ID and cannot be enabled simultaneously.
@@ -70,7 +70,7 @@ Actually executed:
 - In a real Harness, 11 skills, the capability index and both runners load from the installed package, and same-name external decoys cannot substitute for them.
 - Actual frames viewed with an image-reading tool, which caught and fixed a truncation display issue in the font proof sheet.
 
-**Not proven**: the 12 real-model domain tasks have not run, so no claim is made that the model selects these capabilities automatically, that professional quality improved, or that old 40-case scores rose. Source research was static review; no researched subject was installed or executed.
+**Overall gate not passed (this pre-release ships under that caveat)**: the twelve guided tasks have no overall pass rate. Three native probes without capability hints have actual artifacts and spontaneous method-selection evidence, with first attempts/recovery separate. The original 40 cases ran once before and once after the general recovery guard; four critical warnings remain after it. A targeted pass is not overall non-regression. No professional or statistical improvement is claimed; see the [execution review](domain-run-results.md#english). Source research remains static-only, without installing or running researched subjects.
 
 `quality.js`, `adaptive.js`, `pool.js` and the upstream grilling text are byte-for-byte unchanged since v1.5.0; reasoning selection, adaptive retention and permission/approval boundaries are untouched. See [enhancement evidence](enhancement-evidence.md#english) for details and unproven items.
 

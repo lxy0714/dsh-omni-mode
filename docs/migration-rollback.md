@@ -4,19 +4,19 @@
 
 ## 中文
 
-### 当前状态（尚未迁移）
+### 本机试用状态与历史回滚基线
 
-本机 profile 目前仍使用旧的本地包，**没有被本次更新替换**：
+2026-11-13 只读复核：用户明确要求本机升级后，该实例的 profile 已以 `link:` 指向 `dsh-omni-mode@1.7.0-dev.1`；这是开发版试用，不是稳定发行。本轮验收没有再次迁移。以下旧包记录是迁移前回滚基线，**不是当前生效包**：
 
 - profile：`/root/.dsh/profiles/web`
-- 当前预设包：`@local/dsh-omni-preset@1.2.0`，以 `link:` 指向 `/root/workspace/dsh-omni-preset`
+- 迁移前预设包：`@local/dsh-omni-preset@1.2.0`，以 `link:` 指向 `/root/workspace/dsh-omni-preset`
 - 同时装有一个临时的评测宿主包 `@local/omni-benchmark-host`（指向本仓库的 `tools/benchmark-host`），它不属于预设本身，迁移前应单独决定去留
 
-已发布的稳定预设仍是 `v1.5.0`；开发分支为 `1.7.0-dev.1`。按批准的计划，**只有领域行为验收通过后**才发布并一次性迁移。
+稳定预设仍是 `v1.5.0`；本版为实验性预发布 `1.7.0-rc.1`。整体行为验收仍未通过，预发布只表示功能可试用，不表示门禁达成。该机器的实际路径不是其他用户必须采用的安装路径。
 
 ### 迁移前必须先满足
 
-1. 真实模型领域/跨域任务完成并保留原始记录（当前 12 项仍是 `not-run`）。
+1. 真实模型领域/跨域任务验收完成并保留原始记录（12 项已尝试，但[执行复核](domain-run-results.md#中文)明确仍未整体通过）。
 2. 该层结果至少证明三类实际增强，且关键能力无退步。
 3. 官方最新版本兼容性复核通过（接受 DSH `>=0.2.2-rc.1 <=0.2.2-rc.2`（即 rc.1 与 rc.2），Node ≥ 24.9.0）。
 4. 已经准备好本文的回滚步骤。
@@ -99,19 +99,19 @@ tar -xzf /root/omni-rollback-preset-1.2.0.tar.gz -C /root/workspace
 
 ## English
 
-### Current state (not migrated)
+### Local development trial and historical rollback baseline
 
-The local profile still uses the old local bundle and **has not been replaced** by this update:
+Read-only check on 2026-11-13: following the user's explicit upgrade request, this instance now links `dsh-omni-mode@1.7.0-dev.1`. This is a development trial, not stable publication. The present acceptance run performs no further migration. The old package below is the pre-migration rollback baseline, **not the active package**:
 
 - Profile: `/root/.dsh/profiles/web`
-- Current preset package: `@local/dsh-omni-preset@1.2.0`, a `link:` to `/root/workspace/dsh-omni-preset`
+- Pre-migration preset package: `@local/dsh-omni-preset@1.2.0`, a `link:` to `/root/workspace/dsh-omni-preset`
 - A temporary evaluation host package `@local/omni-benchmark-host` (pointing at this repository's `tools/benchmark-host`) is also installed. It is not part of the preset and should be decided separately before migration.
 
-The stable release is still `v1.5.0`; the development branch is `1.7.0-dev.1`. Per the approved plan, publication and a one-time migration happen **only after** domain behavioral acceptance passes.
+Stable remains `v1.5.0`; this is the experimental pre-release `1.7.0-rc.1`. Overall behavioral acceptance is still unmet; a pre-release means the features are available to try, not that the gate passed. Paths for this deployment are not universal installation requirements.
 
 ### Prerequisites before migrating
 
-1. Real-model domain/cross-domain tasks completed with raw records retained (all 12 are currently `not-run`).
+1. Real-model task acceptance with raw records retained (all twelve were attempted, but [execution review](domain-run-results.md#english) does not report overall acceptance).
 2. That layer shows at least three genuine enhancements with no critical regression.
 3. Official-latest compatibility rechecked (accepts DSH `>=0.2.2-rc.1 <=0.2.2-rc.2` (rc.1 and rc.2), Node ≥ 24.9.0).
 4. The rollback steps below are already prepared.

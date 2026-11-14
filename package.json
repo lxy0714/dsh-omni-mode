@@ -1,6 +1,6 @@
 {
   "name": "dsh-omni-mode",
-  "version": "1.7.0-dev.1",
+  "version": "1.7.0-rc.1",
   "private": true,
   "license": "MIT",
   "repository": {
@@ -68,6 +68,7 @@
     "docs/enhancement-evidence.md",
     "docs/migration-rollback.md",
     "docs/domain-acceptance.md",
+    "benchmark/native-session-results.json",
     "README.md",
     "README.en.md",
     "LICENSE",

@@ -6,7 +6,7 @@
 
 ### 这次加强的是同一个全能模式
 
-`1.7.0-dev.1` 仍是一个包、一个显示名「全能模式」、一个 `omni` 预设。新增的是**按需加载的领域方法**、一份**能力索引**，以及两个**可在本机真实运行的命令行工具**。没有第二套预设，没有把一百份人设拼进来。
+`1.7.0-rc.1` 仍是一个包、一个显示名「全能模式」、一个 `omni` 预设。新增的是**按需加载的领域方法**、一份**能力索引**，以及两个**可在本机真实运行的命令行工具**。没有第二套预设，没有把一百份人设拼进来。
 
 原有推理选档、自适应保留、grilling 原文、权限与审批边界都没有改动。
 
@@ -77,13 +77,13 @@ node <包根>/media/runner.mjs validate --artifact <成品目录> --tool-env <�
 - 原生集成：11 个专业技能、能力索引与两个运行器都能从安装包被发现并加载。
 - 领域工程验收：23 个案例全部通过，但这是 **CLI 契约验收**。
 
-**尚未完成**：12 个真实模型领域/跨域任务仍是 `not-run`。因此目前能证明的是"方法与本地操作真实可用"，还不能证明模型会正确自动选用、专业水平提升或旧 40 题涨分。来源研究是静态审阅，未安装或运行任何被研究对象。
+**整体行为验收尚未通过**：12 项指导式任务存在中断、草案/评分缺陷与交付问题，不能公布总通过率。后续三个无能力提示的原生探针已复核产物并观察到自动选择方法；工程首轮取消与交付后用量错误单列。未改动原40题的防护前/后回归仍有关键警报，不宣称专业水平提升或整体无退步。首轮、恢复与主代理复核分列于[执行复核](domain-run-results.md#中文)。来源研究仍是静态审阅，未安装或运行任何被研究对象。
 
 ## English
 
 ### The same Omni preset, strengthened
 
-`1.7.0-dev.1` is still one package, one display name (`全能模式`) and one `omni` preset. What is new: **on-demand domain methods**, a **capability index**, and two **locally runnable command-line tools**. No second preset; one hundred personas were not concatenated.
+`1.7.0-rc.1` is still one package, one display name (`全能模式`) and one `omni` preset. What is new: **on-demand domain methods**, a **capability index**, and two **locally runnable command-line tools**. No second preset; one hundred personas were not concatenated.
 
 Reasoning selection, adaptive retention, the upstream grilling text and authorization/approval boundaries are unchanged.
 
@@ -152,4 +152,4 @@ Scene source runs in an owned child process. That is **not a sandbox**, and it i
 - Native integration: all 11 specialist skills, the capability index and both runners are discoverable and loadable from the installed package.
 - Domain engineering acceptance: 23 cases pass — but this is **CLI contract acceptance**.
 
-**Not yet done**: the 12 real-model domain/cross-domain tasks remain `not-run`. What is proven today is that the methods and local operations genuinely work, not that the model selects them correctly, that professional quality improved, or that the original 40 cases gained scores. Source research was static review; no researched subject was installed or executed.
+**Overall behavioral acceptance has not passed**: the twelve guided tasks retain interruptions, rubric/checker defects and delivery issues, without an overall pass rate. Three later native probes without capability hints have independently reviewed artifacts and observed spontaneous method selection; engineering cancellation and its post-delivery usage error remain separate. Before/after-guard runs on the unchanged original40 retain critical warnings, not professional improvement or overall non-regression. See the [execution review](domain-run-results.md#english) for separate first attempts, recovery and lead checks. Source research stays static-only; no researched subject was installed or executed.
