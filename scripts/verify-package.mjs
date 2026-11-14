@@ -34,7 +34,16 @@ const acceptedDsh=semver.validRange(manifest.engines.dsh);
 assert(acceptedDsh,'engines.dsh must be a valid semver range');
 assert(semver.satisfies(official.version,manifest.engines.dsh,{includePrerelease:true}),`tested ${official.version} is outside the declared range ${manifest.engines.dsh}`);
 // Names the exact versions the range admits, so docs and logs cannot drift from it.
-const testedDsh=['0.2.2-rc.1','0.2.2-rc.2'].filter(v=>semver.satisfies(v,manifest.engines.dsh,{includePrerelease:true}));
+// Every entry must be installed and run in isolation; listing a version here is
+// itself a compatibility claim, so this list is asserted against a frozen census.
+const compatibleDsh=['0.2.2-rc.1','0.2.2-rc.2','0.2.2-rc.3'];
+const testedDsh=compatibleDsh.filter(v=>semver.satisfies(v,manifest.engines.dsh,{includePrerelease:true}));
+assert.deepEqual(testedDsh,compatibleDsh,`engines.dsh must admit exactly the verified versions ${compatibleDsh.join(', ')}`);
+// The declared range is closed decided-by-range: any newer pre-release stays out
+// until it is installed, exercised and added to this census.
+for(const rejected of ['0.2.1-rc.5','0.2.2-alpha.3','0.2.2-rc.4','0.2.2','0.2.3-rc.1']){
+ assert(!semver.satisfies(rejected,manifest.engines.dsh,{includePrerelease:true}),`engines.dsh must not admit unverified ${rejected}`);
+}
 verifyNodeGate(manifest.engines.node,official.engines.node);
 verifyLockMetadata(manifest,JSON.parse(fs.readFileSync(path.join(root,'package-lock.json'),'utf8')));
 assert.equal(manifest.repository.url,'git+https://github.com/lxy0714/dsh-omni-mode.git');

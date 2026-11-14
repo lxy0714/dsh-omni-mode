@@ -12,13 +12,13 @@
 - 迁移前预设包：`@local/dsh-omni-preset@1.2.0`，以 `link:` 指向 `/root/workspace/dsh-omni-preset`
 - 同时装有一个临时的评测宿主包 `@local/omni-benchmark-host`（指向本仓库的 `tools/benchmark-host`），它不属于预设本身，迁移前应单独决定去留
 
-稳定预设仍是 `v1.5.0`；本版为实验性预发布 `1.7.0-rc.1`。整体行为验收仍未通过，预发布只表示功能可试用，不表示门禁达成。该机器的实际路径不是其他用户必须采用的安装路径。
+上一个稳定版仍是 `v1.5.0`，可作回退目标；本版为正式版 `1.7.0`。整体行为验收仍未通过，正式版只表示版本已作为常规发行提供，不表示该行为门槛已达成。该机器的实际路径不是其他用户必须采用的安装路径。
 
 ### 迁移前必须先满足
 
 1. 真实模型领域/跨域任务验收完成并保留原始记录（12 项已尝试，但[执行复核](domain-run-results.md#中文)明确仍未整体通过）。
 2. 该层结果至少证明三类实际增强，且关键能力无退步。
-3. 官方最新版本兼容性复核通过（接受 DSH `>=0.2.2-rc.1 <=0.2.2-rc.2`（即 rc.1 与 rc.2），Node ≥ 24.9.0）。
+3. 官方最新版本兼容性复核通过（接受 DSH `>=0.2.2-rc.1 <=0.2.2-rc.3`（即 rc.1、rc.2 与 rc.3），Node ≥ 24.9.0）。
 4. 已经准备好本文的回滚步骤。
 
 任一条不满足就不迁移，也不把"工具能用"说成"预设变强"。
@@ -107,13 +107,13 @@ Read-only check on 2026-11-13: following the user's explicit upgrade request, th
 - Pre-migration preset package: `@local/dsh-omni-preset@1.2.0`, a `link:` to `/root/workspace/dsh-omni-preset`
 - A temporary evaluation host package `@local/omni-benchmark-host` (pointing at this repository's `tools/benchmark-host`) is also installed. It is not part of the preset and should be decided separately before migration.
 
-Stable remains `v1.5.0`; this is the experimental pre-release `1.7.0-rc.1`. Overall behavioral acceptance is still unmet; a pre-release means the features are available to try, not that the gate passed. Paths for this deployment are not universal installation requirements.
+The previous stable `v1.5.0` remains the rollback target; this is the regular release `1.7.0`. Overall behavioral acceptance is still unmet; a regular release means the version is distributed normally, not that this behavioral gate passed. Paths for this deployment are not universal installation requirements.
 
 ### Prerequisites before migrating
 
 1. Real-model task acceptance with raw records retained (all twelve were attempted, but [execution review](domain-run-results.md#english) does not report overall acceptance).
 2. That layer shows at least three genuine enhancements with no critical regression.
-3. Official-latest compatibility rechecked (accepts DSH `>=0.2.2-rc.1 <=0.2.2-rc.2` (rc.1 and rc.2), Node ≥ 24.9.0).
+3. Official-latest compatibility rechecked (accepts DSH `>=0.2.2-rc.1 <=0.2.2-rc.3` (rc.1, rc.2 and rc.3), Node ≥ 24.9.0).
 4. The rollback steps below are already prepared.
 
 If any is unmet, do not migrate — and never present "the tools work" as "the preset got better".

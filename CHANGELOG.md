@@ -4,6 +4,16 @@
 
 ## 中文
 
+### 1.7.0 — 领域专长与代码视觉（正式版）
+
+- 由 `1.7.0-rc.1` 预发布转正：功能范围不变，兼容门禁放宽到当前最新的 DSH `0.2.2-rc.3`。历史预发布标签 `v1.7.0-rc.1` 保留，不改写。
+- 兼容门禁改为 **`>=0.2.2-rc.1 <=0.2.2-rc.3`**；`0.2.2-rc.1`、`0.2.2-rc.2`、`0.2.2-rc.3` 均**各自隔离安装**并跑通完整原生集成（预设激活、11 技能与双技能正文、选档、自适应切换、手动压缩、服务隔离、独立进程恢复），三者 `result: PASS`、`serviceLeaks: 0`。
+- 门禁校验从"测试版本落在范围内"升级为**冻结清单比对**：既要求范围恰好接受这三版，也断言 `0.2.1-rc.5`、`0.2.2-alpha.3`、`0.2.2-rc.4`、`0.2.2`、`0.2.3-rc.1` 均被拒绝，防止把宽松范围当成已验证支持。
+- 开发依赖与 lock 同步到 `0.2.2-rc.3`；Node 受支持下限仍为 `>=24.9.0`。
+- 更正一处与实际不符的计数：真实渲染测试实测 **23 项**全过（正文此前写 22 项，与 `VERIFICATION.md` 的 23 项冲突）。数字改由实际运行结果决定。
+- **保留的已知限制**：原 40 题同模型复测仍为旧版 38 通过、新版 34 通过，4 题由通过变为不通过；不宣称整体无退步或专业水平提升。用户在实际任务中连续使用并据此要求转正，作为**使用者反馈**单列，不替代也未推翻该门槛。
+- 集成仍使用本地确定性模拟推理，**未调用真实付费供应商**；桌面实机 UI、Windows 打包更新、其他平台与三维渲染未验证。
+
 ### 1.7.0-rc.1 — 领域专长与代码视觉（实验性预发布）
 
 - 以实验性预发布提供，**不宣布验收通过**：字节未改动的原 40 题同模型复测为旧版 38 通过、新版 34 通过，4 题由通过变为不通过（`research-02`、`review-02`、`recover-03`、`recover-04`）。复核显示多数差异源于题面未规定的封闭取值/类型，但这不等于已证明质量未下降；该限制保留到契约补全并重新冻结复测为止。
@@ -91,6 +101,16 @@
 - 引入跨项目规划、能力发现、执行、验证和交付规则。
 
 ## English
+
+### 1.7.0 — Domain specialties and code media (current release)
+
+- Promotes `1.7.0-rc.1` to a regular release: the feature set is unchanged and the gate now covers the current DSH `0.2.2-rc.3`. The historical `v1.7.0-rc.1` pre-release tag is preserved, not rewritten.
+- The gate becomes **`>=0.2.2-rc.1 <=0.2.2-rc.3`**; `0.2.2-rc.1`, `0.2.2-rc.2` and `0.2.2-rc.3` were each **installed in isolation** and each passed the full native integration (preset activation, 11 skills with both skill bodies verbatim, reasoning selection, adaptive switching, manual compaction, service isolation, independent-process resume), all returning `result: PASS` with `serviceLeaks: 0`.
+- Gate checking no longer means "the tested version happens to fall inside the range": it now compares a **frozen census**, requiring the range to admit exactly these three versions while asserting `0.2.1-rc.5`, `0.2.2-alpha.3`, `0.2.2-rc.4`, `0.2.2` and `0.2.3-rc.1` are refused, so a wider range can never pass as verified support.
+- The development dependency and lock move to `0.2.2-rc.3`; the supported Node floor stays `>=24.9.0`.
+- Corrects one count that disagreed with reality: the real render suite is **23 tests**, all passing (the prose said 22 while `VERIFICATION.md` said 23). The measured run now decides.
+- **Known limitation retained**: the original 40 cases still give 38 baseline passes versus 34 candidate passes with four pass-to-fail moves; overall non-regression and professional improvement are not claimed. Continuous real-task use followed by a promotion request is recorded separately as **user feedback**; it neither replaces nor overturns that gate.
+- Integration still uses deterministic local mock inference and **called no real paid provider**; desktop-app UI, the Windows packaged updater, other platforms and 3D rendering remain unverified.
 
 ### 1.7.0-rc.1 — Domain specialties and code media (experimental pre-release)
 

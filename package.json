@@ -1,6 +1,6 @@
 {
   "name": "dsh-omni-mode",
-  "version": "1.7.0-rc.1",
+  "version": "1.7.0",
   "private": true,
   "license": "MIT",
   "repository": {
@@ -21,7 +21,7 @@
     "omni-mode"
   ],
   "engines": {
-    "dsh": ">=0.2.2-rc.1 <=0.2.2-rc.2",
+    "dsh": ">=0.2.2-rc.1 <=0.2.2-rc.3",
     "node": ">=24.9.0"
   },
   "exports": {
@@ -87,7 +87,7 @@
     "verify": "npm run check && npm test && npm run test:host && npm run pack:check"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh": "0.2.2-rc.1",
+    "@deepseek-ai/dsh": "0.2.2-rc.3",
     "yaml": "2.8.2"
   },
   "dsh": {

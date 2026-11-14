@@ -6,7 +6,7 @@
 
 ### 本文回答什么
 
-`1.7.0-rc.1` 声称加强的是**同一个**全能模式。这里逐条列出：哪些增强是真实执行过的、哪些只是方法或尚未验证，以及"关键无退步"具体覆盖到哪一层。
+`1.7.0` 声称加强的是**同一个**全能模式。这里逐条列出：哪些增强是真实执行过的、哪些只是方法或尚未验证，以及"关键无退步"具体覆盖到哪一层。
 
 所有记录均可在本仓库复现，命令附在每节。没有使用付费模型调用完成的项目会明确标注。
 
@@ -20,7 +20,7 @@
 
 **二、代码视觉链路真实出片。** 不调用任何图像或视频生成模型。
 
-- 22 项测试在真实 resvg 2.6.2 + FFmpeg 6.1.1 下通过，**0 跳过**，覆盖真实中文渲染、GIF/MP4 编码、完整解码、超时、取消、目录碰撞、不安全 SVG 拒绝、缺依赖明确阻塞。
+- 23 项测试在真实 resvg 2.6.2 + FFmpeg 6.1.1 下通过，**0 跳过**，覆盖真实中文渲染、GIF/MP4 编码、完整解码、超时、取消、目录碰撞、不安全 SVG 拒绝、缺依赖明确阻塞。
 - 从**解包后的安装包**独立跑通端到端：中文 SVG/PNG/GIF/MP4 产出，MP4 为 h264/yuv420p、24 帧、2.000 秒，GIF 24 帧，PNG 签名与 480×350 尺寸正确，`.complete.json` 提交标记存在。
 - 画面已用读图工具实际查看：中文正常显示；字体证明图曾把 `values` 截成 `v`，经像素测量确认右边距 132px、并非裁切，而是取样卡在固定字符数，已改为用 `…` 明确标注截断并加入尺寸断言。
 - 复现：设置 `OMNI_MEDIA_TOOL_ENV` / `OMNI_MEDIA_FFMPEG` / `OMNI_MEDIA_FFPROBE` / `OMNI_MEDIA_TEST_FONT` 后运行 `node --test media/render.test.mjs media/safety.test.mjs`
@@ -59,7 +59,7 @@
 已确认：
 
 - `quality.js`、`adaptive.js`、`pool.js` 与上游 grilling 原文**自 v1.5.0 起字节未变**（SHA-256 见下）。
-- 仓库测试 263 项全过；能力契约 64 项全过；真实渲染 22 项全过。
+- 仓库测试 263 项全过；能力契约 64 项全过；真实渲染 23 项全过。
 - 原生集成仍验证推理选档、自适应保留、压缩事务、会话持久化、服务隔离，无泄漏。
 - 安装包消费、同名技能诱饵拒绝仍通过；CI 在 `7863c55` 与 `2a8ad02` 两次提交上双 Node 矩阵均通过。
 
@@ -95,7 +95,7 @@ node scripts/benchmark/accept-domains.mjs
 
 ### What this document answers
 
-`1.7.0-rc.1` claims to strengthen **the same** Omni preset. This page lists, item by item, which enhancements were genuinely executed, which are method-only or still unverified, and exactly how far "no critical regression" reaches.
+`1.7.0` claims to strengthen **the same** Omni preset. This page lists, item by item, which enhancements were genuinely executed, which are method-only or still unverified, and exactly how far "no critical regression" reaches.
 
 Every record is reproducible from this repository; commands follow each section. Anything not completed with paid model calls is marked as such.
 
@@ -148,7 +148,7 @@ All model-side tasks have now been attempted, but interruptions, rubric conflict
 Confirmed:
 
 - `quality.js`, `adaptive.js`, `pool.js` and the upstream grilling text are **byte-for-byte unchanged since v1.5.0** (SHA-256 below).
-- 263 repository tests, 64 capability contract tests and 22 real render tests all pass.
+- 263 repository tests, 64 capability contract tests and 23 real render tests all pass.
 - Native integration still verifies reasoning selection, adaptive retention, compaction transactions, session persistence and service isolation with no leaks.
 - Packaged-consumer checks and same-name skill decoy rejection still pass; CI passed on both Node versions for commits `7863c55` and `2a8ad02`.
 

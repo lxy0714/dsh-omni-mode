@@ -6,7 +6,7 @@
 
 ### 这次加强的是同一个全能模式
 
-`1.7.0-rc.1` 仍是一个包、一个显示名「全能模式」、一个 `omni` 预设。新增的是**按需加载的领域方法**、一份**能力索引**，以及两个**可在本机真实运行的命令行工具**。没有第二套预设，没有把一百份人设拼进来。
+`1.7.0` 仍是一个包、一个显示名「全能模式」、一个 `omni` 预设。新增的是**按需加载的领域方法**、一份**能力索引**，以及两个**可在本机真实运行的命令行工具**。没有第二套预设，没有把一百份人设拼进来。
 
 原有推理选档、自适应保留、grilling 原文、权限与审批边界都没有改动。
 
@@ -83,7 +83,7 @@ node <包根>/media/runner.mjs validate --artifact <成品目录> --tool-env <�
 
 ### The same Omni preset, strengthened
 
-`1.7.0-rc.1` is still one package, one display name (`全能模式`) and one `omni` preset. What is new: **on-demand domain methods**, a **capability index**, and two **locally runnable command-line tools**. No second preset; one hundred personas were not concatenated.
+`1.7.0` is still one package, one display name (`全能模式`) and one `omni` preset. What is new: **on-demand domain methods**, a **capability index**, and two **locally runnable command-line tools**. No second preset; one hundred personas were not concatenated.
 
 Reasoning selection, adaptive retention, the upstream grilling text and authorization/approval boundaries are unchanged.
 

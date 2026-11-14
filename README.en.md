@@ -6,22 +6,22 @@ A cross-project, quality-first native agent preset: understand the goal, plan wh
 
 ## Current update status
 
-Experimental pre-release `1.7.0-rc.1` updates **the same Omni preset**. It adds ten on-demand domain skills, a capability index with four maturity states, 11 genuinely runnable local domain operations, and a **code-driven** 2D SVG/PNG/GIF/MP4 pipeline that uses no image or video generation models. Same package, same display name, same `omni` ID.
+Release `1.7.0` updates **the same Omni preset**. It adds ten on-demand domain skills, a capability index with four maturity states, 11 genuinely runnable local domain operations, and a **code-driven** 2D SVG/PNG/GIF/MP4 pipeline that uses no image or video generation models. Same package, same display name, same `omni` ID.
 
 See [domain specialties and code media](docs/domain-capabilities.md#english), [the execution method](docs/omni-method.md#english) and [the 100-preset classification](docs/preset-classification.md#english). Reasoning selection, adaptive retention, the upstream grilling text and authorization boundaries are unchanged.
 
-Stable remains `v1.5.0`; this is a **pre-release**: the features work, but **critical non-regression was not achieved** under the agreed standard — re-running the byte-identical original 40 cases on the same model gives 38 baseline passes versus 34 candidate passes, with four cases moving from pass to fail. No overall pass rate, professional-quality improvement or old-case score gain is claimed; see the [execution review](docs/domain-run-results.md#english). Stay on `v1.5.0` if you do not want churn.
+`v1.7.0` is now the recommended version; `v1.5.0` remains the previous stable release and still works for rollback. **The known limitation is unchanged**: re-running the byte-identical original 40 cases on the same model gives 38 baseline passes versus 34 candidate passes, with four cases moving from pass to fail (mostly closed values or types the prompts never specified). No overall pass rate, professional-quality improvement or old-case score gain is claimed; see the [execution review](docs/domain-run-results.md#english).
 
 ## Install
 
-The gate is `engines.dsh: ">=0.2.2-rc.1 <=0.2.2-rc.2"`, accepting **DSH 0.2.2-rc.1** (the official `latest` the desktop app ships) and **0.2.2-rc.2** (the `next` pre-release); both are tested. The host refuses any version outside that range.
+The gate is `engines.dsh: ">=0.2.2-rc.1 <=0.2.2-rc.3"`, accepting **DSH 0.2.2-rc.1** (npm `latest`), **0.2.2-rc.2** and **0.2.2-rc.3** (npm `next`, the version the desktop app has updated to); all three were installed in isolation and passed native integration. The host refuses any version outside that range.
 
 ```sh
 # stable
 dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.5.0
 
-# experimental pre-release
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0-rc.1
+# current release
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0
 ```
 
 Or download the fixed-version TGZ from [Releases](https://github.com/lxy0714/dsh-omni-mode/releases) and add it through the Harness plugin manager. Use your actual profile; desktop applications should use their own plugin-management entry point.
