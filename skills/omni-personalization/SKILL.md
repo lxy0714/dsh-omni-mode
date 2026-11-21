@@ -27,6 +27,8 @@ Exception / 例外: safety/legal/medical accuracy takes priority / 安全与专�
 Persistence / 持久化: none unless separately authorized / 除非另获授权，否则无
 ```
 
+有明确的当次同意时，可用本地 `personalization.style-draft` 从闭合枚举生成当前任务/草稿的双语建议和撤回数据。只处理篇幅、语气和排版，不接收原稿或自由提示，不从偏好推断身份或敏感信息。操作不应用规则、不读对话历史、不写记忆或 profile；若调用方已采纳临时规则，只有供给的当前状态与撤回数据中的预期状态及范围都匹配，才生成恢复建议。`undo` 是调用方留在当前任务范围的普通数据，不是授权凭证。 / With explicit consent for this use, `personalization.style-draft` maps closed choices to bilingual suggestions and undo data scoped to the current task or draft. It accepts only length, tone and structure, not original drafts or free-form instructions. It applies nothing and never reads history or writes memory/profile. A caller that has temporarily adopted the rules can obtain a restore proposal only if the supplied current state and scope match the undo data. Undo data is not an authorization token.
+
 ## 陪伴和持久化 / Companionship and persistence
 温暖但诚实：不冒充真人/专业治疗师，不声称现实情感、排他关系或用户必须依赖AI；不承诺无条件服从，不弱化真实安全/审批/停止权。角色扮演是表达层，不能覆盖用户意愿或系统边界。 / Be warm and honest: do not pose as a human/therapist, claim real feelings/exclusivity or demand dependence. Never promise unconditional obedience or weaken safety/approval/stop rights. Roleplay changes expression, not user agency or system limits.
 

@@ -6,6 +6,7 @@ import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { writeNewOutput } from './runner.mjs';
+import { RUNTIME_FILES, CONTRACT_TEST_FILES } from './runtime-files.mjs';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const cli = (args, runner = path.join(HERE, 'runner.mjs')) => spawnSync(process.execPath, [runner, ...args], { encoding: 'utf8', timeout: 15000, env: { ...process.env, NODE_OPTIONS: '' } });
 async function fixture(fn) {
@@ -13,8 +14,25 @@ async function fixture(fn) {
   try { return await fn(root); } finally { assert.equal(path.dirname(root), HERE); assert.ok(path.basename(root).startsWith('.test-')); await fs.rm(root, { recursive: true, force: true }); }
 }
 const json = JSON.stringify({ text: '>a\nGCGC', alphabet: 'dna' });
+async function copyRuntime(root, extras = []) {
+  const cap = path.join(root, 'capabilities'); await fs.mkdir(cap);
+  await fs.writeFile(path.join(root, 'package.json'), '{"type":"module"}\n');
+  for (const file of [...RUNTIME_FILES, ...extras]) { const dest = path.join(cap, file); await fs.mkdir(path.dirname(dest), { recursive: true }); await fs.copyFile(path.join(HERE, file), dest); }
+  return cap;
+}
 test('CLI list is machine-readable and contains actual closed input schemas', () => {
   const r = cli(['list']); assert.equal(r.status, 0, r.stderr); const d = JSON.parse(r.stdout); assert.equal(d.schemaVersion, 1); assert.equal(d.categories.length, 10); assert.ok(d.operations.find(x => x.id === 'molbio.fasta').inputs.required.includes('alphabet'));
+});
+test('CLI discovers one operation without dumping unrelated schemas', () => {
+  const r = cli(['list', 'game.offline']); assert.equal(r.status, 0, r.stderr); const d = JSON.parse(r.stdout);
+  assert.deepEqual(d.operations.map(x => x.id), ['game.offline']); assert.deepEqual(d.categories.map(x => x.id), ['game']);
+  assert.equal(JSON.parse(cli(['list', 'not-real']).stderr).error.code, 'E_OPERATION');
+});
+test('CLI invokes game growth and a real standard-parser document worker', () => {
+  const growth = cli(['run', 'game.growth', '--json', JSON.stringify({ base: '3', multiplier: { numerator: '3', denominator: '2' }, levels: [3, 0], rounding: 'floor' })]);
+  assert.equal(growth.status, 0, growth.stderr); assert.deepEqual(JSON.parse(growth.stdout).values.map(x => x.amount), ['10', '3']);
+  const doc = cli(['run', 'documents.audit', '--json', JSON.stringify({ documents: [{ path: 'README.md', markdown: '# Top\n`<a id="ghost"></a>`\n[x](#ghost)' }] })]);
+  assert.equal(doc.status, 0, doc.stderr); const report = JSON.parse(doc.stdout); assert.equal(report.valid, false); assert.equal(report.issueCounts.MISSING_ANCHOR, 1);
 });
 test('CLI performs actual JSON-input FASTA computation', () => {
   const r = cli(['run', 'molbio.fasta', '--json', json]); assert.equal(r.status, 0, r.stderr); assert.equal(JSON.parse(r.stdout).records[0].gcFractionCanonical, 1);
@@ -60,14 +78,14 @@ test('normal doctor is honest about installed versus tests/Host/service acceptan
   for (const op of d.operations) { assert.equal(op.operationInvoked, 'not-checked'); assert.equal(op.realServiceAccepted, 'not-checked'); if (op.installed) { assert.equal(op.maturity, 'method-only'); assert.equal(op.evidence.testsExecuted, false); assert.equal(Object.hasOwn(op.evidence, 'liveRun'), false); } }
 });
 test('runtime-only copied package status works without optional test files', async () => fixture(async root => {
-  const cap = path.join(root, 'capabilities'); await fs.mkdir(cap);
-  for (const file of ['runner.mjs', 'schema.mjs', 'operations.mjs', 'catalog.json']) await fs.copyFile(path.join(HERE, file), path.join(cap, file));
+  const cap = await copyRuntime(root);
   const r = cli(['doctor'], path.join(cap, 'runner.mjs')); assert.equal(r.status, 0, r.stderr); assert.equal(JSON.parse(r.stdout).accepted, 'not-tested-this-run');
-  const noTests = cli(['doctor', '--test'], path.join(cap, 'runner.mjs')); assert.equal(noTests.status, 1); const d = JSON.parse(noTests.stdout); assert.equal(d.accepted, false); assert.equal(d.evidence.supported, false); assert.equal(d.evidence.executed, false); assert.equal(d.evidence.missingTests.length, 3);
+  const noTests = cli(['doctor', '--test'], path.join(cap, 'runner.mjs')); assert.equal(noTests.status, 1); const d = JSON.parse(noTests.stdout); assert.equal(d.accepted, false); assert.equal(d.evidence.supported, false); assert.equal(d.evidence.executed, false); assert.equal(d.evidence.missingTests.length, CONTRACT_TEST_FILES.length);
+  const doc = cli(['run', 'documents.audit', '--json', JSON.stringify({ documents: [{ path: 'a.md', markdown: '# A\n[x](#a)' }] })], path.join(cap, 'runner.mjs'));
+  assert.equal(doc.status, 0, doc.stderr); assert.equal(JSON.parse(doc.stdout).valid, true);
 }));
-test('package-contained operation/catalog tests need no research/cache/third-party modules', async () => fixture(async root => {
-  const cap = path.join(root, 'capabilities'); await fs.mkdir(cap);
-  for (const file of ['runner.mjs', 'schema.mjs', 'operations.mjs', 'catalog.json', 'source-excerpts.json', 'operations.test.mjs', 'catalog.test.mjs']) await fs.copyFile(path.join(HERE, file), path.join(cap, file));
+test('contained operation/catalog tests need no research/cache/external modules beyond bundled parser', async () => fixture(async root => {
+  const cap = await copyRuntime(root, ['source-excerpts.json', 'operations.test.mjs', 'catalog.test.mjs']);
   await fs.cp(path.join(HERE, '..', 'skills'), path.join(root, 'skills'), { recursive: true, filter: src => { const rel = path.relative(path.join(HERE, '..', 'skills'), src); return !rel || ['omni-engineering', 'omni-game', 'omni-cyber', 'omni-documents', 'omni-fiction', 'omni-research', 'omni-personalization', 'omni-assistant', 'omni-molbio', 'omni-business'].includes(rel.split(path.sep)[0]); } });
   const r = spawnSync(process.execPath, ['--test', path.join(cap, 'operations.test.mjs'), path.join(cap, 'catalog.test.mjs')], { cwd: root, encoding: 'utf8', timeout: 15000, env: { PATH: process.env.PATH, NODE_OPTIONS: '' } });
   assert.equal(r.status, 0, r.stdout + r.stderr);

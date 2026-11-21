@@ -10,8 +10,10 @@ export function validate(schema, value, path = '$', depth = 0) {
   if (t === 'object') {
     if (!value || typeof value !== 'object' || Array.isArray(value)) fail('E_SCHEMA', '需要对象 / Expected object', path);
     for (const k of Object.keys(value)) {
-      if (['__proto__', 'prototype', 'constructor'].includes(k)) fail('E_SCHEMA', '保留字段 / Reserved key', `${path}.${k}`);
-      if (!Object.hasOwn(schema.properties || {}, k)) fail('E_SCHEMA', '未知字段 / Unknown field', `${path}.${k}`);
+      // Unknown names are caller data, not trusted schema coordinates. A name
+      // can itself contain a secret or arbitrarily long text.
+      if (['__proto__', 'prototype', 'constructor'].includes(k)) fail('E_SCHEMA', '保留字段 / Reserved key', path);
+      if (!Object.hasOwn(schema.properties || {}, k)) fail('E_SCHEMA', '未知字段 / Unknown field', path);
     }
     for (const k of schema.required || []) if (!Object.hasOwn(value, k)) fail('E_SCHEMA', '缺少必填字段 / Required field missing', `${path}.${k}`);
     for (const [k, v] of Object.entries(value)) validate(schema.properties[k], v, `${path}.${k}`, depth + 1);

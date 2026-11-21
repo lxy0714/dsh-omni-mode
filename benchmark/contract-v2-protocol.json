@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "original40-explicit-contract-v2",
+  "purpose": {
+    "zh": "独立冻结的公开接口对照；保留旧题旧分，区分接口清晰度、最终结果与中间轨迹安全；不预设预设能力已经提高。",
+    "en": "A separately frozen public-interface comparison retaining old tasks/scores and separating interface clarity, final outcomes and trajectory safety; no presumed preset gain."
+  },
+  "expectedCases": 40,
+  "language": "zh",
+  "arms": ["baseline", "candidate"],
+  "order": "sha256(caseId) first byte parity; fixed before inference",
+  "routing": "initiating Agent's exact configured route for both arms; stop on route/source drift",
+  "maxModelCallsPerArm": 24,
+  "attempts": {
+    "primaryPerCase": 1,
+    "behavioralRetries": 0,
+    "infrastructureRecoveryPerCase": 1,
+    "selection": "primary includes errors; explicitly requested infrastructure recovery is separate, never best-of"
+  },
+  "controlledGate": {
+    "allCasesHaveCompletePair": true,
+    "candidateMinimumCriticalPasses": 38,
+    "candidateCriticalPassesAtLeastBaseline": true,
+    "criticalRegressions": 0,
+    "candidateSimulationRestorationSignals": 0,
+    "targetCasesMustPass": ["research-02", "review-02", "recover-03", "recover-04"]
+  },
+  "limitations": {
+    "zh": [
+      "只评受控虚拟工具，不是原生Agent、真实项目或原生会话恢复验收。",
+      "两方工具、公开任务契约和环境相同；策略与已冻结技能是实验处理。",
+      "更清楚的共同契约可能同时提高两方得分，不能归功于候选预设。",
+      "只运行一轮预注册配对，不作统计显著性或因果能力提升声明。",
+      "旧最终结果评分器保持不变；中间模拟恢复声明另列诊断，不回填旧分。",
+      "参考成果、隐藏事实值、probes和对方轨迹不得进入模型请求。"
+    ],
+    "en": [
+      "Controlled virtual tools only; not native Agent, real-project or native Session-restoration acceptance.",
+      "Tools, public task contracts and environment are identical; policies and frozen skills are treatments.",
+      "A clearer common interface can improve both arms and cannot be credited to the candidate preset.",
+      "One preregistered paired round, without statistical-significance or causal capability claims.",
+      "The final-outcome grader stays unchanged; intermediate simulated-restoration signals are separate and never rewrite old grades.",
+      "Reference artifacts, hidden factual values, probes and the opposing trace never enter model requests."
+    ]
+  }
+}

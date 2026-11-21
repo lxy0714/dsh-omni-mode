@@ -8,22 +8,21 @@
 
 ## 当前更新状态
 
-`1.7.0` 正式版继续更新**同一个全能模式预设**。这次新增：十个按需加载的领域专业技能、一份带四种成熟度的能力索引、11 个真实可运行的本地领域操作，以及一条**用代码**制作二维 SVG/PNG/GIF/MP4 的链路（不调用生图或视频模型）。仍是同一个包、同一个显示名和同一个 `omni` ID。
+**正式版 `v1.8.0`**：同一 `omni` 预设，20 个本地操作、32 个目录条目。新增精确游戏数值、工程影响分析、Markdown 核验、交付回执、游戏构建清单、小说伏笔、引文位置及可撤回风格建议。默认环境下 614 项仓库测试通过（共 624 项，10 项媒体测试依赖显式配置），其中 287 项能力契约测试。见[发行说明](docs/release-notes.md#中文)。
+
+继续提供十个按需加载的领域技能、区分四种成熟度的能力索引，以及用代码制作二维 SVG/PNG/GIF/MP4 的链路，不调用生图或视频模型。
 
 用法见[领域专长与代码视觉](docs/domain-capabilities.md#中文)、[执行方法](docs/omni-method.md#中文)和[100套预设分类](docs/preset-classification.md#中文)。推理选档、自适应保留、grilling 原文与权限边界均未改动。
 
-`v1.7.0` 现在是推荐版本；`v1.5.0` 保留为上一个稳定版，仍可回退。**已知限制不变**：字节未改动的原 40 题同模型复测，旧版通过 38 题、新版通过 34 题，有 4 题由通过变为不通过（多为题面未规定的封闭取值/类型）。不公布总通过率，也不宣称专业水平或旧题成绩提升。详见[领域执行复核](docs/domain-run-results.md#中文)。
+旧版本可从历史标签安装；请按各版本的宿主兼容范围回退。
 
 ## 安装
 
-兼容门禁为 `engines.dsh: ">=0.2.2-rc.1 <=0.2.2-rc.3"`，即接受 **DSH 0.2.2-rc.1**（npm `latest`）、**0.2.2-rc.2** 与 **0.2.2-rc.3**（npm `next`，桌面端已更新到此版）；三者都已隔离安装并实测通过原生集成。范围之外的版本会被宿主明确拒绝。先检查你的宿主版本，不要用豁免强装不兼容版本。
+`v1.8.0` 接受 DSH `0.2.2-rc.1` 至 `rc.5` 五个确切版本。未列出的版本请勿用豁免强装。见[兼容性说明](docs/compatibility.md#中文)。
 
 ```sh
-# 稳定版 / stable
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.5.0
-
 # 当前正式版 / current release
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.8.0
 ```
 
 或者从 [Releases](https://github.com/lxy0714/dsh-omni-mode/releases) 下载固定版本 TGZ 后，通过 DSH 插件管理器添加。桌面用户使用应用自己的插件管理器及实际 profile，不要把 `web` 原样套到所有部署。

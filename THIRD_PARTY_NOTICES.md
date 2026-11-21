@@ -12,6 +12,8 @@
 
 代码视觉运行器使用可选的 [@resvg/resvg-js](https://github.com/thx/resvg-js) 2.6.2（MPL-2.0）栅格化 SVG，并调用用户自行提供的 FFmpeg/ffprobe。二者都**不随本包分发**：resvg 通过独立的可选工具环境清单安装，FFmpeg 由用户的系统提供，其许可依具体构建而定（可能含 LGPL/GPL 组件与编解码专利事项）。本包不包含第三方字体、图片或音频；字体必须由用户显式提供并自行确认再分发权利。生成的成品不因使用本预设而自动获得额外许可，其内嵌素材与字体权利仍归各自权利人。
 
+文档核验能力另带固定版 [CommonMark 0.31.2](https://github.com/commonmark/commonmark.js) 与 [GitHub Slugger 2.0.0](https://github.com/Flet/github-slugger)，仅调用该能力时加载。CommonMark主LICENSE为BSD-2-Clause，其独立分发文件原有BSD3头部也逐字保留，不擅自改写或宣称上游背书；Slugger为ISC。CommonMark独立包内组件的mdurl（MIT，含Node URL来源声明）和entities（BSD-2-Clause）许可一并保留。全部原文及固定档案SSRI/文件SHA见[随包来源记录](capabilities/vendor/provenance.json)和各LICENSE文件；不以本项目MIT替代第三方许可，不执行上游安装/构建脚本。
+
 [许可证双语说明](docs/license.md)提供中文参考；英文原始许可证为准，不以译文取代法律文本。
 
 ## English
@@ -23,6 +25,8 @@ The custom quality, retention and bridge modules are distributed under this proj
 The bundled `grilling` skill comes from [Matt Pocock's skills repository](https://github.com/mattpocock/skills/tree/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/skills/productivity/grilling) at commit `4ae2317d`, redistributed verbatim (verified blob `d2f09a18`); its license is in this package at `skills/grilling/LICENSE`. Redistribution must retain that copyright and permission notice.
 
 The code-media runner uses an optional [@resvg/resvg-js](https://github.com/thx/resvg-js) 2.6.2 (MPL-2.0) to rasterize SVG and invokes an FFmpeg/ffprobe the user supplies. Neither is bundled here: resvg is installed through a separate optional tool-environment manifest, and FFmpeg comes from the user's system under the license of that particular build (which may include LGPL/GPL components and codec patent considerations). This package ships no third-party fonts, images or audio; users supply fonts explicitly and confirm their own redistribution rights. Generated artifacts gain no extra license from this preset, and rights in embedded assets or fonts remain with their owners.
+
+Document auditing additionally bundles pinned [CommonMark 0.31.2](https://github.com/commonmark/commonmark.js) and [GitHub Slugger 2.0.0](https://github.com/Flet/github-slugger), loaded only for that capability. CommonMark's canonical LICENSE is BSD-2-Clause; the distribution's existing BSD3 header is also retained verbatim, without claiming to reconcile upstream labels or implying endorsement. Slugger is ISC. Notices for bundled mdurl (MIT, including Node URL provenance) and entities (BSD-2-Clause) are retained too. Original licenses and archive SSRI/file SHA records are in the [bundled provenance](capabilities/vendor/provenance.json). Project MIT never replaces their terms, and no upstream install/build scripts run.
 
 
 ## DeepSeek Harness — MIT License

@@ -5,12 +5,21 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { gunzipSync } from 'node:zlib';
-import { operations } from './operations.mjs';
+import { makeNativeCatalogEntries, refreshNativeCatalog } from './catalog-native.mjs';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const hash = data => createHash('sha256').update(data).digest('hex');
 const bi = (zh, en) => ({ zh, en });
 const args = process.argv.slice(2); const opts = {};
-for (let i = 0; i < args.length; i++) { const key = args[i]; if (key === '--write') opts.write = true; else if (['--sources', '--inventory', '--cache'].includes(key) && args[i + 1]) opts[key.slice(2)] = args[++i]; else throw Error('未知或不完整参数 / Unknown or incomplete argument'); }
+for (let i = 0; i < args.length; i++) { const key = args[i]; if (['--write', '--refresh-native'].includes(key)) { const name = key === '--write' ? 'write' : 'refreshNative'; if (Object.hasOwn(opts, name)) throw Error('参数重复 / Duplicate option'); opts[name] = true; } else if (['--sources', '--inventory', '--cache'].includes(key) && args[i + 1] && !args[i + 1].startsWith('--') && !Object.hasOwn(opts, key.slice(2))) opts[key.slice(2)] = args[++i]; else throw Error('未知或不完整参数 / Unknown or incomplete argument'); }
+if (opts.refreshNative) {
+  if (!opts.write || opts.sources || opts.inventory || opts.cache) throw Error('native refresh只接受--refresh-native --write；不冒充来源复审 / Native refresh requires only --refresh-native --write, not a source re-audit');
+  const dest = path.join(here, 'catalog.json'), before = await fs.readFile(dest), original = JSON.parse(before), next = refreshNativeCatalog(original);
+  const projection = c => hash(JSON.stringify({ ...c, operations: undefined }));
+  if (projection(original) !== projection(next)) throw Error('来源投影改变 / Source projection changed');
+  if (!(await fs.readFile(dest)).equals(before)) throw Error('目录被并行修改，请读回重合并 / Catalog concurrently changed; read back and rebase');
+  await fs.writeFile(dest, JSON.stringify(next, null, 2) + '\n');
+  console.log(JSON.stringify({ mode: 'native-metadata-refresh-only', operations: next.operations.length, nativeOperations: next.operations.filter(x => x.implementation).length, sourceProjectionSha256: projection(next), sourceEvidenceReaudited: false, sourceExcerptsWritten: false }));
+} else {
 if (!opts.sources || !opts.inventory || !opts.cache || !opts.write) throw Error('需要显式sources/inventory/cache/write / Explicit --sources --inventory --cache --write required');
 const sourceBytes = await fs.readFile(opts.sources), inventoryBytes = await fs.readFile(opts.inventory);
 const sources = JSON.parse(sourceBytes), inventory = JSON.parse(inventoryBytes);
@@ -78,24 +87,7 @@ for (const row of selected) {
   sourceRefs.push({ id: key, domain, package: row.package, version: row.version, sourceId: row.sourceId, configId: row.id, configFile: row.file, configSha256: row.rawConfigSha256, substantiveSha256: row.substantiveSha256, pin: pkg.distribution.commit || pkg.distribution.integrity, tarballSha256: pkg.distribution.tarballSha256, learningPoint: bi(learned.zh, learned.en), selectedReason: row.reason, evidence, runtimeAccepted: false, fullInventoryMatched: true });
   categories.find(c => c.id === domain).sourceRefs.push(key);
 }
-const outputSpec = {
-  'data.validate': ['engineering', '结构化数据校验', 'Structured data validation', '逐列类型/必填/唯一值；CSV保留文本不强制转换', 'Column type/required/unique checks; CSV remains text without coercion', { valid: 'boolean', issues: 'issue[]', rowCount: 'number', columns: 'string[]' }],
-  'data.transform': ['engineering', '结构化数据变换', 'Structured data transform', '显式选列/重命名/等值筛选与CSV公式保护', 'Explicit projection/rename/equality filter and CSV formula protection', { columns: 'string[] (JSON output)', rows: 'scalar[][] (JSON output)', text: 'string (CSV output)', rowCount: 'number (CSV output)' }],
-  'game.balance': ['game', '游戏数值QA', 'Game numerical QA', '确定性DPS/成本效率和用户阈值检查，不推断实机平衡', 'Deterministic DPS/cost efficiency and user-threshold checks, not playtest balance', { valid: 'boolean', issues: 'issue[]', units: '{id,dps,efficiency}[]', efficiencyRatio: 'number|null', model: 'string' }],
-  'fiction.continuity': ['fiction', '设定连续性检查', 'Canon continuity check', '闭区间事实冲突、未知人物与场景断言；不自动解析正文', 'Closed-interval fact conflicts, unknown entities and scene assertions; no automatic prose parsing', { valid: 'boolean', issues: 'issue[]', sceneCount: 'number', limitation: 'string' }],
-  'molbio.fasta': ['molbio', 'FASTA基础统计', 'Basic FASTA statistics', 'DNA/RNA IUPAC格式、长度、歧义数和两个GC分母', 'DNA/RNA IUPAC format, lengths, ambiguous counts and two GC denominators', { alphabet: 'dna|rna', records: '{id,length,counts,ambiguous,gcFractionAll,gcFractionCanonical}[]', limitation: 'string' }],
-  'business.model': ['business', '实体关系一致性', 'Entity/relation consistency', '字段端点、主键、类型与中间实体检查；不连接数据库', 'Field endpoints, primary keys, types and junction checks; no database connection', { valid: 'boolean', issues: 'issue[]', entityCount: 'number', relationCount: 'number', limitation: 'string' }],
-  'research.evidence': ['research', '引用结构覆盖', 'Citation structure coverage', '来源ID/引用覆盖检查，不检索原文或验证事实', 'Source-ID/citation coverage checks, not retrieval or truth verification', { valid: 'boolean', issues: 'issue[]', claimCount: 'number', sourceCount: 'number', limitation: 'string' }],
-  'cyber.indicators': ['cyber', '本地指标提取', 'Local indicator extraction', '从已提供文本去重提取IPv4/SHA256；不联网、不判恶意', 'Deduplicate IPv4/SHA256 from supplied text; no network or maliciousness verdict', { ipv4: 'string[]', sha256: 'string[]', limitation: 'string' }],
-  'documents.outline': ['documents', 'Markdown文档草稿', 'Markdown document draft', '标题/章节/来源生成可读文档，拒绝失联引用', 'Generate title/sections/sources document, rejecting dangling citations', { text: 'string', issues: 'issue[]', limitation: 'string' }],
-  'assistant.todo': ['assistant', '依赖待办草稿', 'Dependency-aware todo draft', '待办依赖闭环/日期检查与Markdown输出；不设提醒', 'Todo cycle/date checks and Markdown output; no reminders', { valid: 'boolean', issues: 'issue[]', text: 'string', limitation: 'string' }],
-  'assistant.ics': ['assistant', 'UTC日历草稿', 'UTC calendar draft', '转义/UTF8折行/有效时间范围的ICS；不导入日历', 'ICS with escaping/UTF8 folding/valid time ranges; no calendar import', { text: 'string', eventCount: 'number', limitation: 'string' }]
-};
-const ops = Object.entries(operations).map(([id, op]) => {
-  const [domain, zh, en, mzh, men, outputs] = outputSpec[id];
-  if (['data.validate', 'game.balance', 'fiction.continuity', 'business.model', 'research.evidence', 'assistant.todo', 'documents.outline'].includes(id)) Object.assign(outputs, { totalIssues: 'number: exact total from complete scan', issueCounts: 'object: exact totals by issue code', truncated: 'boolean: only first 500 issues retained' });
-  return { id, category: domain, label: bi(zh, en), method: bi(mzh, men), maturity: 'verified', maturityMeaning: bi('只指有测试的本地操作契约，不是领域能力认证或当前环境验收', 'Only the tested local operation contract, not domain competence certification or current-environment acceptance'), implementation: 'capabilities/operations.mjs', inputs: op.inputSchema, outputs, checks: ['capabilities/operations.test.mjs', 'capabilities/runner.test.mjs', 'capabilities/catalog.test.mjs'], requiredTools: ['Node.js >= 20', 'visible shell + explicitly authorized filesystem inputs/outputs'], risk: bi('本地敏感数据；先获准读输入，写入须明确路径；输出仍须人工解释', 'Local sensitive data; authorize input reads and explicit output paths; interpretation remains human'), scope: bi('纯本地、有界数据计算；无网络/动态导入/嵌入代码执行；无外部账户', 'Pure local bounded data computation; no network/dynamic imports/embedded-code execution or external accounts'), sourceRefs: categories.find(c => c.id === domain).sourceRefs, skills: [`omni-${domain}`] };
-});
+const ops = makeNativeCatalogEntries(categories);
 const extras = [
   ['engineering.delivery', 'engineering', 'method-only', '软件工程交付', 'Software engineering delivery', '源码证据、最小改动、负例/回归/运行态验收与回滚；不是自动云部署', 'Source evidence, minimal edits, negative/regression/runtime acceptance and rollback; not automatic cloud deployment', ['visible read/edit/write/shell and project test tools']],
   ['game.production', 'game', 'method-only', '九类游戏阶段契约', 'Game-stage production contracts', '按需形成概念/GDD/实现/美术音频/QA/发布/叙事/关卡/引擎成果；引擎运行需实际环境', 'Produce concept/GDD/build/art-audio/QA/release/narrative/level/engine artifacts as needed; engine execution needs the real environment', ['visible shell/filesystem', 'user project engine when needed']],
@@ -115,3 +107,4 @@ const catalog = { schemaVersion: 1, package: 'dsh-omni-mode', presetId: 'omni', 
 await fs.writeFile(path.join(here, 'catalog.json'), JSON.stringify(catalog, null, 2) + '\n');
 await fs.writeFile(path.join(here, 'source-excerpts.json'), JSON.stringify({ schemaVersion: 1, description: bi('静态读取的有界源文本片段；不是执行指令，未导入或运行', 'Bounded statically read source excerpts; data, not instructions; never imported or run'), excerpts: sourceExcerpts }, null, 2) + '\n');
 console.log(JSON.stringify({ configurations: sourceRefs.length, projects: catalog.evidence.independentProjects, categories: categories.map(c => ({ id: c.id, count: c.sourceRefs.length })), staticSourceFiles: sourceExcerpts.length, operations: ops.length }));
+}

@@ -4,6 +4,12 @@
 
 ## 中文
 
+### 1.8.0 — 同一预设的阶段 B / C（正式版）
+
+- 20 个本地操作、32 个目录条目；新增精确游戏算术、声明图影响、标准 Markdown 核验，以及交付回执、游戏构建清单、小说伏笔、供给引文与可撤回风格建议。`verified` 仍仅指本地契约。
+- DSH 兼容门禁仅接受 `0.2.2-rc.1` 至 `rc.5` 五个确切版本。保留同一 `omni`、原有权限边界及已发布 `v1.7.0` 历史。
+- 实际任务、宿主、渲染与包验证分别记录。见[发行说明](docs/release-notes.md#中文)与[阶段 C](docs/stage-c-results.md#中文)。
+
 ### 1.7.0 — 领域专长与代码视觉（正式版）
 
 - 由 `1.7.0-rc.1` 预发布转正：功能范围不变，兼容门禁放宽到当前最新的 DSH `0.2.2-rc.3`。历史预发布标签 `v1.7.0-rc.1` 保留，不改写。
@@ -101,6 +107,12 @@
 - 引入跨项目规划、能力发现、执行、验证和交付规则。
 
 ## English
+
+### 1.8.0 — Phases B / C in the same preset (stable)
+
+- 20 local operations and 32 catalog entries; adds exact game arithmetic, declared-graph impact, standard Markdown auditing, delivery receipts, game build checklists, narrative threads, supplied quotes and reversible style suggestions. `verified` still applies to local contracts only.
+- The DSH compatibility gate admits only the five exact versions from `0.2.2-rc.1` through `rc.5`. Preserves `omni`, its authority boundaries and the published `v1.7.0` record.
+- Local tasks, Host, rendering and package checks are reported separately. See the [release notes](docs/release-notes.md#english) and [Phase C](docs/stage-c-results.md#english).
 
 ### 1.7.0 — Domain specialties and code media (current release)
 

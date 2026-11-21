@@ -17,6 +17,14 @@ test('schema rejects bounds and missing values', () => {
   err(() => run('game.balance', { units: [] }), 'E_LIMIT');
   err(() => run('molbio.fasta', { text: '>x\nAA' }), 'E_SCHEMA');
 });
+test('schema paths never disclose an unknown field name but retain known coordinates', () => {
+  const schema = O({ nested: O({ known: S() }) });
+  const marker = 'private-field-sentinel'.repeat(200);
+  assert.throws(() => validate(schema, { nested: { known: 'x', [marker]: 'y' } }), error =>
+    error.code === 'E_SCHEMA' && error.path === '$.nested' && !error.message.includes(marker));
+  assert.throws(() => validate(schema, { nested: { known: 1 } }), error =>
+    error.code === 'E_SCHEMA' && error.path === '$.nested.known');
+});
 test('CSV handles CRLF, escaped quotes, quoted commas/newlines and trailing empty cells', () => {
   assert.deepEqual(parseCSV('a,b\r\n"x,\nq","say ""yes"""\r\nz,\r\n'), { columns: ['a', 'b'], rows: [['x,\nq', 'say "yes"'], ['z', '']] });
 });
@@ -139,4 +147,21 @@ test('IPv4 requires complete canonical decimal tokens, not dotted prefixes or le
   assert.deepEqual(run('cyber.indicators', { text: '1.2.3.4.5 01.2.3.4 x1.2.3.4 0.0.0.0 [192.0.2.1]:443' }).ipv4, ['0.0.0.0', '192.0.2.1']);
 });
 test('prototype operation names are not executable operations', () => err(() => run('__proto__', {}), 'E_OPERATION'));
-test('every implemented operation exposes a closed input schema', () => { assert.equal(Object.keys(operations).length, 11); for (const op of Object.values(operations)) { assert.equal(op.inputSchema.additionalProperties, false); assert.equal(typeof op.run, 'function'); } });
+test('every implemented operation exposes a closed input schema', () => { assert.equal(Object.keys(operations).length, 20); for (const op of Object.values(operations)) { assert.equal(op.inputSchema.additionalProperties, false); assert.equal(typeof op.run, 'function'); } });
+test('registry preserves the guarded Phase C call boundary before processing input', () => {
+  let sideEffects = 0;
+  const proxy = new Proxy({}, { ownKeys() { sideEffects++; return []; }, get() { sideEffects++; } });
+  for (const id of ['engineering.delivery-check','game.build-check','personalization.style-draft','research.quote-check','fiction.thread-check']) {
+    err(() => run(id, proxy), 'E_SCHEMA');
+  }
+  assert.equal(sideEffects, 0);
+});
+test('the central registry actually invokes all four new domain operations', () => {
+  const offline = run('game.offline', { elapsedSeconds: 3, maxOfflineSeconds: 2, efficiency: { numerator: '1', denominator: '1' }, rounding: 'floor', resources: [{ id: 'ore', ratePerSecond: { numerator: '3', denominator: '2' }, rewardCap: '2' }] });
+  assert.equal(offline.resources[0].awardedAmount, '2'); assert.equal(offline.creditedSeconds, 2);
+  assert.equal(run('game.growth', { base: '2', multiplier: { numerator: '3', denominator: '2' }, levels: [2], rounding: 'floor' }).values[0].amount, '4');
+  const graph = run('engineering.impact', { scope: 'one inspected module', modules: [{ id: 'a', paths: [{ kind: 'file', path: 'a.js' }] }], dependencies: [], tests: [{ id: 't', covers: ['a'] }], changedPaths: ['a.js'] });
+  assert.deepEqual(graph.selectedTests, ['t']); assert.equal(graph.testsExecuted, false);
+  const doc = run('documents.audit', { documents: [{ path: 'README.md', markdown: '# Root\n[x](#root)' }] });
+  assert.equal(doc.valid, true); assert.equal(doc.actualFilesystemChecked, false);
+});

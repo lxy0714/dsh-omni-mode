@@ -5,6 +5,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { operations } from './operations.mjs';
+import { RUNTIME_FILES } from './runtime-files.mjs';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const catalog = JSON.parse(await fs.readFile(path.join(HERE, 'catalog.json')));
 const excerpts = JSON.parse(await fs.readFile(path.join(HERE, 'source-excerpts.json')));
@@ -24,9 +25,9 @@ test('every source preserves exact package/config keys, pins, learning points an
     for (const e of s.evidence) { assert.match(e.sha256, /^[a-f0-9]{64}$/); assert.ok(e.url.startsWith('https://')); const original = excerptMap.get(e.excerptId); assert.equal(original.sha256, e.sha256); assert.equal(original.execution, 'static-text-only-never-imported'); assert.ok(original.excerpt.length <= 2400); }
   }
 });
-test('all eleven implemented operation schemas equal catalog schemas; maturity is bounded to contracts', () => {
+test('every implemented operation schema equals its catalog schema; maturity is bounded to contracts', () => {
   for (const [id, op] of Object.entries(operations)) { const entry = catalog.operations.find(o => o.id === id); assert.ok(entry); assert.equal(entry.maturity, 'verified'); assert.deepEqual(entry.inputs, op.inputSchema); assert.ok(entry.checks.includes('capabilities/operations.test.mjs')); bilingual(entry.maturityMeaning); }
-  assert.equal(catalog.operations.filter(o => o.maturity === 'verified').length, 11);
+  assert.equal(catalog.operations.filter(o => o.maturity === 'verified').length, 20);
 });
 test('all catalog operations disclose inputs/outputs/checks/tools/risk/scope/sources/skills bilingually', () => {
   const refs = new Set(catalog.sourceRefs.map(s => s.id));
@@ -39,6 +40,7 @@ test('ten skill files are distinct bilingual specialist instructions with matchi
   for (const c of catalog.categories) { const body = await fs.readFile(path.join(HERE, '..', 'skills', c.skill, 'SKILL.md'), 'utf8'); assert.ok(body.startsWith(`---\nname: ${c.skill}\n`)); assert.match(body, /description: .+ \/ .+/); assert.match(body, /[\u4e00-\u9fff]/u); assert.match(body, /[A-Za-z]{4}/); assert.ok(body.length > 1800); assert.ok(body.includes('验收')); assert.ok(body.includes('来源')); assert.ok(body.includes('../../capabilities/')); bodies.add(body); }
   assert.equal(bodies.size, 10);
 });
-test('native runtime imports only authored local modules and Node builtins', async () => {
-  for (const file of ['operations.mjs', 'schema.mjs', 'runner.mjs']) { const body = await fs.readFile(path.join(HERE, file), 'utf8'); assert.doesNotMatch(body, /\b(?:eval|new Function)\s*\(/); assert.doesNotMatch(body, /\bimport\s*\(/); const imports = [...body.matchAll(/from\s+['"]([^'"]+)['"]/g)].map(m => m[1]); for (const spec of imports) assert.ok(spec.startsWith('node:') || ['./schema.mjs', './operations.mjs'].includes(spec), spec); }
+test('authored runtime has only Node/declared local imports; bundled parser is separately pinned', async () => {
+  const local = new Set(RUNTIME_FILES.filter(f => f.endsWith('.mjs')).map(f => './' + f));
+  for (const file of RUNTIME_FILES.filter(f => f.endsWith('.mjs'))) { const body = await fs.readFile(path.join(HERE, file), 'utf8'); assert.doesNotMatch(body, /\b(?:eval|new Function)\s*\(/); assert.doesNotMatch(body, /\bimport\s*\(/); const imports = [...body.matchAll(/from\s+['"]([^'"]+)['"]/g)].map(m => m[1]); for (const spec of imports) assert.ok(spec.startsWith('node:') || local.has(spec), spec); }
 });

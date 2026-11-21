@@ -9,6 +9,8 @@
 - [能力边界](capabilities.md#中文)：预设能影响什么、哪些必须另装插件或需要账号。
 - [自行修改](customization.md#中文)：fork、本地修改、安装与并存规则。
 - [验证分层](verification.md#中文)：测试、真实 Host、模拟推理及未验证项。
+- [1.8 阶段 C 实测](stage-c-results.md#中文)：五项新操作、实际本地任务及其验证范围。
+- [1.8阶段B开发态结果](stage-b-results.md#中文)：四个新操作、实际Agent任务、独立反例及未发布边界。
 - [许可证说明](license.md#中文)：MIT 权利、义务和英文原文的地位。
 - [grilling 使用说明](grilling.md#中文)：内置技能的触发方式、设计树访谈、边界和来源。
 - [全能模式执行方法](omni-method.md#中文)：同一预设内按需加载的执行流程、研究来源、回归范围与未验证项。
@@ -30,6 +32,8 @@
 - [Capability boundaries](capabilities.md#english): what the preset can influence versus what needs a plugin or account.
 - [Customization](customization.md#english): forks, local edits, installation and parallel versions.
 - [Verification](verification.md#english): tests, real Host/mock inference and unverified areas.
+- [Phase C evidence](stage-c-results.md#english): five new operations, actual local tasks and their verification scope.
+- [Phase B development evidence](stage-b-results.md#english): four new operations, actual Agent tasks, independent negatives and unreleased scope.
 - [License explanation](license.md#english): MIT rights, duties and the canonical original.
 - [Using grilling](grilling.md#english): invoking the bundled skill, design-tree interviews, boundaries and provenance.
 - [Omni execution method](omni-method.md#english): an on-demand method inside the same preset, its research provenance, regression scope and unverified claims.

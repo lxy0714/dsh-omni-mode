@@ -1,6 +1,6 @@
 {
   "name": "dsh-omni-mode",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "private": true,
   "license": "MIT",
   "repository": {
@@ -21,7 +21,7 @@
     "omni-mode"
   ],
   "engines": {
-    "dsh": ">=0.2.2-rc.1 <=0.2.2-rc.3",
+    "dsh": "0.2.2-rc.1 || 0.2.2-rc.2 || 0.2.2-rc.3 || 0.2.2-rc.4 || 0.2.2-rc.5",
     "node": ">=24.9.0"
   },
   "exports": {
@@ -48,6 +48,26 @@
     "capabilities/schema.mjs",
     "capabilities/operations.mjs",
     "capabilities/runner.mjs",
+    "capabilities/runtime-files.mjs",
+    "capabilities/game-idle.mjs",
+    "capabilities/engineering-impact.mjs",
+    "capabilities/engineering-delivery.mjs",
+    "capabilities/game-build-check.mjs",
+    "capabilities/style-draft.mjs",
+    "capabilities/research-quotes.mjs",
+    "capabilities/fiction-threads.mjs",
+    "capabilities/documents-audit.mjs",
+    "capabilities/documents-audit-core.mjs",
+    "capabilities/documents-audit-worker.mjs",
+    "capabilities/vendor/commonmark-0.31.2.cjs",
+    "capabilities/vendor/commonmark-LICENSE.txt",
+    "capabilities/vendor/github-slugger-2.0.0/index.js",
+    "capabilities/vendor/github-slugger-2.0.0/regex.js",
+    "capabilities/vendor/github-slugger-2.0.0/LICENSE.txt",
+    "capabilities/vendor/mdurl-LICENSE.txt",
+    "capabilities/vendor/entities-LICENSE.txt",
+    "capabilities/vendor/provenance.json",
+    "capabilities/README.md",
     "capabilities/catalog.json",
     "capabilities/source-excerpts.json",
     "media/runner.mjs",
@@ -80,9 +100,9 @@
     "docs/*.md"
   ],
   "scripts": {
-    "test": "node --test quality.test.js adaptive.test.js omni-method.test.mjs scripts/benchmark/grader.test.mjs scripts/benchmark/summarize.test.mjs scripts/benchmark/accept-domains.test.mjs scripts/research/classify.test.mjs tools/benchmark-host/index.test.mjs capabilities/operations.test.mjs capabilities/runner.test.mjs capabilities/catalog.test.mjs",
+    "test": "node --test quality.test.js adaptive.test.js omni-method.test.mjs scripts/benchmark/grader.test.mjs scripts/benchmark/summarize.test.mjs scripts/benchmark/accept-domains.test.mjs scripts/research/classify.test.mjs tools/benchmark-host/index.test.mjs capabilities/operations.test.mjs capabilities/runner.test.mjs capabilities/catalog.test.mjs capabilities/game-idle.test.mjs capabilities/engineering-impact.test.mjs capabilities/documents-audit.test.mjs capabilities/engineering-delivery.test.mjs capabilities/game-build-check.test.mjs capabilities/style-draft.test.mjs capabilities/research-quotes.test.mjs capabilities/fiction-threads.test.mjs capabilities/catalog-native.test.mjs scripts/benchmark/primary-journal.test.mjs media/render.test.mjs media/safety.test.mjs scripts/benchmark/contract-report.test.mjs scripts/benchmark/contract-suite.test.mjs scripts/benchmark/replay-receipts.test.mjs scripts/research/parsers.test.mjs tools/contract-benchmark-host/index.test.mjs capabilities/build-test-evidence.test.mjs",
     "test:host": "node integration.mjs",
-    "check": "node scripts/check-docs.mjs && node scripts/verify-package.mjs && node scripts/check-claims.mjs",
+    "check": "node scripts/check-docs.mjs && node scripts/verify-package.mjs && node scripts/check-claims.mjs && node capabilities/build-test-evidence.mjs --check",
     "pack:check": "node scripts/verify-package.mjs --pack",
     "verify": "npm run check && npm test && npm run test:host && npm run pack:check"
   },

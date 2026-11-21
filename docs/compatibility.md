@@ -6,13 +6,13 @@
 
 | 组件 | 当前范围 |
 |---|---|
-| Harness | `engines.dsh: ">=0.2.2-rc.1 <=0.2.2-rc.3"`，rc.1、rc.2、rc.3 均隔离安装实测；范围外版本由宿主拒绝 |
+| Harness | `v1.8.0` 显式列出 DSH `0.2.2-rc.1`、`rc.2`、`rc.3`、`rc.4`、`rc.5`；五版均运行了隔离原生 Host 集成（模拟推理）。历史 `v1.7.0` 标签仍沿用原 `rc.1`–`rc.3` 门禁 |
 | Node | 完整 DSH 组合的受支持下限 `24.9.0`；本机实测 `24.22.1` |
 | 平台 | 本机 Android/Ubuntu 及 GitHub Ubuntu/Node24 CI；其他平台不作已验证承诺 |
 | 模型 | 推理/容量决策依赖已声明的元数据；未知能力回退，不编造支持 |
 | 第三方插件 | 可见的普通工具可按需调用；没有逐一验证全部组合 |
 
-精确版本门禁是有意设计。新 Harness 可能改变生命周期、Session 或组合接口；应先增加隔离测试基线，通过后再放宽范围。
+精确枚举可拒绝未测试的后缀变体（如 `0.2.2-rc.4.1`）、未来 RC（如 `rc.6`）以及尚未纳入的正式 `0.2.2`。不使用兼容豁免。新 Harness 可能改变生命周期、会话或组合接口；应先隔离实测，通过后再扩展。
 
 推理档位 ID 是适配器私有值。初始化只对可识别的人类可读标签排序，传回原 ID；不更换 provider/model。恢复、清空与压缩不会重新强制设置首次选档。
 
@@ -26,13 +26,13 @@
 
 | Component | Current scope |
 |---|---|
-| Harness | `engines.dsh: ">=0.2.2-rc.1 <=0.2.2-rc.3"`, rc.1, rc.2 and rc.3 installed in isolation and tested; the host refuses anything outside it |
+| Harness | `v1.8.0` explicitly lists DSH `0.2.2-rc.1`, `rc.2`, `rc.3`, `rc.4`, and `rc.5`; all five ran isolated native Host integration with mock inference. The historical `v1.7.0` tag retains its original `rc.1`–`rc.3` gate |
 | Node | Supported minimum for the full Harness composition `24.9.0`; local tests used `24.22.1` |
 | Platform | Local Android/Ubuntu and GitHub Ubuntu/Node24 CI; other platforms not claimed |
 | Model | Advertised metadata required for reasoning/capacity decisions; unknown data falls back, without inventing support |
 | Third-party plugins | Generic visible tools can coexist; all combinations are not tested |
 
-The exact gate is intentional. A future Harness upgrade may change lifecycle, session or composition contracts. Add an isolated test baseline and update the gate only after validation.
+The exact list rejects untested suffixes (e.g. `0.2.2-rc.4.1`), future RCs (e.g. `rc.6`), and the unlisted stable `0.2.2`. No compatibility exemptions are used. A future Harness upgrade may change lifecycle, session or composition contracts; update the gate only after isolation testing.
 
 Reasoning effort IDs are opaque. Initialization ranks only recognizable advertised human labels and passes the original ID unchanged. It does not switch provider/model. Resume, clear and compact do not reapply the fresh-agent default.
 

@@ -1,5 +1,9 @@
 # 增强证据与未证事项 / Enhancement evidence and unproven claims
 
+**`v1.8.0` 实测证据 / Verified evidence**：默认环境 614 项仓库测试通过，含 287 项能力契约测试。[阶段 C 记录](stage-c-results.md#中文)列出三类实际本地实例及各自边界。下方为 1.7 历史记录。 / The default environment passes 614 repository tests, including 287 capability contract tests. [Phase C evidence](stage-c-results.md#english) describes three actual local examples and their scope. The v1.7 record below is historical.
+
+<!-- dsh-claims: historical v1.7.0 below -->
+
 [中文](#中文) · [English](#english)
 
 ## 中文

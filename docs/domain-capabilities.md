@@ -4,6 +4,8 @@
 
 ## 中文
 
+**`v1.8.0`** 保持同一预设，阶段 B 的四项与阶段 C 的五项使本地操作增至 20 个。标准文档解析器与许可约 0.4MB，仅文档工作进程加载，不新增根 npm 生产依赖或常驻 Host 插件。见[CLI 指南](../capabilities/README.md)、[阶段 B](stage-b-results.md#中文)及[阶段 C](stage-c-results.md#中文)。历史 `v1.7.0` 标签仍为原 11 项。
+
 ### 这次加强的是同一个全能模式
 
 `1.7.0` 仍是一个包、一个显示名「全能模式」、一个 `omni` 预设。新增的是**按需加载的领域方法**、一份**能力索引**，以及两个**可在本机真实运行的命令行工具**。没有第二套预设，没有把一百份人设拼进来。
@@ -31,7 +33,7 @@
 
 ### 能力索引与四种成熟度
 
-包内 `capabilities/catalog.json` 记录 100 套来源配置的引用、23 个能力条目及成熟度：
+当前开发树[能力目录](../capabilities/catalog.json)记录 100 套来源配置引用、32 个能力条目及成熟度，来源研究证据未重写：
 
 - **verified**：本地契约有独立测试。只证明该操作本身，不代表整个领域已认证。
 - **needs-dependency**：需要明确的外部工具、账户或项目环境，当前未验收。
@@ -72,14 +74,16 @@ node <包根>/media/runner.mjs validate --artifact <成品目录> --tool-env <�
 
 ### 验证到了哪一层
 
-- 能力目录：64 项本地契约测试通过。
-- 代码视觉：22 项测试在真实 resvg 与 FFmpeg 下通过，0 跳过，含真实中文渲染、GIF/MP4 编码解码、超时、取消、碰撞与不安全 SVG 拒绝。
+- 能力目录：287 项本地契约测试通过，包含边界检查与明确标注的故障模拟，不是对外部服务的验收。
+- 代码视觉：正式1.7既往23项真实渲染测试通过；本轮未改媒体实现，不冒称重新渲染或新增宣传片。
 - 原生集成：11 个专业技能、能力索引与两个运行器都能从安装包被发现并加载。
-- 领域工程验收：23 个案例全部通过，但这是 **CLI 契约验收**。
+- 既往领域工程验收23案例属于 **CLI契约验收**，不是本轮原生Agent任务或模型能力评分。
 
 **整体行为验收尚未通过**：12 项指导式任务存在中断、草案/评分缺陷与交付问题，不能公布总通过率。后续三个无能力提示的原生探针已复核产物并观察到自动选择方法；工程首轮取消与交付后用量错误单列。未改动原40题的防护前/后回归仍有关键警报，不宣称专业水平提升或整体无退步。首轮、恢复与主代理复核分列于[执行复核](domain-run-results.md#中文)。来源研究仍是静态审阅，未安装或运行任何被研究对象。
 
 ## English
+
+**`v1.8.0`**: four Phase B and five Phase C additions bring the same preset to 20 local operations. The licensed standard parser adds about 0.4MB and loads only in the document worker, with no root npm production dependency or resident Host plugin. See the [CLI guide](../capabilities/README.md), [Phase B](stage-b-results.md#english) and [Phase C](stage-c-results.md#english). Historical `v1.7.0` retains its original eleven.
 
 ### The same Omni preset, strengthened
 
@@ -108,7 +112,7 @@ These are **methods**, not external capability gained automatically. Real availa
 
 ### Capability index and four maturity states
 
-`capabilities/catalog.json` records references to the 100 source configurations, 23 capability entries and their maturity:
+The current [capability catalog](../capabilities/catalog.json) retains 100 source references and records 32 entries with explicit maturity; source evidence is not rewritten:
 
 - **verified**: the local contract has independent tests. This proves that operation only, not domain certification.
 - **needs-dependency**: requires explicit external tools, accounts or project environments; not accepted here.
@@ -147,9 +151,9 @@ Scene source runs in an owned child process. That is **not a sandbox**, and it i
 
 ### Verification level reached
 
-- Capability directory: 64 local contract tests pass.
-- Code media: 22 tests pass under real resvg and FFmpeg with 0 skipped, covering real Chinese rendering, GIF/MP4 encode/decode, timeouts, cancellation, collisions and unsafe-SVG rejection.
+- Capability directory: 287 local contract tests pass, including boundary checks and explicit fault simulations, not external-service acceptance.
+- Code media: the released 1.7 evidence has 23 real render tests; media implementation is unchanged and no new rendering or promotional film is claimed here.
 - Native integration: all 11 specialist skills, the capability index and both runners are discoverable and loadable from the installed package.
-- Domain engineering acceptance: 23 cases pass — but this is **CLI contract acceptance**.
+- The earlier 23 domain-engineering cases are **CLI contracts**, not this round's native Agent tasks or model-quality scores.
 
 **Overall behavioral acceptance has not passed**: the twelve guided tasks retain interruptions, rubric/checker defects and delivery issues, without an overall pass rate. Three later native probes without capability hints have independently reviewed artifacts and observed spontaneous method selection; engineering cancellation and its post-delivery usage error remain separate. Before/after-guard runs on the unchanged original40 retain critical warnings, not professional improvement or overall non-regression. See the [execution review](domain-run-results.md#english) for separate first attempts, recovery and lead checks. Source research stays static-only; no researched subject was installed or executed.

@@ -1,4 +1,12 @@
 import { A, B, E, N, O, S, fail, unique, utc, validate } from './schema.mjs';
+import { gameSchemas, gameImplementations } from './game-idle.mjs';
+import { engineeringSchemas, engineeringImplementations } from './engineering-impact.mjs';
+import { documentSchemas, documentImplementations } from './documents-audit.mjs';
+import { engineeringDeliverySchemas, engineeringDeliveryImplementations } from './engineering-delivery.mjs';
+import { gameBuildSchemas, gameBuildImplementations } from './game-build-check.mjs';
+import { styleDraftSchemas, styleDraftImplementations } from './style-draft.mjs';
+import { researchQuoteSchemas, researchQuoteImplementations } from './research-quotes.mjs';
+import { fictionThreadSchemas, fictionThreadImplementations } from './fiction-threads.mjs';
 const scalar = { type: 'scalar' };
 const field = O({ name: S(100), type: E('string', 'number', 'boolean'), required: B, unique: B }, ['name', 'type']);
 const MAX_ISSUES = 500;
@@ -153,5 +161,11 @@ const implementations = {
     lines.push('END:VCALENDAR'); return { text: lines.map(fold).join('\r\n') + '\r\n', eventCount: x.events.length, limitation: 'UTC ICS草稿；未导入/发送/预约 / UTC ICS draft; not imported, sent or booked' };
   }
 };
-export const operations = Object.freeze(Object.fromEntries(Object.keys(schemas).map(id => [id, { inputSchema: schemas[id], run: implementations[id] }])));
-export function runOperation(id, input) { const op = Object.hasOwn(operations, id) ? operations[id] : null; if (!op) fail('E_OPERATION', '未知操作 / Unknown operation'); validate(op.inputSchema, input); return op.run(input); }
+// These implementations validate closed JSON themselves after their side-effect-
+// free preflight. Running the legacy validator first would read JS accessors
+// or Proxy traps on direct programmatic inputs before that preflight.
+const guarded = { ...engineeringDeliveryImplementations, ...gameBuildImplementations, ...styleDraftImplementations, ...researchQuoteImplementations, ...fictionThreadImplementations };
+const allSchemas = { ...schemas, ...gameSchemas, ...engineeringSchemas, ...documentSchemas, ...engineeringDeliverySchemas, ...gameBuildSchemas, ...styleDraftSchemas, ...researchQuoteSchemas, ...fictionThreadSchemas };
+const allImplementations = { ...implementations, ...gameImplementations, ...engineeringImplementations, ...documentImplementations, ...guarded };
+export const operations = Object.freeze(Object.fromEntries(Object.keys(allSchemas).map(id => [id, { inputSchema: allSchemas[id], run: allImplementations[id] }])));
+export function runOperation(id, input) { const op = Object.hasOwn(operations, id) ? operations[id] : null; if (!op) fail('E_OPERATION', '未知操作 / Unknown operation'); if (!Object.hasOwn(guarded, id)) validate(op.inputSchema, input); return op.run(input); }

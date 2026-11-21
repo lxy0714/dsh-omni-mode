@@ -1,0 +1,12 @@
+{
+  "name": "@local/omni-contract-benchmark",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "开发专用公开契约对照：独立冻结、当前路由、虚拟夹具；不更换预设。 / Development-only public-contract comparison with independent freezes, the current route and virtual fixtures; no preset switching.",
+  "engines": {"dsh": "0.2.2-rc.1", "node": ">=24.9.0"},
+  "exports": {".": "./index.js", "./locale/*.json": "./locale/*.json", "./icon": "./icon.svg"},
+  "files": ["index.js", "core.mjs", "cordis.patch.yml", "locale/*.json", "icon.svg", "README.md"],
+  "dsh": {"bundle": {"patch": "./cordis.patch.yml"}}
+}

@@ -9,7 +9,11 @@ if(arg>=0)assert(process.argv[arg+1],'--package-dir requires a path');
 const packaged=arg>=0;
 const root=packaged?path.resolve(process.argv[arg+1]):path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const bilingual=(text,where)=>assert(/\p{Script=Han}/u.test(text)&&/[A-Za-z]/.test(text),`Missing Chinese/English text: ${where}`);
-const pages=['README.md','README.en.md','CHANGELOG.md','CONTRIBUTING.md','SECURITY.md','THIRD_PARTY_NOTICES.md','VERIFICATION.md',...fs.readdirSync(path.join(root,'docs')).filter(file=>file.endsWith('.md')).map(file=>`docs/${file}`)];
+// User guides are either split by language or paired inline. Frozen task input
+// files and upstream license text are not rewritten as user guides.
+const inline=new Set(['capabilities/README.md','media/README.md',...(packaged?[]:['research/README.md'])]);
+const sourceGuides=packaged?[]:['benchmark/README.md','tools/benchmark-host/README.md','tools/contract-benchmark-host/README.md'];
+const pages=['README.md','README.en.md','CHANGELOG.md','CONTRIBUTING.md','SECURITY.md','THIRD_PARTY_NOTICES.md','VERIFICATION.md',...fs.readdirSync(path.join(root,'docs')).filter(file=>file.endsWith('.md')).map(file=>`docs/${file}`),...inline,...sourceGuides];
 for(const file of pages){
  const text=fs.readFileSync(path.join(root,file),'utf8');
  if(file==='README.md'){
@@ -18,7 +22,11 @@ for(const file of pages){
  }else if(file==='README.en.md'){
   assert(text.includes('[中文](README.md)'));
   assert((text.match(/[A-Za-z]+/g)??[]).length>100);
- }else{
+  }else if(inline.has(file)){
+   bilingual(text.split('\n',1)[0],file+':title');
+   assert((text.match(/\p{Script=Han}/gu)??[]).length>30,`Incomplete Chinese: ${file}`);
+   assert((text.match(/[A-Za-z]+/g)??[]).length>30,`Incomplete English: ${file}`);
+  }else{
   const zh=text.indexOf('## 中文');const en=text.indexOf('## English');
   assert(zh>=0&&en>zh,`Missing language sections: ${file}`);
   assert((text.slice(zh,en).match(/\p{Script=Han}/gu)??[]).length>30,`Incomplete Chinese: ${file}`);

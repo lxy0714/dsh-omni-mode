@@ -25,6 +25,8 @@ description: 一手来源研究、论文阅读、学习诊断/主动回忆与引
 
 只读获准输入；写新文件明确`--out <path> --allow-write`，可加`--root`，不覆盖。`doctor --test`证明引用结构操作，不证明研究结论或整个领域能力。 / Authorize reads; explicit output path/allow-write, optionally root; no overwrite. Doctor tests establish citation structure only, not conclusions or whole-domain competence.
 
+如果已经获准读取原件并取得确切行文本，可用 `research.quote-check` 单独核对引文。给出 `sources[].lines`、`quotes[].quotedLines` 与该片段内从 1 开始且两端包含的 `startLine,endLine`；返回的是按供给定位的逐字相等或差异，不查找其他位置，也不应把片段索引当原件页码/全文行号。工具不下载、不打开原件、不保证来源真实或引文支持主张；输出默认不带原文和引文。 / Once you have authorized access and exact source lines, `research.quote-check` can compare separate quotation data. Supply `sources[].lines`, `quotes[].quotedLines` and one-based inclusive `startLine,endLine` within the excerpt. It compares the specified location without searching elsewhere, and the coordinates are not original pages or whole-document line numbers. No downloading, original-file access, authenticity or entailment assessment; source and quote text are not echoed.
+
 ## 研究验收 / Research acceptance
 逐项读回一手来源定位、数值/引文、反证和局限；复核结论确实被证据支持。教学验收以用户独立作答/回忆为准，不以讲解长度为准。 / Read back primary-source coordinates, numbers/quotations, counterevidence and limits; verify conclusions are actually supported. Learning acceptance is independent recall/work, not explanation length.
 

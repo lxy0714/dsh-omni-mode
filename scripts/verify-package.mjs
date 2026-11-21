@@ -5,6 +5,7 @@ import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { testRuntimeRequire, isolatedTestEnv, verifyNodeGate, verifyLockMetadata } from './test-runtime.mjs';
+import { RUNTIME_FILES } from '../capabilities/runtime-files.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const self=createRequire(path.join(root,'package.json'));
@@ -33,16 +34,20 @@ const semver=semverModule();
 const acceptedDsh=semver.validRange(manifest.engines.dsh);
 assert(acceptedDsh,'engines.dsh must be a valid semver range');
 assert(semver.satisfies(official.version,manifest.engines.dsh,{includePrerelease:true}),`tested ${official.version} is outside the declared range ${manifest.engines.dsh}`);
-// Names the exact versions the range admits, so docs and logs cannot drift from it.
-// Every entry must be installed and run in isolation; listing a version here is
-// itself a compatibility claim, so this list is asserted against a frozen census.
-const compatibleDsh=['0.2.2-rc.1','0.2.2-rc.2','0.2.2-rc.3'];
-const testedDsh=compatibleDsh.filter(v=>semver.satisfies(v,manifest.engines.dsh,{includePrerelease:true}));
-assert.deepEqual(testedDsh,compatibleDsh,`engines.dsh must admit exactly the verified versions ${compatibleDsh.join(', ')}`);
-// The declared range is closed decided-by-range: any newer pre-release stays out
-// until it is installed, exercised and added to this census.
-for(const rejected of ['0.2.1-rc.5','0.2.2-alpha.3','0.2.2-rc.4','0.2.2','0.2.3-rc.1']){
- assert(!semver.satisfies(rejected,manifest.engines.dsh,{includePrerelease:true}),`engines.dsh must not admit unverified ${rejected}`);
+// Enumerate exact version precedences. A continuous interval would also admit
+// untested nested prereleases such as rc.4.1. Each run exercises one actual SDK.
+const compatibleDsh=['0.2.2-rc.1','0.2.2-rc.2','0.2.2-rc.3','0.2.2-rc.4','0.2.2-rc.5'];
+assert.equal(manifest.engines.dsh,compatibleDsh.join(' || '),'engines.dsh must enumerate the compatibility census');
+const {evaluatePluginCompatibility,getDshRuntimeVersion}=await import(pathToFileURL(host.resolve('@deepseek-ai/dsh-app-boot')));
+assert.equal(getDshRuntimeVersion(),official.version,'DSH CLI and app-boot must be the same version');
+assert.equal(evaluatePluginCompatibility(manifest),undefined,'the selected official Host must accept the manifest without an exemption');
+for(const accepted of compatibleDsh){
+ assert.equal(evaluatePluginCompatibility(manifest,{},accepted),undefined,`engines.dsh must admit ${accepted}`);
+}
+for(const rejected of ['0.2.1-rc.5','0.2.2-alpha.3','0.2.2-rc.0','0.2.2-rc.1.1','0.2.2-rc.4.1','0.2.2-rc.5.1','0.2.2-rc.6','0.2.2','0.2.3-rc.1']){
+ const result=evaluatePluginCompatibility(manifest,{},rejected);
+ assert.equal(result?.exempted,false,`engines.dsh must reject ${rejected} without exemption`);
+ assert.equal(result?.requirements['engines.dsh'],manifest.engines.dsh,`expected the manifest gate to reject ${rejected}`);
 }
 verifyNodeGate(manifest.engines.node,official.engines.node);
 verifyLockMetadata(manifest,JSON.parse(fs.readFileSync(path.join(root,'package-lock.json'),'utf8')));
@@ -92,12 +97,44 @@ if(process.argv.includes('--pack')){
  const npm=process.platform==='win32'?'npm.cmd':'npm';
  const [pack]=JSON.parse(execFileSync(npm,['pack','--json','--ignore-scripts','--pack-destination',temp],{cwd:root,encoding:'utf8'}));
  for(const {path:file} of pack.files){
-  assert(!/(^|\/)(node_modules|\.verification|\.git|\.env)(\/|$)|\.test\.js$|verification-report\.json$/.test(file),`unexpected release file ${file}`);
+   assert(!/(^|\/)(node_modules|\.verification|\.git|\.env)(\/|$)|\.test\.[cm]?js$|(^|\/)(?:build-test-evidence\.mjs|test-evidence\.json|\.omni-evidence-[^/]+)(?:\/|$)|verification-report\.json$/.test(file),`unexpected release file ${file}`);
  }
- for(const file of ['quality.js','adaptive.js','pool.js','cordis.patch.yml','LICENSE','THIRD_PARTY_NOTICES.md','skills/grilling/SKILL.md','skills/grilling/LICENSE','skills/grilling/SOURCE.md','skills/omni-method/SKILL.md','docs/grilling.md','docs/omni-method.md'])assert(pack.files.some(entry=>entry.path===file),`missing ${file}`);
+  for(const file of ['quality.js','adaptive.js','pool.js','cordis.patch.yml','LICENSE','THIRD_PARTY_NOTICES.md','skills/grilling/SKILL.md','skills/grilling/LICENSE','skills/grilling/SOURCE.md','skills/omni-method/SKILL.md','docs/grilling.md','docs/omni-method.md'])assert(pack.files.some(entry=>entry.path===file),`missing ${file}`);
+  for(const file of [...RUNTIME_FILES,'README.md','source-excerpts.json'])assert(pack.files.some(entry=>entry.path===`capabilities/${file}`),`missing capability runtime ${file}`);
  const extracted=path.join(temp,'extracted');fs.mkdirSync(extracted);
  execFileSync('tar',['-xzf',path.join(temp,pack.filename),'-C',extracted]);
- execFileSync(process.execPath,[path.join(root,'scripts/check-docs.mjs'),'--package-dir',path.join(extracted,'package')],{stdio:'inherit'});
+  execFileSync(process.execPath,[path.join(root,'scripts/check-docs.mjs'),'--package-dir',path.join(extracted,'package')],{stdio:'inherit'});
+  const cli=path.join(extracted,'package/capabilities/runner.mjs');
+  const cleanEnv={...process.env,NODE_OPTIONS:''};delete cleanEnv.NODE_TEST_CONTEXT;
+  const invoke=(id,input)=>{const r=spawnSync(process.execPath,[cli,'run',id,'--json',JSON.stringify(input)],{encoding:'utf8',env:cleanEnv,timeout:15000});assert.equal(r.status,0,r.stderr);return JSON.parse(r.stdout);};
+  assert.equal(invoke('game.offline',{elapsedSeconds:2,maxOfflineSeconds:1,efficiency:{numerator:'1',denominator:'1'},rounding:'floor',resources:[{id:'r',ratePerSecond:{numerator:'3',denominator:'2'},rewardCap:'9'}]}).resources[0].awardedAmount,'1');
+  assert.equal(invoke('game.growth',{base:'9007199254740993',multiplier:{numerator:'2',denominator:'1'},levels:[1],rounding:'floor'}).values[0].amount,'18014398509481986');
+  assert.equal(invoke('engineering.impact',{scope:'extracted-package probe',modules:[{id:'m',paths:[{kind:'file',path:'m.js'}]}],dependencies:[],tests:[{id:'t',covers:['m']}],changedPaths:['m.js']}).recommendation.mode,'targeted');
+  assert.equal(invoke('documents.audit',{documents:[{path:'a.md',markdown:'# A\n[x](#a)'}]}).valid,true);
+   assert.equal(invoke('documents.audit',{documents:[{path:'a.md',markdown:'# A\n`<a id="ghost"></a>`\n[x](#ghost)'}]}).issueCounts.MISSING_ANCHOR,1);
+   const subject='a'.repeat(64),receipt='b'.repeat(64);
+   const delivery=invoke('engineering.delivery-check',{subjectSha256:subject,requiredCheckIds:['test','rollback'],receipts:[{checkId:'test',subjectSha256:subject,receiptSha256:receipt,outcome:'pass'}]});
+   assert.deepEqual(delivery.results.map(x=>x.blockerCode),[null,'MISSING_RECEIPT']);
+   assert.equal(delivery.checksExecuted,false);
+   const game=invoke('game.build-check',{buildId:'current',targets:[{id:'fixture',requiredTests:['smoke']}],builds:[{targetId:'fixture',buildId:'current',artifactSha256:subject}],testRuns:[{targetId:'fixture',testId:'smoke',buildId:'current',artifactSha256:receipt,outcome:'pass'}]});
+   assert.equal(game.issueCounts.TEST_ARTIFACT_MISMATCH,1);
+   assert.equal(game.testsExecuted,false);
+   const originalStyle={length:'default',tone:'default',structure:'default'};
+   const style={length:'concise',tone:'direct',structure:'bullets'};
+   const consent={action:'draft',scope:'current-task',current:originalStyle,proposed:style};
+   assert.equal(invoke('personalization.style-draft',{...consent,consent:false}).status,'consent-required');
+   const drafted=invoke('personalization.style-draft',{...consent,consent:true});
+   assert.equal(drafted.memoryWritten,false);
+   const restored=invoke('personalization.style-draft',{action:'revert',scope:'current-task',current:drafted.proposedState,undo:drafted.undo});
+   assert.equal(restored.status,'revert-draft');assert.deepEqual(restored.proposedState,originalStyle);
+   const quotes=invoke('research.quote-check',{sources:[{id:'excerpt',lines:['first','second']}],quotes:[{id:'q1',sourceId:'excerpt',startLine:2,endLine:2,quotedLines:['second']},{id:'q2',sourceId:'excerpt',startLine:1,endLine:1,quotedLines:['second']}]});
+   assert.deepEqual(quotes.results.map(x=>x.status),['matched','text-mismatch']);
+   assert.equal(quotes.sourceAuthenticityVerified,false);
+   const fiction=invoke('fiction.thread-check',{chapters:[{id:'first',events:[{threadId:'a',kind:'payoff'},{threadId:'b',kind:'setup'}]},{id:'second',events:[{threadId:'a',kind:'setup'},{threadId:'a',kind:'payoff'}]}]});
+   assert.deepEqual(fiction.threads.map(x=>x.status),['paid-off','open']);
+   assert.equal(fiction.issueCounts.PAYOFF_BEFORE_SETUP,1);assert.equal(fiction.storyEvaluated,false);
+  const unsupported=spawnSync(process.execPath,[cli,'doctor','--test'],{encoding:'utf8',env:cleanEnv,timeout:15000});
+  assert.equal(unsupported.status,1);assert.equal(JSON.parse(unsupported.stdout).evidence.supported,false);
  const output=execFileSync(process.execPath,[path.join(root,'integration.mjs')],{cwd:root,encoding:'utf8',timeout:180000,maxBuffer:4*1024*1024,env:{...process.env,DSH_TEST_BASE:host.resolve('@deepseek-ai/dsh/package.json'),DSH_TEST_PACKAGE_DIR:path.join(extracted,'package')}});
  const report=JSON.parse(output);
  assert.equal(report.result,'PASS');
@@ -123,5 +160,5 @@ if(process.argv.includes('--pack')){
   assert.notEqual(negative.status,0,'a package missing its skill must fail even with external same-name decoys');
   assert((negative.stderr??'').includes(`bundled ${name} skill must be discoverable`),'negative must fail the exact package skill lookup');
  }
- console.log(JSON.stringify({pack:'PASS',files:pack.entryCount,bytes:pack.size,extractedConsumer:'PASS',bundledSkill:'PASS',missingSkillDecoys:'REJECTED',tarball:path.join(temp,pack.filename)}));
+   console.log(JSON.stringify({pack:'PASS',files:pack.entryCount,bytes:pack.size,extractedConsumer:'PASS',newCapabilityInvocations:12,runtimeOnlyTests:'honestly-unsupported',bundledSkill:'PASS',missingSkillDecoys:'REJECTED',tarball:path.join(temp,pack.filename)}));
 }

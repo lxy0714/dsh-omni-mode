@@ -51,7 +51,7 @@ git -C /root/workspace/dsh-omni-mode rev-parse HEAD
 
 ```sh
 dsh plugin --profile web remove @local/dsh-omni-preset
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.8.0
 ```
 
 **B. 用本地源码（调试用）**
@@ -146,7 +146,7 @@ Choose one path; never enable two packages declaring the same `omni` ID.
 
 ```sh
 dsh plugin --profile web remove @local/dsh-omni-preset
-dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.7.0
+dsh plugin --profile web add github:lxy0714/dsh-omni-mode#v1.8.0
 ```
 
 **B. Local source (for debugging)**

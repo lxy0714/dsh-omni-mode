@@ -1,0 +1,3 @@
+- insert:
+    - id: omni-contract-benchmark
+      name: '@local/omni-contract-benchmark'

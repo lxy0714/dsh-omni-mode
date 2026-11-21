@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "package": "dsh-omni-mode",
   "presetId": "omni",
   "displayName": "全能模式",
@@ -7,16 +7,63 @@
   "installed": true,
   "hostMounted": "not-checked",
   "accepted": true,
+  "generation": {
+    "generator": "capabilities/build-test-evidence.mjs --write",
+    "generatedAt": "2026-11-21T05:30:53.837Z",
+    "node": "v24.22.1",
+    "packageVersion": "1.8.0"
+  },
   "evidence": {
-    "command": "node --test capabilities/operations.test.mjs capabilities/runner.test.mjs capabilities/catalog.test.mjs",
+    "command": "node --test --test-reporter=tap capabilities/operations.test.mjs capabilities/runner.test.mjs capabilities/catalog.test.mjs capabilities/game-idle.test.mjs capabilities/engineering-impact.test.mjs capabilities/documents-audit.test.mjs capabilities/engineering-delivery.test.mjs capabilities/game-build-check.test.mjs capabilities/style-draft.test.mjs capabilities/research-quotes.test.mjs capabilities/fiction-threads.test.mjs",
+    "hashedRelativeTo": "capabilities/",
     "hashes": {
-      "schema.mjs": "1eaa082faf1802b711a9bf203c6e25c8c6ca03c123b79a7308675a8b8b4f653c",
-      "operations.mjs": "8aae5d2ef6d42d33233752bd2988aa032028dcabae3c73d3dd4754c7eab90590",
-      "runner.mjs": "db8bce6f569d16a90449f366ac79595139cca38e145e10ed6a79d39797cbf2f5",
-      "catalog.json": "5fe73af212915e37317ba1c64df451cb51bc1ca509d6b71a2557a83714c75ffa",
-      "operations.test.mjs": "9f0bc2a74384a8ad7dc0bbbd9ab0433f8ac74c77f320bfc25d3259ee92d8061b",
-      "runner.test.mjs": "734764e012281c69c77697bca2699db2555225652eb638bb64eb6eae94e47b7b",
-      "catalog.test.mjs": "3ac1b8385a80b1284ef9330a1bb198eb669a30730386ff31c8998fc95e93aa05"
+      "schema.mjs": "9d2614160d7e94b752b6db4b16d9c395b8f59f053723d0ce800206734dd29704",
+      "operations.mjs": "639e43d15948f3a227cf147bf24205316052c6a874cf98f63e83f99eee1ca02c",
+      "runner.mjs": "207d8e4a71ab123b305e2914da5190c657981c1a682bc7953e98081ad4458d58",
+      "runtime-files.mjs": "89129775aae14bc1fb37ae35596e22217a2608fd868cef931ff8bb0894d06e85",
+      "catalog.json": "42e5b618208f362cd8b6981b9da0f86065a0e5d326dfe021bab9b1cf47343897",
+      "game-idle.mjs": "7d39f23dbb916bf96bf4f375202ec0ed03ff06a2f5d6f16b4849b026dc597537",
+      "engineering-impact.mjs": "278465d4d0f5114e042c1afd694ed7cc4402bbfa9478b33c83abd12db11ce8d7",
+      "documents-audit.mjs": "cc1f565faef77d9bdd9de481c42ab6812fb6227d369001f9c5a8456bb432eb9a",
+      "engineering-delivery.mjs": "b8e0d66c18fced1efb48fb1b4596e6d6c4dbbc236cf08443d2c3b903894354e2",
+      "game-build-check.mjs": "3039236f02777a471c7285f9c1a4cdb48d9f1c93e59cad14de74c885ca9a7261",
+      "style-draft.mjs": "b915dcc9af3bab0005478122aee3a63b2285570d294a77a998407301afc7cd86",
+      "research-quotes.mjs": "950f2aa04988c762fd66360fdc0f17b9a32196063fd91ee7cba8202fdb6167b7",
+      "fiction-threads.mjs": "1561b2386888fae48ba5fc64eb06d1e7ee664227d74ed72e148e826ed5bc5959",
+      "documents-audit-core.mjs": "434c2b4d0f74e489f1082217f40c6a802c2c4e63169dbfa2b3b6e6ac96ade229",
+      "documents-audit-worker.mjs": "0bed45cd8f1d165ef928322c5b4f00c8feabc63a2cd8ee4f7afb074bdb9375d0",
+      "vendor/commonmark-0.31.2.cjs": "4d124568b8d4490df72fea8aa0f9a144c5b581b0de0eb63d3a996104b2797edc",
+      "vendor/commonmark-LICENSE.txt": "6cc4b9b28cf68e5bd20f9e94859a85cde35095ef4f9d0f7385b0b6166642f50b",
+      "vendor/github-slugger-2.0.0/index.js": "76082571f2ada4508b1d5ab1267e58c888a5cbc964663221e05830d413d52b14",
+      "vendor/github-slugger-2.0.0/regex.js": "3bcbb3836a4e76f0f343c34d223ddd9eac83cc73a4e2c7a1118ef0829bc9129b",
+      "vendor/github-slugger-2.0.0/LICENSE.txt": "542aefa99456832996da0cc63b14d8b89f04a30ba403e241dbe3e5aaf49fa372",
+      "vendor/mdurl-LICENSE.txt": "6b6a356c4337e2446841f30f3cdf7e7023af8c5260b5e347c0f987b9f6aa2644",
+      "vendor/entities-LICENSE.txt": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164",
+      "vendor/provenance.json": "c3af80b0a8b8ce1d35170b6252ee851c9b995d3599c58f1b043b3b632593bbdb",
+      "operations.test.mjs": "f3768710266cbd34000a41cb90e82d660e2b70f0654f0be2e07f1c83d02b0565",
+      "runner.test.mjs": "5cdfb2057335eb181ae483c1ef609fa8f27aa8a805d3f3c7ee8dbd00c2866aa0",
+      "catalog.test.mjs": "d83aab2370ba8fed36b6c1c8bd051abb99a34ef2e8102983df9e05432c927ce6",
+      "game-idle.test.mjs": "d04c588a0b6edc6bed0137a0da7030525e1fa23f9e498341cdd3b152439eb1c6",
+      "engineering-impact.test.mjs": "4b5d54b32b5c0c659e4229abedf1a0cb70cb855881cf9ae61cab05b16bbc1e5e",
+      "documents-audit.test.mjs": "eab564a5c6db85a58951d5d5155f0d01b02da077fc1508d8dc0d1163e85b222e",
+      "engineering-delivery.test.mjs": "6d0f4d083c9f93a0f5a422b487f73343fd43567775927ac546e7cce293da04d2",
+      "game-build-check.test.mjs": "969ed0ed0f48d2161453254baed4f35b7dd5b05eac94ce44534d0871403ca089",
+      "style-draft.test.mjs": "27c8aefd2b3500ba1806b8bf86d9c755ba6dfc4f1f9efe87923ce93bbeaaf760",
+      "research-quotes.test.mjs": "17dd0bd80e732d70d133b859023196aa972c952bdbe1e1728a0627ffcc5aa7de",
+      "fiction-threads.test.mjs": "3790c63ee92f046238d9e9b384eeed2d393e0829070d9342788ac2d5d6392790",
+      "source-excerpts.json": "055644debaae3c219aa60c917b44298e5c541f5f33c52291923ab883fc5d55a7",
+      "build-test-evidence.mjs": "6bc627dcf106b37344ed3f2a662d3886112bb2f104caa55c975866f15c5f619c",
+      "../package.json": "c4fd74ad3831e051b0fe503a311fba639719ee9200585081b5f70080968d49ea",
+      "../skills/omni-assistant/SKILL.md": "3f37bed834b92fb8c82088831b17c1bb7a3a0253e40f8b5f9daba3756b34df20",
+      "../skills/omni-business/SKILL.md": "112dd2540a24a73a2c5c9f953959fdc27a5cba2db67604e03f67468f33c944cd",
+      "../skills/omni-cyber/SKILL.md": "cc6c557859f05bb5c5a482cc157943888d7df7bb456f53620c082f4e920b9206",
+      "../skills/omni-documents/SKILL.md": "1bde5f03688fa73a2b55095a3d6f2c44d33f6f29f6ceacf7984fa322af067c6c",
+      "../skills/omni-engineering/SKILL.md": "f8642503a004bb2a91337fe10aeab8f2ae3d9c86f5f98b8baa8a4707e20c1af0",
+      "../skills/omni-fiction/SKILL.md": "0b10d57b25d242ab1989ce2b092398a9dac4e53667f82fa3c132374f4710ea92",
+      "../skills/omni-game/SKILL.md": "c919c7ad3bb8959143b8cad6ff334e4f22b4fdc7b29f4b553829c95c81f9db76",
+      "../skills/omni-molbio/SKILL.md": "b2af15e4edffebfeed85ce5ab3424cfbc6c68d56760fb5adc2e623b04f1eefe0",
+      "../skills/omni-personalization/SKILL.md": "d3d9cd1d5b8f7c7ef7f123f6985d5ec66e23a1e06a5fb0210a218726419c5ca0",
+      "../skills/omni-research/SKILL.md": "2b5ab9dcb224e3282e0d80cd8fd0d175cdc2039ed30148265f05673e624a4acf"
     },
     "node": "v24.22.1",
     "executed": true,
@@ -25,7 +72,15 @@
     "exitCode": 0,
     "signal": null,
     "timedOut": false,
-    "output": "✔ catalog identity, four maturity states and exact approved ten-domain partition (1.941718ms)\n✔ every source preserves exact package/config keys, pins, learning points and hashed file references (2.097292ms)\n✔ all eleven implemented operation schemas equal catalog schemas; maturity is bounded to contracts (0.825104ms)\n✔ all catalog operations disclose inputs/outputs/checks/tools/risk/scope/sources/skills bilingually (0.546875ms)\n✔ ten skill files are distinct bilingual specialist instructions with matching frontmatter (13.175417ms)\n✔ native runtime imports only authored local modules and Node builtins (8.947135ms)\n✔ schema rejects unknown fields, wrong types, unsafe keys and nonfinite numbers (2.311771ms)\n✔ schema rejects bounds and missing values (0.249532ms)\n✔ CSV handles CRLF, escaped quotes, quoted commas/newlines and trailing empty cells (1.966823ms)\n✔ CSV rejects malformed \"a,a\\n1,2\" (0.185313ms)\n✔ CSV rejects malformed \"a,b\\n1\" (0.147448ms)\n✔ CSV rejects malformed \"a\\n\\\"unterminated\" (0.107344ms)\n✔ CSV rejects malformed \"a\\n\\\"x\\\"z\" (0.117188ms)\n✔ CSV rejects malformed \"a\\nx\\\"z\" (0.093906ms)\n✔ CSV rejects malformed \"\\n\" (0.122136ms)\n✔ CSV rejects malformed \"__proto__\\nx\" (0.208281ms)\n✔ data.validate independently checks required, type and duplicate values (0.882135ms)\n✔ JSON validation does not coerce strings into numbers (0.266719ms)\n✔ table input source pairing, widths and duplicate headers are explicit errors (0.236459ms)\n✔ transform projects, renames and filters while preserving types and order (0.310521ms)\n✔ CSV transform roundtrip and formula safeguards (0.358333ms)\n✔ transform unknown and duplicate output columns fail (0.215729ms)\n✔ game balance computes real DPS, efficiency and explicit threshold violations (0.324896ms)\n✔ game rejects zero denominator and duplicate identities (0.244895ms)\n✔ canon accepts grounded assertion and identifies mismatches and unknown mentions (0.394479ms)\n✔ canon closed interval overlap conflicts and reversed ranges (0.212656ms)\n✔ FASTA multi-record DNA IUPAC stats have explicit GC denominators (0.518229ms)\n✔ FASTA rejects \"ACGT\" (0.10526ms)\n✔ FASTA rejects \">a\\n\" (0.07802ms)\n✔ FASTA rejects \">\\nAC\" (0.074271ms)\n✔ FASTA rejects \">a\\nAU\" (0.093646ms)\n✔ FASTA rejects \">a\\nA-C\" (0.090105ms)\n✔ FASTA rejects \">a\\nAC\\n>a\\nTT\" (0.087239ms)\n✔ business model validates real endpoints, PK and relation type (0.514167ms)\n✔ business many-to-many and missing PK remain issues, not database execution (0.192031ms)\n✔ research citation coverage catches dangling and unsupported claims (0.306719ms)\n✔ cyber extracts local deduplicated valid IPv4 and SHA256 without fetching (0.312812ms)\n✔ documents produces actual markdown and rejects unsafe/missing citations (0.5575ms)\n✔ todo emits real task list and catches incomplete dependencies (1.13026ms)\n✔ todo rejects cycles, dangling links and invalid calendar dates (0.344479ms)\n✔ ICS escapes content and uses deterministic UTC timestamps and CRLF (0.613177ms)\n✔ ICS folds by UTF8 octets, preserving Chinese and line unfolding (0.33276ms)\n✔ ICS rejects timezone ambiguity, impossible dates and reversed range (0.283437ms)\n✔ canon bounds issue samples while scanning every conflict with exact totals (43.915677ms)\n✔ composite key endpoint is not independently unique unless explicitly declared (0.288594ms)\n✔ coverage rejects malformed host URLs without fetching or claiming truth (0.214427ms)\n✔ ICS rejects C0 controls and permits escaped newline or tab text (0.266615ms)\n✔ IPv4 requires complete canonical decimal tokens, not dotted prefixes or leading zeros (0.09526ms)\n✔ prototype operation names are not executable operations (0.069375ms)\n✔ every implemented operation exposes a closed input schema (0.077969ms)\n✔ CLI list is machine-readable and contains actual closed input schemas (80.482969ms)\n✔ CLI performs actual JSON-input FASTA computation (87.510468ms)\n✔ CLI returns explicit errors for malformed, missing, unknown and oversized arguments (710.514062ms)\n✔ explicit file read, root check, authorization and atomic no-overwrite output (488.643437ms)\n✔ CLI rejects symlink leaf, root escape and non-regular input (169.572187ms)\n✔ CLI rejects file larger than 2MiB before parsing (124.945313ms)\n✔ CLI text output writes actual UTC ICS, not a claim wrapper (223.787291ms)\n✔ owned temp is removed after simulated partial ENOSPC and destination stays absent (9.782291ms)\n✔ hardlink commit verifies regular type, same inode and content after temp unlink (19.353489ms)\n✔ simulated symlink-emulating link fails closed and removes only its owned outputs (11.919583ms)\n✔ normal doctor is honest about installed versus tests/Host/service acceptance (144.052916ms)\n✔ runtime-only copied package status works without optional test files (148.579479ms)\n✔ package-contained operation/catalog tests need no research/cache/third-party modules (293.080313ms)\nℹ tests 63\nℹ suites 0\nℹ pass 63\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 2668.541249\n"
+    "counts": {
+      "tests": 287,
+      "pass": 287,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "outputTail": "  type: 'test'\n  ...\n# Subtest: negative consent generates neither rules nor an undo record\nok 280 - negative consent generates neither rules nor an undo record\n  ---\n  duration_ms: 0.255989\n  type: 'test'\n  ...\n# Subtest: missing or untyped consent fails rather than being inferred\nok 281 - missing or untyped consent fails rather than being inferred\n  ---\n  duration_ms: 0.802343\n  type: 'test'\n  ...\n# Subtest: a matching current declaration produces a restore draft without applying it\nok 282 - a matching current declaration produces a restore draft without applying it\n  ---\n  duration_ms: 0.354896\n  type: 'test'\n  ...\n# Subtest: stale undo or a different scope cannot overwrite the supplied current choices\nok 283 - stale undo or a different scope cannot overwrite the supplied current choices\n  ---\n  duration_ms: 0.649895\n  type: 'test'\n  ...\n# Subtest: modes require their exact field sets and never accept global scope\nok 284 - modes require their exact field sets and never accept global scope\n  ---\n  duration_ms: 0.609271\n  type: 'test'\n  ...\n# Subtest: draft does not accept free-form prompts, identities or unknown preference dimensions\nok 285 - draft does not accept free-form prompts, identities or unknown preference dimensions\n  ---\n  duration_ms: 0.28224\n  type: 'test'\n  ...\n# Subtest: direct callers cannot inject getters, proxies or sparse/non-JSON containers\nok 286 - direct callers cannot inject getters, proxies or sparse/non-JSON containers\n  ---\n  duration_ms: 0.343073\n  type: 'test'\n  ...\n# Subtest: every allowed rule tuple round-trips across distinct previous states in both scopes\nok 287 - every allowed rule tuple round-trips across distinct previous states in both scopes\n  ---\n  duration_ms: 178.161562\n  type: 'test'\n  ...\n1..287\n# tests 287\n# suites 0\n# pass 287\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 5768.914738\n"
   },
   "operations": [
     {
@@ -40,7 +95,15 @@
         "tests": [
           "capabilities/operations.test.mjs",
           "capabilities/runner.test.mjs",
-          "capabilities/catalog.test.mjs"
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
         ],
         "testsExecuted": true,
         "localContractTests": "passed"
@@ -58,7 +121,15 @@
         "tests": [
           "capabilities/operations.test.mjs",
           "capabilities/runner.test.mjs",
-          "capabilities/catalog.test.mjs"
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
         ],
         "testsExecuted": true,
         "localContractTests": "passed"
@@ -76,7 +147,15 @@
         "tests": [
           "capabilities/operations.test.mjs",
           "capabilities/runner.test.mjs",
-          "capabilities/catalog.test.mjs"
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
         ],
         "testsExecuted": true,
         "localContractTests": "passed"
@@ -94,7 +173,15 @@
         "tests": [
           "capabilities/operations.test.mjs",
           "capabilities/runner.test.mjs",
-          "capabilities/catalog.test.mjs"
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
         ],
         "testsExecuted": true,
         "localContractTests": "passed"
@@ -112,7 +199,15 @@
         "tests": [
           "capabilities/operations.test.mjs",
           "capabilities/runner.test.mjs",
-          "capabilities/catalog.test.mjs"
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
         ],
         "testsExecuted": true,
         "localContractTests": "passed"
@@ -130,7 +225,15 @@
         "tests": [
           "capabilities/operations.test.mjs",
           "capabilities/runner.test.mjs",
-          "capabilities/catalog.test.mjs"
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
         ],
         "testsExecuted": true,
         "localContractTests": "passed"
@@ -148,7 +251,15 @@
         "tests": [
           "capabilities/operations.test.mjs",
           "capabilities/runner.test.mjs",
-          "capabilities/catalog.test.mjs"
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
         ],
         "testsExecuted": true,
         "localContractTests": "passed"
@@ -166,7 +277,15 @@
         "tests": [
           "capabilities/operations.test.mjs",
           "capabilities/runner.test.mjs",
-          "capabilities/catalog.test.mjs"
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
         ],
         "testsExecuted": true,
         "localContractTests": "passed"
@@ -184,7 +303,15 @@
         "tests": [
           "capabilities/operations.test.mjs",
           "capabilities/runner.test.mjs",
-          "capabilities/catalog.test.mjs"
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
         ],
         "testsExecuted": true,
         "localContractTests": "passed"
@@ -202,7 +329,15 @@
         "tests": [
           "capabilities/operations.test.mjs",
           "capabilities/runner.test.mjs",
-          "capabilities/catalog.test.mjs"
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
         ],
         "testsExecuted": true,
         "localContractTests": "passed"
@@ -220,7 +355,249 @@
         "tests": [
           "capabilities/operations.test.mjs",
           "capabilities/runner.test.mjs",
-          "capabilities/catalog.test.mjs"
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "game.offline",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "game.growth",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "engineering.impact",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "documents.audit",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "engineering.delivery-check",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "game.build-check",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "personalization.style-draft",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "research.quote-check",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
+        ],
+        "testsExecuted": true,
+        "localContractTests": "passed"
+      }
+    },
+    {
+      "id": "fiction.thread-check",
+      "installed": true,
+      "maturity": "verified",
+      "accepted": true,
+      "operationInvoked": "not-checked",
+      "hostMounted": "not-checked",
+      "realServiceAccepted": "not-checked",
+      "evidence": {
+        "tests": [
+          "capabilities/operations.test.mjs",
+          "capabilities/runner.test.mjs",
+          "capabilities/catalog.test.mjs",
+          "capabilities/game-idle.test.mjs",
+          "capabilities/engineering-impact.test.mjs",
+          "capabilities/documents-audit.test.mjs",
+          "capabilities/engineering-delivery.test.mjs",
+          "capabilities/game-build-check.test.mjs",
+          "capabilities/style-draft.test.mjs",
+          "capabilities/research-quotes.test.mjs",
+          "capabilities/fiction-threads.test.mjs"
         ],
         "testsExecuted": true,
         "localContractTests": "passed"
@@ -348,7 +725,7 @@
     }
   ],
   "note": {
-    "zh": "installed仅指本地CLI，不代表Host挂载/账户/外部工具验收；未运行测试不声称verified。测试只证明明确的本地契约。",
-    "en": "installed means this local CLI, not Host mounting, accounts or external-tool acceptance. No verified claim without tests. Tests establish only the explicit local contracts."
+    "zh": "仅限已记录Node环境中明确本地契约的实测；哈希覆盖运行文件、契约测试、来源片段、十个领域技能、包清单与生成器，并拒绝新增嵌套运行时包作用域。不是签名证明、覆盖质量或当前Host/账号/真实服务验收；不随安装包分发。",
+    "en": "Measured explicit local contracts in the recorded Node environment; hashes cover runtime, contract suites, excerpts, ten skills, package manifest and this generator, rejecting additional nested runtime package scopes. Not signed proof, coverage-quality or current Host/account/real-service acceptance; repository-only."
   }
 }

@@ -7,6 +7,7 @@ import { spawn } from 'node:child_process';
 import { createHash, randomUUID } from 'node:crypto';
 import { CapabilityError, fail } from './schema.mjs';
 import { operations, runOperation } from './operations.mjs';
+import { RUNTIME_FILES, CONTRACT_TEST_FILES } from './runtime-files.mjs';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const MAX = 2 * 1024 * 1024;
 async function readBounded(file) {
@@ -51,10 +52,10 @@ function parse(args) {
 async function catalog() { return JSON.parse(await readBounded(path.join(HERE, 'catalog.json'))); }
 async function doctor(test) {
   const c = await catalog(), hashes = {};
-  for (const file of ['schema.mjs', 'operations.mjs', 'runner.mjs', 'catalog.json']) hashes[file] = createHash('sha256').update(await fs.readFile(path.join(HERE, file))).digest('hex');
-  const testFiles = ['operations.test.mjs', 'runner.test.mjs', 'catalog.test.mjs'], missingTests = [];
+  for (const file of RUNTIME_FILES) hashes[file] = createHash('sha256').update(await fs.readFile(path.join(HERE, file))).digest('hex');
+  const testFiles = CONTRACT_TEST_FILES, missingTests = [];
   if (test) for (const file of testFiles) { try { hashes[file] = createHash('sha256').update(await fs.readFile(path.join(HERE, file))).digest('hex'); } catch (e) { if (e.code === 'ENOENT') missingTests.push(file); else throw e; } }
-  const evidence = { command: 'node --test capabilities/operations.test.mjs capabilities/runner.test.mjs capabilities/catalog.test.mjs', hashes, node: process.version, executed: false, supported: missingTests.length === 0, missingTests, exitCode: null };
+  const evidence = { command: 'node --test ' + testFiles.map(f => 'capabilities/' + f).join(' '), hashes, node: process.version, executed: false, supported: missingTests.length === 0, missingTests, exitCode: null };
   if (test && !missingTests.length) {
     const result = await new Promise(resolve => {
       // Inherited NODE_TEST_CONTEXT makes a nested `node --test` exit 0 without
@@ -62,7 +63,7 @@ async function doctor(test) {
       // from inside another test run, so the variable is stripped explicitly.
       const childEnv = { ...process.env, NODE_OPTIONS: '' };
       delete childEnv.NODE_TEST_CONTEXT;
-      const child = spawn(process.execPath, ['--test', path.join(HERE, 'operations.test.mjs'), path.join(HERE, 'runner.test.mjs'), path.join(HERE, 'catalog.test.mjs')], { cwd: path.dirname(HERE), env: childEnv, stdio: ['ignore', 'pipe', 'pipe'] });
+      const child = spawn(process.execPath, ['--test', ...testFiles.map(f => path.join(HERE, f))], { cwd: path.dirname(HERE), env: childEnv, stdio: ['ignore', 'pipe', 'pipe'] });
       let output = '', timedOut = false; const collect = data => { output = (output + data).slice(-24000); }; child.stdout.on('data', collect); child.stderr.on('data', collect);
       const timer = setTimeout(() => { timedOut = true; child.kill('SIGKILL'); }, 30000);
       child.once('error', e => { clearTimeout(timer); resolve({ exitCode: null, error: e.message }); });
@@ -75,8 +76,10 @@ async function doctor(test) {
 export async function main(args) {
   const { command, flags, values } = parse(args); let result;
   if (command === 'list') {
-    if (values.length || Object.keys(flags).some(k => k !== 'out' && k !== 'allow-write' && k !== 'root')) fail('E_ARGUMENT', 'list参数无效 / Invalid list arguments');
-    const c = await catalog(); result = { schemaVersion: 1, categories: c.categories, maturityStates: c.maturityStates, operations: c.operations };
+    if (values.length > 1 || Object.keys(flags).some(k => k !== 'out' && k !== 'allow-write' && k !== 'root')) fail('E_ARGUMENT', 'list参数无效 / Invalid list arguments');
+    const c = await catalog(), selected = values.length ? c.operations.filter(op => op.id === values[0]) : c.operations;
+    if (values.length && !selected.length) fail('E_OPERATION', '未知操作 / Unknown operation');
+    result = { schemaVersion: 1, categories: values.length ? c.categories.filter(cat => selected.some(op => op.category === cat.id)) : c.categories, maturityStates: c.maturityStates, operations: selected };
   } else if (command === 'doctor' || command === 'status') {
     if (values.length || Object.keys(flags).some(k => !['test', 'out', 'allow-write', 'root'].includes(k))) fail('E_ARGUMENT', 'doctor参数无效 / Invalid doctor arguments'); result = await doctor(flags.test === true);
     if (flags.test && result.accepted !== true) process.exitCode = 1;
@@ -86,7 +89,7 @@ export async function main(args) {
     if (Buffer.byteLength(raw) > MAX) fail('E_LIMIT', '输入超过2MiB / Input exceeds 2 MiB');
     let input; try { input = JSON.parse(raw); } catch { fail('E_JSON', 'JSON解析失败 / Invalid JSON'); }
     result = runOperation(values[0], input);
-  } else fail('E_ARGUMENT', '用法 / Usage: node capabilities/runner.mjs list | doctor [--test] | run <id> (--input <json-file> | --json <json>) [--text] [--out <new-file> --allow-write] [--root <directory>]');
+  } else fail('E_ARGUMENT', '用法 / Usage: node capabilities/runner.mjs list [<id>] | doctor [--test] | run <id> (--input <json-file> | --json <json>) [--text] [--out <new-file> --allow-write] [--root <directory>]');
   const output = flags.text ? (typeof result.text === 'string' ? result.text : fail('E_OUTPUT', '操作没有文本输出 / Operation has no text output')) : JSON.stringify(result, null, 2) + '\n';
   if (Buffer.byteLength(output) > 8 * 1024 * 1024) fail('E_LIMIT', '输出超过8MiB / Output exceeds 8 MiB');
   if (flags.out) { if (!flags['allow-write']) fail('E_AUTHORIZATION', '写入需显式allow-write / Output requires --allow-write'); const dest = await contained(flags.out, flags.root, true); await writeNewOutput(dest, output); return { outputPath: dest }; }

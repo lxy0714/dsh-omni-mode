@@ -1,5 +1,9 @@
 # 验证分层 / Verification layers
 
+**`v1.8.0` 验证 / Verification**：默认环境 614 项仓库测试通过，含 287 项能力契约测试；配置渲染依赖和字体后 624 项全过。五个 DSH 版本通过隔离宿主和解包测试，宿主使用模拟推理。下方为 1.7 历史记录。 / The default environment passes 614 repository tests, including 287 capability contract tests; all 624 pass with media dependencies and a test font configured. Five DSH versions pass isolated Host and unpacked-consumer checks with mock inference. The v1.7 record below is historical. See [发行说明 / Release notes](release-notes.md).
+
+<!-- dsh-claims: historical v1.7.0 below -->
+
 [中文](#中文) · [English](#english)
 
 ## 中文
